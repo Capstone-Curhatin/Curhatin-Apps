@@ -32,13 +32,6 @@ android {
             manifestPlaceholders = [appName: "Curhatin - Debug"]
         }
 
-        development {
-            applicationIdSuffix '.development'
-            versionNameSuffix '-development'
-
-            manifestPlaceholders = [appName: "Curhatin - Dev"]
-        }
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
