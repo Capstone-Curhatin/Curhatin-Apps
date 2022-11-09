@@ -11,9 +11,9 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.capstone.curhatin.R
 
-class PhoneEditText : AppCompatEditText {
+class StrEditText : AppCompatEditText {
 
-    private lateinit var phoneIconDrawable: Drawable
+    private lateinit var strIconDrawable: Drawable
 
     constructor(context: Context) : super(context) {
         init()
@@ -32,24 +32,24 @@ class PhoneEditText : AppCompatEditText {
     }
 
     private fun init() {
-        phoneIconDrawable =
-            ContextCompat.getDrawable(context, R.drawable.healthicons_phone_outline) as Drawable
-        inputType = InputType.TYPE_CLASS_PHONE
+        strIconDrawable =
+            ContextCompat.getDrawable(context, R.drawable.certificate_image) as Drawable
+        inputType = InputType.TYPE_CLASS_TEXT
         compoundDrawablePadding = 16
 
-        setHint(R.string.phone)
+        setHint(R.string.str)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            setAutofillHints(AUTOFILL_HINT_PHONE)
+            setAutofillHints(AUTOFILL_HINT_USERNAME)
         }
-        setDrawable(phoneIconDrawable)
+        setDrawable(strIconDrawable)
 
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrEmpty() && s.length < 1)
-                    error = context.getString(R.string.et_phone_error_message)
+                if (!s.isNullOrEmpty())
+                    error = context.getString(R.string.et_str_error_message)
             }
         })
     }
