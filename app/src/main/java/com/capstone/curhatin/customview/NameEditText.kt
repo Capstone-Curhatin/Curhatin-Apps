@@ -34,7 +34,7 @@ class NameEditText : AppCompatEditText {
     private fun init() {
         nameIconDrawable =
             ContextCompat.getDrawable(context, R.drawable.ant_design_user_outlinedname) as Drawable
-        inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
         compoundDrawablePadding = 16
 
         setHint(R.string.username)
@@ -48,7 +48,7 @@ class NameEditText : AppCompatEditText {
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrEmpty() && s.length < 1)
+                if (!s.isNullOrEmpty())
                     error = context.getString(R.string.et_name_error_message)
             }
         })

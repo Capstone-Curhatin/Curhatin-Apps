@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".auth.register.RegisterFragment">
+    tools:context=".auth.register.RegisterDoctorFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <com.capstone.curhatin.customview.NameEditText
-                android:id="@+id/nameEditText"
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -52,8 +52,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_tittle_register" />
 
-            <com.capstone.curhatin.customview.PhoneEditText
-                android:id="@+id/phoneEditText"
+            <com.capstone.curhatin.customview.StrEditText
+                android:id="@+id/et_str"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -61,7 +61,18 @@
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+            <com.capstone.curhatin.customview.PhoneEditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_str" />
 
             <com.capstone.curhatin.customview.EmailEditText
                 android:id="@+id/et_email"
@@ -73,7 +84,7 @@
                 android:fontFamily="@font/poppins"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phoneEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/et_phone" />
 
             <com.capstone.curhatin.customview.PasswordEditText
                 android:id="@+id/et_password"
@@ -181,7 +192,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/resend_otp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/tv_register_doctor"
+                android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -195,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins"
-                    android:text="@string/signup_as_doctor"
+                    android:text="@string/signup_as_user"
                     android:textColor="@color/dark_grey"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -204,7 +215,7 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/register_doctor"
+                    android:id="@+id/register_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
@@ -227,7 +238,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_register_doctor">
+                app:layout_constraintTop_toBottomOf="@+id/tv_register">
 
                 <TextView
                     android:id="@+id/have_account"
@@ -255,9 +266,7 @@
                     app:layout_constraintStart_toEndOf="@+id/have_account"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+
+</FrameLayout>
