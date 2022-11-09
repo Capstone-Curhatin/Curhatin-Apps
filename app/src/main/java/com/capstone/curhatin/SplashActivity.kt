@@ -1,8 +1,8 @@
 package com.capstone.curhatin
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.capstone.core.utils.MySharedPreference
 import com.capstone.curhatin.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
