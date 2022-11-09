@@ -2,6 +2,7 @@ package com.capstone.core.di
 
 import android.content.Context
 import com.capstone.core.BuildConfig
+import com.capstone.core.BuildConfig.BASE_URL
 import com.capstone.core.data.MyDispatchers
 import com.capstone.core.data.SafeCall
 import com.capstone.core.data.network.AuthService
@@ -56,7 +57,7 @@ object AppModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("BASE_URL")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
