@@ -27,4 +27,12 @@
     <string name="have_account">Have an account?</string>
     <string name="str">STR Number</string>
     <string name="signup_as_user">Sign up as a user?</string>
+    <string name="forgot">Forgot</string>
+    <string name="password2">Password?</string>
+    <string name="desc_forgot_password">Don’t worry! It happens. Please enter the address associated with your account.</string>
+    <string name="submit">Submit</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="et_password_null_error_message">Please confirm your password</string>
+    <string name="change_password">Change Password</string>
 </resources>
