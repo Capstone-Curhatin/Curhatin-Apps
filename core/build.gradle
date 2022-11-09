@@ -9,6 +9,10 @@ plugins {
 
 apply from: '../shared_dependencies.gradle'
 
+def apiPropertiesFile = rootProject.file("api.properties")
+def apiProperties = new Properties()
+apiProperties.load(new FileInputStream(apiPropertiesFile))
+
 android {
     namespace 'com.capstone.core'
     compileSdk 33
@@ -16,6 +20,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 33
+
+        buildConfigField ("String", "BASE_URL", apiProperties['BASE_URL'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
