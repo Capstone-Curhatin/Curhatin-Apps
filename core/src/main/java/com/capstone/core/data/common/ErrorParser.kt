@@ -1,4 +1,4 @@
-package com.capstone.core.data.base
+package com.capstone.core.data.common
 
 import com.capstone.core.data.response.GenericResponse
 import okhttp3.ResponseBody

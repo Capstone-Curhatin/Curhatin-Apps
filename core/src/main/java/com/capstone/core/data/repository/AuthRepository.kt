@@ -1,6 +1,6 @@
 package com.capstone.core.data.repository
 
-import com.capstone.core.data.base.Resource
+import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.LoginRequest
 import com.capstone.core.data.response.auth.LoginResponse
 import com.capstone.core.data.source.remote.AuthDataSource

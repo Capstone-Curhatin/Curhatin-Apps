@@ -1,4 +1,4 @@
-package com.capstone.core.data.base
+package com.capstone.core.data.common
 
 import kotlinx.coroutines.Dispatchers
 

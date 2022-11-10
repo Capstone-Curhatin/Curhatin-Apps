@@ -9,6 +9,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
+import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.capstone.curhatin.R
@@ -39,8 +40,8 @@ class PasswordEditText : AppCompatEditText {
     }
 
     private fun init() {
-        passwordIconDrawable =
-            ContextCompat.getDrawable(context, R.drawable.icons8_lock_2) as Drawable
+        passwordIconDrawable = ContextCompat.getDrawable(context, R.drawable.icons8_lock_2) as Drawable
+
         inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         compoundDrawablePadding = 16
 
@@ -69,4 +70,5 @@ class PasswordEditText : AppCompatEditText {
     ) {
         setCompoundDrawablesWithIntrinsicBounds(start, top, end, bottom)
     }
+
 }

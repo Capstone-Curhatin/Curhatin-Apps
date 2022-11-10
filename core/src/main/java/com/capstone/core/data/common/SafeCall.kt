@@ -1,4 +1,4 @@
-package com.capstone.core.data.base
+package com.capstone.core.data.common
 
 import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.utils.Constant.TIMEOUT_ERROR
@@ -51,7 +51,7 @@ class SafeCall {
                 Resource.Success(body)
             } else if (errorBody != null) {
                 val parsedError = converter(errorBody)
-                if (parsedError != null){
+                if (parsedError is GenericResponse){
                     Resource.Error(parsedError.message)
                 }else{
                     Resource.Error(UNKNOWN_ERROR)

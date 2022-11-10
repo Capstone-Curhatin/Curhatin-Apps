@@ -3,8 +3,8 @@ package com.capstone.core.di
 import android.content.Context
 import com.capstone.core.BuildConfig
 import com.capstone.core.BuildConfig.BASE_URL
-import com.capstone.core.data.base.MyDispatchers
-import com.capstone.core.data.base.SafeCall
+import com.capstone.core.data.common.MyDispatchers
+import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.AuthService
 import com.capstone.core.data.network.connection.JwtInterceptor
 import com.capstone.core.utils.MySharedPreference

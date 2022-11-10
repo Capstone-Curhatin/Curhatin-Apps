@@ -38,9 +38,10 @@
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
+        android:textSize="14sp"
+        android:backgroundTint="@color/gray"
         android:fontFamily="@font/poppins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +51,10 @@
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:textSize="14sp"
+        android:backgroundTint="@color/gray"
         android:fontFamily="@font/poppins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login_button"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -96,7 +98,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button">
+        app:layout_constraintTop_toBottomOf="@+id/btn_login">
 
         <TextView
             android:id="@+id/desc"
