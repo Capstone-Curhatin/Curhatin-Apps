@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.capstone.core.data.MyDispatchers
 import com.capstone.core.data.Resource
 import com.capstone.core.data.request.auth.LoginRequest
-import com.capstone.core.di.model.User
+import com.capstone.core.domain.model.User
 import com.capstone.core.domain.usecase.auth.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect

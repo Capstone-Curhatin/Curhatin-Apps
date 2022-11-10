@@ -1,4 +1,4 @@
-package com.capstone.core.di.model
+package com.capstone.core.domain.model
 
 data class Doctor(
     val id: Int,
