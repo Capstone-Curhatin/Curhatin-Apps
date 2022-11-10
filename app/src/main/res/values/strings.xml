@@ -35,4 +35,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="et_password_null_error_message">Please confirm your password</string>
     <string name="change_password">Change Password</string>
+    <string name="get_premium">Get Premium</string>
+    <string name="chat_with_psychologist">Chat with Psychologist</string>
+    <string name="premium_desc">You can chat and consult with psychologists to solve your problems and complaints.</string>
+    <string name="premium_price">Rp. 100,000/month</string>
 </resources>
