@@ -3,10 +3,12 @@ package com.capstone.core.di
 import android.content.Context
 import com.capstone.core.BuildConfig
 import com.capstone.core.BuildConfig.BASE_URL
+import com.capstone.core.data.common.ErrorParser
 import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.AuthService
 import com.capstone.core.data.network.connection.JwtInterceptor
+import com.capstone.core.data.source.remote.AuthDataSource
 import com.capstone.core.utils.MySharedPreference
 import dagger.Module
 import dagger.Provides
@@ -65,4 +67,13 @@ object AppModule {
     @Singleton
     fun provideAuthService(retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAuthDataSource(
+        safeCall: SafeCall,
+        errorParser: ErrorParser,
+        service: AuthService,
+        dispatcher: MyDispatchers
+    ) = AuthDataSource(safeCall, errorParser, service, dispatcher)
 }

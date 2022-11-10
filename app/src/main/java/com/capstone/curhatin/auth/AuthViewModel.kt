@@ -35,7 +35,7 @@ class AuthViewModel @Inject constructor(
                     is Resource.Loading -> _loading.postValue(true)
                     is Resource.Error -> {
                         _loading.postValue(false)
-                        _error.postValue(res.data?.message ?: res.message)
+                        _error.postValue(res.message.toString())
                     }
                     is Resource.Success -> {
                         _loading.postValue(false)
