@@ -6,6 +6,8 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.AuthService
 import com.capstone.core.data.request.auth.LoginRequest
+import com.capstone.core.data.request.auth.RegisterRequest
+import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.data.response.auth.LoginResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -24,6 +26,14 @@ class AuthDataSource @Inject constructor(
         emit(Resource.Loading())
 
         val res = safeCall.enqueue(request, errorParser::converterGenericError, service::login)
+        emit(res)
+        Timber.e("$res")
+    }.flowOn(dispatchers.io)
+
+    fun register(request: RegisterRequest): Flow<Resource<GenericResponse>> = flow {
+        emit(Resource.Loading())
+
+        val res = safeCall.enqueue(request, errorParser::converterGenericError, service::register)
         emit(res)
         Timber.e("$res")
     }.flowOn(dispatchers.io)
