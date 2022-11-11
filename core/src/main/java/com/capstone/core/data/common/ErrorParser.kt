@@ -5,7 +5,9 @@ import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ErrorParser @Inject constructor(private val retrofit: Retrofit) {
 
     fun converterGenericError(error: ResponseBody): GenericResponse? {
