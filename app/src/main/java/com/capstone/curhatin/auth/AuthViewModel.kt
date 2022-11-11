@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.LoginRequest
+import com.capstone.core.data.request.auth.RegisterRequest
+import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.data.response.auth.LoginDataResponse
 import com.capstone.core.domain.usecase.auth.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +30,9 @@ class AuthViewModel @Inject constructor(
     private val _login: MutableLiveData<LoginDataResponse> = MutableLiveData()
     val login: LiveData<LoginDataResponse> get() = _login
 
+    private val _register: MutableLiveData<GenericResponse> = MutableLiveData()
+    val register: LiveData<GenericResponse> get() = _register
+
     fun login(request: LoginRequest){
         viewModelScope.launch(dispatcher.io){
             useCase.login(request).collect { res ->
@@ -35,11 +40,29 @@ class AuthViewModel @Inject constructor(
                     is Resource.Loading -> _loading.postValue(true)
                     is Resource.Error -> {
                         _loading.postValue(false)
-                        _error.postValue(res.data?.message ?: res.message)
+                        _error.postValue(res.message.toString())
                     }
                     is Resource.Success -> {
                         _loading.postValue(false)
                         _login.postValue(res.data?.data)
+                    }
+                }
+            }
+        }
+    }
+
+    fun register(request: RegisterRequest){
+        viewModelScope.launch(dispatcher.io){
+            useCase.register(request).collect {res ->
+                when(res){
+                    is Resource.Loading -> _loading.postValue(true)
+                    is Resource.Error -> {
+                        _loading.postValue(false)
+                        _error.postValue(res.message.toString())
+                    }
+                    is Resource.Success -> {
+                        _loading.postValue(false)
+                        _register.postValue(res.data!!)
                     }
                 }
             }
