@@ -33,4 +33,9 @@ dependencies {
 
     // Logging
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    //Pin View
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+    //Numpad
+    implementation 'com.konaire.numeric-keyboard:numeric-keyboard:1.2.0'
 }
