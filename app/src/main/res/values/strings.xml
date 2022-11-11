@@ -35,4 +35,11 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="et_password_null_error_message">Please confirm your password</string>
     <string name="change_password">Change Password</string>
+    <string name="register_account_success">Register Account Success!</string>
+    <string name="register_message_alert">Congratulation! Your account has been registered successfully, please login with your new account</string>
+    <string name="ok">Ok</string>
+    <string name="change_password_success">Change Password Success!</string>
+    <string name="pasword_message_alert">Congratulation! Your password has  been changed successfully, please login with your new password</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="otp_verification_desc">Enter the code you received on your email</string>
 </resources>

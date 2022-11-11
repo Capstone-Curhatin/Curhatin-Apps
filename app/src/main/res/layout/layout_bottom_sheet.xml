@@ -1,7 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:orientation="vertical"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rectangle_4"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="@string/otp_verification"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/otp_verification_desc"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/white"/>
+
+    <com.chaos.view.PinView
+        android:id="@+id/pin_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:cursorVisible="true"
+        android:inputType="number"
+        android:itemBackground="@color/white"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/blue"
+        android:textSize="28sp"
+        android:fontFamily="@font/poppins_semibold"
+        app:lineColor="@color/blue"
+        app:cursorColor="@color/blue"
+        app:hideLineWhenFilled="true"
+        app:itemCount="4"
+        app:itemHeight="60dp"
+        app:itemWidth="60dp"
+        app:itemRadius="6dp"
+        app:itemSpacing="25dp" />
+
+    <TextView
+        android:id="@+id/resend_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/resend_otp"
+        android:fontFamily="@font/poppins"
+        android:gravity="end"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:layout_gravity="end"/>
+
+    <com.konaire.numerickeyboard.NumericKeyboard
+        android:id="@+id/numpad_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:field="@+id/pin_view"
+        app:keyTextColor="@color/white" />
 </LinearLayout>

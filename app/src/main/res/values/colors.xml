@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_grey">#272727</color>
     <color name="blue">#1D82E3</color>
+    
+    <color name="colorDividerView">#ECECEC</color>
 </resources>
