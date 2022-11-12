@@ -14,12 +14,7 @@ import android.widget.LinearLayout
 import com.capstone.curhatin.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-
-
-
-
 import androidx.fragment.app.viewModels
-import com.capstone.curhatin.R
 import com.capstone.curhatin.auth.AuthViewModel
 import com.capstone.curhatin.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
