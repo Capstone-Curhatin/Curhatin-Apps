@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.Button
 import android.widget.LinearLayout
 import com.capstone.curhatin.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
+
 import androidx.fragment.app.viewModels
 import com.capstone.curhatin.auth.AuthViewModel
 import com.capstone.curhatin.databinding.FragmentRegisterBinding
