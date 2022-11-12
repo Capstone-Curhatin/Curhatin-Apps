@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -27,5 +30,23 @@
         android:id="@+id/registerDoctorFragment"
         android:name="com.capstone.curhatin.auth.register.RegisterDoctorFragment"
         android:label="fragment_register_doctor"
-        tools:layout="@layout/fragment_register_doctor" />
+        tools:layout="@layout/fragment_register_doctor" >
+        <action
+            android:id="@+id/action_registerDoctorFragment_to_loginFragment2"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.capstone.curhatin.auth.forgot.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.capstone.curhatin.auth.forgot.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" />
 </navigation>

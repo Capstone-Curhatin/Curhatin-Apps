@@ -52,4 +52,7 @@
     <string name="sp_doc">Spesialis Dokter</string>
     <string name="experience">Experience</string>
     <string name="review">Review</string>
+    <string name="logo">Logo</string>
+    <string name="checking_for_update">Checking for update</string>
+    <string name="copyright">Copyright © 2022 • Capstone C048</string>
 </resources>
