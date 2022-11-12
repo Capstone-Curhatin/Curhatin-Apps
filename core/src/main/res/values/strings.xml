@@ -45,4 +45,7 @@
     <string name="sp_doc">Spesialis Dokter</string>
     <string name="experience">Experience</string>
     <string name="review">Review</string>
+    <string name="anonimous">Anonimous</string>
+    <string name="pesan">pesan</string>
+    <string name="jam">jam</string>
 </resources>
