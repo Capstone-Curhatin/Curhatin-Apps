@@ -48,4 +48,6 @@
     <string name="anonimous">Anonimous</string>
     <string name="pesan">pesan</string>
     <string name="jam">jam</string>
+    <string name="hr_ago">2hr ago</string>
+
 </resources>
