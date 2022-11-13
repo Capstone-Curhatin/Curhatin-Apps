@@ -8,11 +8,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.Button
 import android.widget.LinearLayout
 import com.capstone.curhatin.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
+
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.capstone.core.utils.navigateBack
+import com.capstone.core.utils.navigateDirection
 import com.capstone.curhatin.auth.AuthViewModel
 import com.capstone.curhatin.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,9 +40,17 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            loginUser.setOnClickListener { navigateBack() }
+            registerDoctor.setOnClickListener { navigateDirection(
+                RegisterFragmentDirections.actionRegisterFragmentToRegisterDoctorFragment()
+            )}
+        }
     }
 
 }
+
 
 ////custom dialog
 //val btn = findViewById<Button>(R.id.custom_dialog)

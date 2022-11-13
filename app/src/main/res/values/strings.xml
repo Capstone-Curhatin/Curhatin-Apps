@@ -60,4 +60,7 @@
     <string name="logout_user">Logout</string>
     <string name="premium">Premium</string>
     <string name="basic">Basic</string>
+    <string name="logo">Logo</string>
+    <string name="checking_for_update">Checking for update</string>
+    <string name="copyright">Copyright © 2022 • Capstone C048</string>
 </resources>
