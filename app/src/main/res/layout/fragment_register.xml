@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <com.capstone.curhatin.customview.NameEditText
-                android:id="@+id/nameEditText"
+                android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_tittle_register" />
 
             <com.capstone.curhatin.customview.PhoneEditText
-                android:id="@+id/phoneEditText"
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -65,7 +65,7 @@
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/et_username" />
 
             <com.capstone.curhatin.customview.EmailEditText
                 android:id="@+id/et_email"
@@ -78,7 +78,7 @@
                 android:fontFamily="@font/poppins"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phoneEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/et_phone" />
 
             <com.capstone.curhatin.customview.PasswordEditText
                 android:id="@+id/et_password"
@@ -158,7 +158,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/register_button"
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -181,7 +181,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/register_button">
+                app:layout_constraintTop_toBottomOf="@+id/btn_register">
 
                 <TextView
                     android:id="@+id/desc"
