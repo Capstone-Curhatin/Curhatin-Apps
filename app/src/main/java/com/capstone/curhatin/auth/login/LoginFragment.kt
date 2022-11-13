@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.capstone.core.data.request.auth.LoginRequest
-import com.capstone.core.utils.MySharedPreference
+import com.capstone.core.utils.*
+import com.capstone.curhatin.R
 import com.capstone.curhatin.auth.AuthViewModel
 import com.capstone.curhatin.databinding.FragmentLoginBinding
-import com.capstone.core.utils.getTextTrim
-import com.capstone.core.utils.quickShowToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -22,7 +23,8 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var prefs: MySharedPreference
+    @Inject
+    lateinit var prefs: MySharedPreference
     private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
@@ -36,24 +38,35 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogin.setOnClickListener { sendObservable() }
+
+        binding.apply {
+            btnLogin.setOnClickListener { sendObservable() }
+            register.setOnClickListener { navigateDirection(
+                LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            )}
+            tvForgetPassword.setOnClickListener { navigateDirection(
+                LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
+            )}
+        }
+
     }
 
-    private fun sendObservable(){
-        with(binding){
+    private fun sendObservable() {
+        with(binding) {
             val email = etEmail.getTextTrim()
             val password = etPassword.getTextTrim()
             val request = LoginRequest(email, password)
 
             viewModel.login(request)
-            viewModel.error.observe(viewLifecycleOwner){
+            viewModel.error.observe(viewLifecycleOwner) {
                 quickShowToast(it)
             }
-            viewModel.login.observe(viewLifecycleOwner){
+            viewModel.login.observe(viewLifecycleOwner) {
                 Timber.d("USER DATA: $it")
             }
 
         }
     }
+
 
 }
