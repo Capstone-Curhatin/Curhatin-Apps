@@ -16,11 +16,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.capstone.core.data.request.auth.RegisterRequest
+import com.capstone.core.utils.getTextTrim
 import com.capstone.core.utils.navigateBack
 import com.capstone.core.utils.navigateDirection
+import com.capstone.core.utils.quickShowToast
 import com.capstone.curhatin.auth.AuthViewModel
 import com.capstone.curhatin.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -42,10 +46,29 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
+            btnRegister.setOnClickListener { sendObservable() }
             loginUser.setOnClickListener { navigateBack() }
             registerDoctor.setOnClickListener { navigateDirection(
                 RegisterFragmentDirections.actionRegisterFragmentToRegisterDoctorFragment()
             )}
+        }
+    }
+
+    private fun sendObservable() {
+        with(binding) {
+            val name = etUsername.getTextTrim()
+            val phone = etPhone.getTextTrim()
+            val email = etEmail.getTextTrim()
+            val password = etPassword.getTextTrim()
+            val request = RegisterRequest(name = name, phone = phone, email = email, password = password, role = 0)
+
+            viewModel.register(request)
+            viewModel.error.observe(viewLifecycleOwner){
+                quickShowToast(it)
+            }
+            viewModel.register.observe(viewLifecycleOwner) {
+                Timber.d("USER DATA: $it")
+            }
         }
     }
 

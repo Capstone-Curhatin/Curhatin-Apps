@@ -46,11 +46,12 @@
 
         <TextView
             android:layout_width="261dp"
-            android:layout_height="wrap_content"
+            android:layout_height="12dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/pesan"
+            tools:text="@tools:sample/lorem/random"
+
             android:textColor="@color/gray"
             android:textSize="8sp"
             app:layout_constraintStart_toEndOf="@+id/img_picture"
