@@ -12,8 +12,8 @@
     <string name="textview">Do not have account?</string>
     <string name="sign_up">Sign up</string>
     <string name="image_register">Image Register</string>
-    <string name="username">Username</string>
-    <string name="et_name_error_message">Username cannot be empty</string>
+    <string name="username">Name</string>
+    <string name="et_name_error_message">Name cannot be empty</string>
     <string name="et_phone_error_message">Phone number cannot be empty</string>
     <string name="et_str_error_message">STR number cannot be empty</string>
     <string name="desc_login">By signin up,  you’re agree to our</string>
@@ -64,4 +64,8 @@
     <string name="logo">Logo</string>
     <string name="checking_for_update">Checking for update</string>
     <string name="copyright">Copyright © 2022 • Capstone C048</string>
+    <string name="home">Home</string>
+    <string name="chat">Chat</string>
+    <string name="chat_doctor">Chat Doctor</string>
+    <string name="more">More</string>
 </resources>

@@ -9,6 +9,7 @@ class MySharedPreference(context: Context) {
         private const val TOKEN = "token"
         private const val LOGIN = "login"
         private const val ROLE = "role"
+        private const val USER_ID = "user id"
     }
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -28,6 +29,18 @@ class MySharedPreference(context: Context) {
         editor.apply()
     }
 
+    fun getLogin(): Boolean =
+        prefs.getBoolean(LOGIN, false)
+
+    fun setUserId(value: Int){
+        val editor = prefs.edit()
+        editor.putInt(USER_ID, value)
+        editor.apply()
+    }
+
+    fun getUserId(): Int =
+        prefs.getInt(USER_ID, -1)
+
     fun setRole(data: Int) {
         val editor = prefs.edit()
         editor.putInt(ROLE, data)
@@ -36,9 +49,6 @@ class MySharedPreference(context: Context) {
 
     fun getRole(): Int =
         prefs.getInt(ROLE, 0)
-
-    fun getLogin(): Boolean =
-        prefs.getBoolean(LOGIN, false)
 
     fun logout(){
         val editor = prefs.edit()

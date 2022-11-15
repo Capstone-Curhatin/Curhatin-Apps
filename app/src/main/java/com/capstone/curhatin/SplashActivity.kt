@@ -34,8 +34,13 @@ class SplashActivity : AppCompatActivity() {
 
         // static looper
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, AuthActivity::class.java))
-            finish()
+            if (prefs.getLogin()){
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }else{
+                startActivity(Intent(this, AuthActivity::class.java))
+                finish()
+            }
         }, Constant.SPLASH_DURATION)
 
 

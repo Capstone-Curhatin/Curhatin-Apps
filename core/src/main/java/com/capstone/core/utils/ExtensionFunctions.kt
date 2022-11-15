@@ -14,22 +14,45 @@ import com.capstone.core.ui.dialog.PopupDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import timber.log.Timber
 
+// get edittext text toString
 fun EditText.getTextTrim() =
     this.text.toString().trim()
 
+// show toast
 fun Fragment.quickShowToast(msg: String) =
     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
 
+/**
+    the function for navigate to another fragment
+    this function same with call navigation (findNavController.navigate(dest))
+ */
 fun Fragment.navigateDirection(directions: NavDirections) =
     findNavController().navigate(directions)
 
+/**
+    the function for navigate back to previous fragment
+    this function same with call navigation (findNavController.navigateUp()
+ */
 fun Fragment.navigateBack() =
     findNavController().navigateUp()
 
-fun Fragment.setDialogSuccess(type: DialogType, msg: String) =
+
+/**
+    this function call dialog with success animation
+ */
+fun Fragment.setDialogSuccess(msg: String) =
     PopupDialog(DialogType.SUCCESS, msg, object : PopupDialog.DialogCallback{
         override fun dismissDialog(dialog: DialogFragment) {
-            Timber.d("OKE")
+            dialog.dismiss()
+        }
+    }).show(parentFragmentManager, null)
+
+/**
+    this function call dialog with error animation
+ */
+fun Fragment.setDialogError(msg: String) =
+    PopupDialog(DialogType.ERROR, msg, object : PopupDialog.DialogCallback{
+        override fun dismissDialog(dialog: DialogFragment) {
             dialog.dismiss()
         }
     }).show(parentFragmentManager, null)
