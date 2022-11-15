@@ -21,6 +21,7 @@ class AuthViewModel @Inject constructor(
     private val dispatcher: MyDispatchers
 ) : ViewModel() {
 
+
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> get() = _loading
 
@@ -32,6 +33,10 @@ class AuthViewModel @Inject constructor(
 
     private val _register: MutableLiveData<GenericResponse> = MutableLiveData()
     val register: LiveData<GenericResponse> get() = _register
+
+    init {
+        _loading.postValue(false)
+    }
 
     fun login(request: LoginRequest){
         viewModelScope.launch(dispatcher.io){

@@ -1,4 +1,4 @@
-package com.capstone.core.data.response
+package com.capstone.core.data.response.wrapper
 
 data class ResponseListWrapper<T>(
     val status: Boolean,

@@ -26,10 +26,16 @@ fun Fragment.navigateDirection(directions: NavDirections) =
 fun Fragment.navigateBack() =
     findNavController().navigateUp()
 
-fun Fragment.setDialogSuccess(type: DialogType, msg: String) =
+fun Fragment.setDialogSuccess(msg: String) =
     PopupDialog(DialogType.SUCCESS, msg, object : PopupDialog.DialogCallback{
         override fun dismissDialog(dialog: DialogFragment) {
-            Timber.d("OKE")
+            dialog.dismiss()
+        }
+    }).show(parentFragmentManager, null)
+
+fun Fragment.setDialogError(msg: String) =
+    PopupDialog(DialogType.ERROR, msg, object : PopupDialog.DialogCallback{
+        override fun dismissDialog(dialog: DialogFragment) {
             dialog.dismiss()
         }
     }).show(parentFragmentManager, null)

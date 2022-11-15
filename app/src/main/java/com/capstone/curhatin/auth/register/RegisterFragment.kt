@@ -49,7 +49,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            btnRegister.setOnClickListener { showDialogOtp() }
+            btnRegister.setOnClickListener { sendObservable() }
             loginUser.setOnClickListener { navigateBack() }
             registerDoctor.setOnClickListener { navigateDirection(
                 RegisterFragmentDirections.actionRegisterFragmentToRegisterDoctorFragment()
@@ -67,15 +67,15 @@ class RegisterFragment : Fragment() {
 
             viewModel.register(request)
             viewModel.error.observe(viewLifecycleOwner){
-                quickShowToast(it)
+                setDialogError(it)
             }
             viewModel.register.observe(viewLifecycleOwner) {
-                Timber.d("USER DATA: $it")
+                showDialogOtp(email)
             }
         }
     }
 
-    private fun showDialogOtp(){
+    private fun showDialogOtp(email: String){
         val bottomDialog = BottomSheetDialog(
             requireContext(), R.style.BottomSheetDialogTheme
         )
@@ -88,9 +88,12 @@ class RegisterFragment : Fragment() {
 
         bindingOtp.ivClose.setOnClickListener { bottomDialog.dismiss() }
         bindingOtp.pinView.doAfterTextChanged {
-            Timber.d("PIN VIEW: ${it.toString()}\nCount: ${it?.count()}")
+            /*
+              check length of otp code and call viewmodel
+              if otp code is validate, he can show the popup dialog
+            */
             if (it?.count() == 4){
-               setDialogSuccess(DialogType.SUCCESS, "Berhasil mendaftar!")
+               setDialogSuccess("Berhasil mendaftar!")
             }
         }
     }
