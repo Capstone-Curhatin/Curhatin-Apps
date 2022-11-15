@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet"
     android:orientation="vertical"
@@ -8,30 +9,47 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/iv_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/rectangle_4"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_close"
+        android:background="@drawable/ripple_oval_blue_white"/>
+
     <TextView
+        android:id="@+id/tv_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="@string/otp_verification"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/white"
-        android:textSize="28sp" />
+        android:textSize="28sp"
+        android:layout_below="@id/iv_top"/>
 
     <TextView
+        android:id="@+id/tv_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:text="@string/otp_verification_desc"
         android:textSize="14sp"
         android:fontFamily="@font/poppins"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_head"/>
 
     <com.chaos.view.PinView
         android:id="@+id/pin_view"
@@ -40,6 +58,8 @@
         android:layout_gravity="center"
         android:cursorVisible="true"
         android:inputType="number"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_body"
         android:itemBackground="@color/white"
         android:layout_marginTop="25dp"
         android:textColor="@color/blue"
@@ -66,13 +86,17 @@
         android:gravity="end"
         android:textSize="12sp"
         android:textColor="@color/white"
-        android:layout_gravity="end"/>
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/pin_view"/>
 
     <com.konaire.numerickeyboard.NumericKeyboard
         android:id="@+id/numpad_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:layout_marginBottom="20dp"
         app:field="@+id/pin_view"
-        app:keyTextColor="@color/white" />
-</LinearLayout>
+        app:keyTextColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/resend_otp"/>
+</RelativeLayout>
