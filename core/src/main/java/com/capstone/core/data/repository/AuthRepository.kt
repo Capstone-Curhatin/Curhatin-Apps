@@ -7,7 +7,7 @@ import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.data.response.auth.LoginResponse
 import com.capstone.core.data.source.remote.AuthDataSource
-import com.capstone.core.domain.repository.AuthRepositoryImpl
+import com.capstone.core.domain.usecase.repository.AuthRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

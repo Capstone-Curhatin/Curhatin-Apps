@@ -1,33 +1,26 @@
 package com.capstone.curhatin.auth.register
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import android.widget.Button
-import android.widget.LinearLayout
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.DialogFragment
-import com.capstone.curhatin.R
-import com.google.android.material.bottomsheet.BottomSheetDialog
-
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.capstone.core.data.common.DialogType
+import androidx.lifecycle.lifecycleScope
+import com.capstone.core.data.common.MyDispatchers
+import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.RegisterRequest
-import com.capstone.core.ui.dialog.PopupDialog
+import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.utils.*
+import com.capstone.curhatin.R
 import com.capstone.curhatin.auth.AuthViewModel
 import com.capstone.curhatin.databinding.BottomSheetOtpBinding
-import com.capstone.curhatin.databinding.CustomDialogRegisterBinding
 import com.capstone.curhatin.databinding.FragmentRegisterBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -35,6 +28,7 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
+    @Inject lateinit var dispatchers: MyDispatchers
     private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
@@ -65,12 +59,16 @@ class RegisterFragment : Fragment() {
             val password = etPassword.getTextTrim()
             val request = RegisterRequest(name = name, phone = phone, email = email, password = password, role = 0)
 
-            viewModel.register(request)
-            viewModel.error.observe(viewLifecycleOwner){
-                setDialogError(it)
-            }
-            viewModel.register.observe(viewLifecycleOwner) {
-                showDialogOtp(email)
+            viewModel.register(request).observe(viewLifecycleOwner){ res ->
+                when(res){
+                    is Resource.Loading -> {}
+                    is Resource.Error -> {
+                        setDialogError(res.message.toString())
+                    }
+                    is Resource.Success -> {
+                        showDialogOtp(email)
+                    }
+                }
             }
         }
     }
@@ -93,11 +91,40 @@ class RegisterFragment : Fragment() {
               if otp code is validate, he can show the popup dialog
             */
             if (it?.count() == 4){
-               setDialogSuccess("Berhasil mendaftar!")
+                val request = VerifyOtpRequest(email, it.toString().toInt())
+                viewModel.userVerification(request).observe(viewLifecycleOwner){res ->
+                    when(res){
+                        is Resource.Loading -> {}
+                        is Resource.Error -> {
+                            setDialogError(res.message.toString())
+                        }
+                        is Resource.Success -> {
+                            setDialogSuccess(resources.getString(R.string.register_message_alert))
+                            bottomDialog.dismiss()
+                            navigateBack()
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+        resend otp
+        */
+        bindingOtp.resendOtp.setOnClickListener {
+            viewModel.requestOtp(email).observe(viewLifecycleOwner){ res ->
+                when(res){
+                    is Resource.Loading -> {}
+                    is Resource.Error -> {
+                        setDialogError(res.message.toString())
+                    }
+                    is Resource.Success -> {
+                        setDialogSuccess(res.data?.message.toString())
+                    }
+                }
             }
         }
     }
-
 }
 
 

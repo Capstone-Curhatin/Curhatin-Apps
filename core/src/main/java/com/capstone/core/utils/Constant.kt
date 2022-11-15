@@ -1,5 +1,9 @@
 package com.capstone.core.utils
 
+
+/**
+     write in this file if you want create a static value
+ */
 object Constant {
 
     const val UNKNOWN_ERROR = "Unknown error occurred, please try again later."

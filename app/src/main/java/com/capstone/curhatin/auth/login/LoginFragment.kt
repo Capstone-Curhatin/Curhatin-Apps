@@ -1,5 +1,6 @@
 package com.capstone.curhatin.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.LoginRequest
 import com.capstone.core.utils.*
+import com.capstone.curhatin.MainActivity
 import com.capstone.curhatin.R
 import com.capstone.curhatin.auth.AuthViewModel
 import com.capstone.curhatin.databinding.FragmentLoginBinding
@@ -57,16 +60,24 @@ class LoginFragment : Fragment() {
             val password = etPassword.getTextTrim()
             val request = LoginRequest(email, password)
 
-            viewModel.login(request)
-            viewModel.error.observe(viewLifecycleOwner) {
-                quickShowToast(it)
-            }
-            viewModel.login.observe(viewLifecycleOwner) {
-                Timber.d("USER DATA: $it")
-            }
+            viewModel.login(request).observe(viewLifecycleOwner){ res ->
+                val data = res.data?.data
+                when(res){
+                    is Resource.Loading -> {}
+                    is Resource.Error -> {
+                        setDialogError(res.message.toString())
+                    }
+                    is Resource.Success -> {
+                        prefs.setLogin(true)
+                        prefs.setToken(data?.access_token.toString())
+                        prefs.setUserId(data?.user?.id!!)
+                        prefs.setRole(data.user.role)
 
+                        startActivity(Intent(requireContext(), MainActivity::class.java))
+                        requireActivity().finish()
+                    }
+                }
+            }
         }
     }
-
-
 }

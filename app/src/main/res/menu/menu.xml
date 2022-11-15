@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/selector_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/chatFragment"
+        android:icon="@drawable/selector_chat_user"
+        android:title="@string/chat"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/doctorChatFragment"
+        android:icon="@drawable/selector_chat_doctor"
+        android:title="@string/chat_doctor"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/selector_more"
+        android:title="@string/more"
+        app:showAsAction="ifRoom"/>
+
+</menu>

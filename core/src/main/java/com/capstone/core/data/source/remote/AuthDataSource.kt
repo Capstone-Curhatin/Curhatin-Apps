@@ -16,6 +16,11 @@ import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+    this class for send request to API and receive response
+    if you want create another class, write in the remote folder and room folder for local database
+    and add this class to AppModule in the folder di
+ */
 class AuthDataSource @Inject constructor(
     private val safeCall: SafeCall,
     private val errorParser: ErrorParser,
