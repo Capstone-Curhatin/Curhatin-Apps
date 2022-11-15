@@ -11,17 +11,20 @@ import android.view.ViewGroup
 
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.DialogFragment
 import com.capstone.curhatin.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.capstone.core.data.common.DialogType
 import com.capstone.core.data.request.auth.RegisterRequest
-import com.capstone.core.utils.getTextTrim
-import com.capstone.core.utils.navigateBack
-import com.capstone.core.utils.navigateDirection
-import com.capstone.core.utils.quickShowToast
+import com.capstone.core.ui.dialog.PopupDialog
+import com.capstone.core.utils.*
 import com.capstone.curhatin.auth.AuthViewModel
+import com.capstone.curhatin.databinding.BottomSheetOtpBinding
+import com.capstone.curhatin.databinding.CustomDialogRegisterBinding
 import com.capstone.curhatin.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -46,7 +49,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            btnRegister.setOnClickListener { sendObservable() }
+            btnRegister.setOnClickListener { showDialogOtp() }
             loginUser.setOnClickListener { navigateBack() }
             registerDoctor.setOnClickListener { navigateDirection(
                 RegisterFragmentDirections.actionRegisterFragmentToRegisterDoctorFragment()
@@ -72,42 +75,27 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    private fun showDialogOtp(){
+        val bottomDialog = BottomSheetDialog(
+            requireContext(), R.style.BottomSheetDialogTheme
+        )
+
+        val inflater = LayoutInflater.from(requireContext())
+        val bindingOtp = BottomSheetOtpBinding.inflate(inflater)
+        bottomDialog.setContentView(bindingOtp.root)
+        bottomDialog.setCancelable(false)
+        bottomDialog.show()
+
+        bindingOtp.ivClose.setOnClickListener { bottomDialog.dismiss() }
+        bindingOtp.pinView.doAfterTextChanged {
+            Timber.d("PIN VIEW: ${it.toString()}\nCount: ${it?.count()}")
+            if (it?.count() == 4){
+               setDialogSuccess(DialogType.SUCCESS, "Berhasil mendaftar!")
+            }
+        }
+    }
+
 }
 
 
-////custom dialog
-//val btn = findViewById<Button>(R.id.custom_dialog)
-//
-//btn.setOnClickListener{
-//    val dialogBinding = layoutInflater.inflate(R.layout.custom_dialog_register,null)
-//
-//    val myDialog = Dialog(this)
-//    myDialog.setContentView(dialogBinding)
-//
-//    myDialog.setCancelable(true)
-//    myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//    myDialog.show()
-//
-//    val yesbtn = dialogBinding.findViewById<Button>(R.id.alert_button)
-//    yesbtn.setOnClickListener{
-//        myDialog.dismiss()
-//    }
-//}
-//
-////otp
-//val button: Button = findViewById(R.id.custom_dialog2)
-//
-//button.setOnClickListener {
-//    val bottomSheetDialog = BottomSheetDialog(
-//        this@MainActivity, R.style.BottomSheetDialogTheme
-//    )
-//
-//    val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
-//        R.layout.layout_bottom_sheet,
-//        findViewById<LinearLayout>(R.id.bottom_sheet)
-//    )
-//
-//    bottomSheetDialog.setContentView(bottomSheetView)
-//    bottomSheetDialog.setCancelable(false)
-//    bottomSheetDialog.show()
-//}
+
