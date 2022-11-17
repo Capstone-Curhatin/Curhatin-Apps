@@ -72,6 +72,11 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideStoryService(retrofit: Retrofit): StoryService =
+        retrofit.create(StoryService::class.java)
+
+    @Provides
+    @Singleton
     fun provideAuthDataSource(
         safeCall: SafeCall,
         errorParser: ErrorParser,

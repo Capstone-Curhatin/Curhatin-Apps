@@ -3,16 +3,23 @@ package com.capstone.core.utils
 import android.app.Dialog
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.navigateUp
+import com.bumptech.glide.Glide
 import com.capstone.core.data.common.DialogType
 import com.capstone.core.ui.dialog.PopupDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import timber.log.Timber
+
+fun ImageView.setImageUrl(url: String) =
+    Glide.with(this)
+        .load(url)
+        .into(this)
 
 // get edittext text toString
 fun EditText.getTextTrim() =
