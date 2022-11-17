@@ -1,4 +1,4 @@
-package com.capstone.core.data.source.remote
+package com.capstone.core.data.source
 
 import com.capstone.core.data.common.ErrorParser
 import com.capstone.core.data.common.MyDispatchers

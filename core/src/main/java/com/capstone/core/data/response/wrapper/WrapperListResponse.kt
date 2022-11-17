@@ -1,7 +1,7 @@
 package com.capstone.core.data.response.wrapper
 
-data class ResponseWrapper<T>(
+data class WrapperListResponse<T>(
     val status: Boolean,
     val message: String,
-    val data: T
+    val data: List<T>
 )

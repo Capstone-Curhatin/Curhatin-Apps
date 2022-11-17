@@ -5,7 +5,6 @@ import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.data.response.auth.LoginResponse
-import com.capstone.core.data.response.wrapper.ResponseWrapper
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field

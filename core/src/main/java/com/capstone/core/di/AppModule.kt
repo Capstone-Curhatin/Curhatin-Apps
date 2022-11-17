@@ -7,8 +7,10 @@ import com.capstone.core.data.common.ErrorParser
 import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.AuthService
+import com.capstone.core.data.network.StoryService
 import com.capstone.core.data.network.connection.JwtInterceptor
-import com.capstone.core.data.source.remote.AuthDataSource
+import com.capstone.core.data.source.AuthDataSource
+import com.capstone.core.data.source.StoryDataSource
 import com.capstone.core.utils.MySharedPreference
 import dagger.Module
 import dagger.Provides
@@ -76,4 +78,13 @@ object AppModule {
         service: AuthService,
         dispatcher: MyDispatchers
     ) = AuthDataSource(safeCall, errorParser, service, dispatcher)
+
+    @Provides
+    @Singleton
+    fun provideStoryDataSource(
+        safeCall: SafeCall,
+        dispatcher: MyDispatchers,
+        errorParser: ErrorParser,
+        service: StoryService
+    ) = StoryDataSource(safeCall, dispatcher, errorParser, service)
 }
