@@ -2,6 +2,8 @@ package com.capstone.curhatin.di
 
 import com.capstone.core.domain.usecase.auth.AuthInteractor
 import com.capstone.core.domain.usecase.auth.AuthUseCase
+import com.capstone.core.domain.usecase.story.StoryInteractor
+import com.capstone.core.domain.usecase.story.StoryUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +19,7 @@ abstract class ViewModelModule(){
     @ViewModelScoped
     abstract fun provideAuthUseCase(interactor: AuthInteractor): AuthUseCase
 
+    @Binds
+    @ViewModelScoped
+    abstract fun provideStoryUseCase(interactor: StoryInteractor): StoryUseCase
 }

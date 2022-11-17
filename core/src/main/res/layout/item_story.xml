@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="4dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="12dp"
     android:padding="6dp"
     android:elevation="4dp"
     android:background="@drawable/ripple_rectangle_white">
@@ -15,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black_opacity"
-        android:textSize="10sp"
+        android:textSize="12sp"
+        android:layout_marginStart="6dp"
         android:fontFamily="@font/poppins_light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,10 +27,11 @@
 
     <ImageView
         android:id="@+id/img_more"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:background="@drawable/ripple_round_white"
         android:padding="4dp"
+        android:layout_marginEnd="6dp"
         android:src="@drawable/ic_more"
         app:layout_constraintBottom_toBottomOf="@+id/tv_category"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,11 +41,81 @@
         android:id="@+id/tv_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:textColor="@color/black_opacity"
         android:fontFamily="@font/poppins"
         app:layout_constraintEnd_toEndOf="@+id/img_more"
         app:layout_constraintStart_toStartOf="@+id/tv_category"
         app:layout_constraintTop_toBottomOf="@+id/tv_category"
-        tools:text="@tools:sample/lorem" />
+        tools:text="Setelah menikah saya dan suami saya tinggal di rumah orang tua suami saya. Setiap hari saya selalu melakukan pekerjaan rumah seperti menyapu, ngepel dan memasak." />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_picture"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_body"
+        app:layout_constraintTop_toBottomOf="@+id/tv_body"
+        android:src="@drawable/ic_person"
+        android:padding="2dp"
+        android:background="@drawable/bg_oval_blue"/>
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_picture"
+        app:layout_constraintStart_toEndOf="@+id/user_picture"
+        app:layout_constraintTop_toTopOf="@+id/user_picture"
+        tools:text="Anonymous" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="6dp"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_picture" />
+
+    <ImageView
+        android:id="@+id/img_comments"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_comments"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/tv_total_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black_opacity"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_comments"
+        app:layout_constraintStart_toEndOf="@+id/img_comments"
+        app:layout_constraintTop_toTopOf="@+id/img_comments"
+        tools:text="12 comments" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_comment_right"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_total_comments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_total_comments" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
