@@ -68,4 +68,6 @@
     <string name="chat">Chat</string>
     <string name="chat_doctor">Chat Doctor</string>
     <string name="more">More</string>
+    <string name="what_s_on_your_mind">What’s on your mind?</string>
+    <string name="create_story">Create Story</string>
 </resources>
