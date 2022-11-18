@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".home.CreateStoryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="16dp">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/eva_arrow_back_outline"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/create_story"
+            android:textColor="@color/black_opacity"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginStart="14dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Upload"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:background="@drawable/button_login"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_opacity"/>
+
+</LinearLayout>
