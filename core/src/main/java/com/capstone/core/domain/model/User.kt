@@ -11,6 +11,6 @@ data class User(
     val premium_period: String? = null,
     val phone: String,
     val otp: Int,
-    val profile_photo_url: String,
+    val profile_photo_url: String? = null,
     val doctor: Doctor? = null
 )

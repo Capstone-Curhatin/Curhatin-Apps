@@ -1,7 +1,5 @@
 package com.capstone.core.utils
 
-import android.app.Dialog
-import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -9,11 +7,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.navigateUp
 import com.bumptech.glide.Glide
 import com.capstone.core.data.common.DialogType
+import com.capstone.core.ui.dialog.DialogLoading
 import com.capstone.core.ui.dialog.PopupDialog
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import timber.log.Timber
 
 fun ImageView.setImageUrl(url: String) =
@@ -38,7 +35,7 @@ fun Fragment.navigateDirection(directions: NavDirections) =
 
 /**
     the function for navigate back to previous fragment
-    this function same with call navigation (findNavController.navigateUp()
+    this function same with call navigation (findNavController.navigateUp())
  */
 fun Fragment.navigateBack() =
     findNavController().navigateUp()
@@ -63,3 +60,11 @@ fun Fragment.setDialogError(msg: String) =
             dialog.dismiss()
         }
     }).show(parentFragmentManager, null)
+
+/**
+    this function for call loading dialog
+ */
+fun Fragment.setLoading() =
+    DialogLoading.start(requireContext())
+
+fun Fragment.stopLoading() = DialogLoading.stop()

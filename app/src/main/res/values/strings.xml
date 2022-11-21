@@ -70,4 +70,8 @@
     <string name="more">More</string>
     <string name="what_s_on_your_mind">What’s on your mind?</string>
     <string name="create_story">Create Story</string>
+    <string name="upload">Upload</string>
+    <string name="set_anonymously">Set anonymously?</string>
+    <string name="category">Category</string>
+    <string name="hint_news_story">What do you think?</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.capstone.curhatin.home
+package com.capstone.curhatin.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class StoryViewModel @Inject constructor(
     private val useCase: StoryUseCase
 ) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.capstone.curhatin.auth
+package com.capstone.curhatin.viewmodel
 
 import androidx.lifecycle.*
 import com.capstone.core.data.common.MyDispatchers

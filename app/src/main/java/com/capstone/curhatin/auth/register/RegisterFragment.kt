@@ -7,19 +7,17 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.utils.*
 import com.capstone.curhatin.R
-import com.capstone.curhatin.auth.AuthViewModel
+import com.capstone.curhatin.viewmodel.AuthViewModel
 import com.capstone.curhatin.databinding.BottomSheetOtpBinding
 import com.capstone.curhatin.databinding.FragmentRegisterBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -61,11 +59,13 @@ class RegisterFragment : Fragment() {
 
             viewModel.register(request).observe(viewLifecycleOwner){ res ->
                 when(res){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {setLoading()}
                     is Resource.Error -> {
+                        stopLoading()
                         setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
+                        stopLoading()
                         showDialogOtp(email)
                     }
                 }

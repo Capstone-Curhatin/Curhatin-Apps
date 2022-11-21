@@ -7,17 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.LoginRequest
+import com.capstone.core.domain.model.User
 import com.capstone.core.utils.*
 import com.capstone.curhatin.MainActivity
-import com.capstone.curhatin.R
-import com.capstone.curhatin.auth.AuthViewModel
+import com.capstone.curhatin.viewmodel.AuthViewModel
 import com.capstone.curhatin.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -63,15 +60,23 @@ class LoginFragment : Fragment() {
             viewModel.login(request).observe(viewLifecycleOwner){ res ->
                 val data = res.data?.data
                 when(res){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {setLoading()}
                     is Resource.Error -> {
+                        stopLoading()
                         setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
+                        stopLoading()
                         prefs.setLogin(true)
                         prefs.setToken(data?.access_token.toString())
-                        prefs.setUserId(data?.user?.id!!)
-                        prefs.setRole(data.user.role)
+
+                        val user = data?.user
+                        val picture = user?.picture ?: user?.profile_photo_url
+                        val data = User(
+                            id = user!!.id, name = user.name, email = user.email, phone = user.phone,
+                            picture = picture, role = user.role, otp = user.otp
+                        )
+                        prefs.setUser(data)
 
                         startActivity(Intent(requireContext(), MainActivity::class.java))
                         requireActivity().finish()
