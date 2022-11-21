@@ -7,6 +7,8 @@ import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.StoryService
 import com.capstone.core.data.request.StoryRequest
 import com.capstone.core.data.response.GenericResponse
+import com.capstone.core.data.response.wrapper.WrapperList
+import com.capstone.core.domain.model.Category
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -23,6 +25,13 @@ class StoryDataSource @Inject constructor(
         emit(Resource.Loading())
 
         val res = safeCall.enqueue(request, errorParser::converterGenericError, service::createStory)
+        emit(res)
+    }.flowOn(dispatchers.io)
+
+    fun getCategory(): Flow<Resource<WrapperList<Category>>> = flow {
+        emit(Resource.Loading())
+
+        val res = safeCall.enqueue(errorParser::converterGenericError, service::getCategory)
         emit(res)
     }.flowOn(dispatchers.io)
 

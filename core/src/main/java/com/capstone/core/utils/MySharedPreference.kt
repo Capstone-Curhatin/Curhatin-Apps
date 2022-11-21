@@ -1,6 +1,8 @@
 package com.capstone.core.utils
 
 import android.content.Context
+import com.capstone.core.domain.model.User
+import kotlin.math.PI
 
 class MySharedPreference(context: Context) {
 
@@ -8,8 +10,15 @@ class MySharedPreference(context: Context) {
         private const val PREFS_NAME = "prefs name"
         private const val TOKEN = "token"
         private const val LOGIN = "login"
+
+        // User
+        private const val ID = "id"
+        private const val NAME = "name"
+        private const val EMAIL = "email"
+        private const val PHONE = "phone"
         private const val ROLE = "role"
-        private const val USER_ID = "user id"
+        private const val PICTURE = "picture"
+        private const val OTP = "otp"
     }
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -32,23 +41,31 @@ class MySharedPreference(context: Context) {
     fun getLogin(): Boolean =
         prefs.getBoolean(LOGIN, false)
 
-    fun setUserId(value: Int){
+    fun setUser(data: User){
         val editor = prefs.edit()
-        editor.putInt(USER_ID, value)
-        editor.apply()
+        editor.apply {
+            putInt(ID, data.id)
+            putString(NAME, data.name)
+            putString(EMAIL, data.email)
+            putString(PHONE, data.phone)
+            putInt(ROLE, data.role)
+            putString(PICTURE, data.picture)
+            putInt(OTP, data.otp)
+            apply()
+        }
     }
 
-    fun getUserId(): Int =
-        prefs.getInt(USER_ID, -1)
+    fun getUser(): User =
+        User(
+            id = prefs.getInt(ID, 0),
+            name = prefs.getString(NAME, "").toString(),
+            email = prefs.getString(EMAIL, "").toString(),
+            phone = prefs.getString(PHONE, "").toString(),
+            picture = prefs.getString(PICTURE, "").toString(),
+            role = prefs.getInt(ROLE, 0),
+            otp = prefs.getInt(OTP, 0)
+        )
 
-    fun setRole(data: Int) {
-        val editor = prefs.edit()
-        editor.putInt(ROLE, data)
-        editor.apply()
-    }
-
-    fun getRole(): Int =
-        prefs.getInt(ROLE, 0)
 
     fun logout(){
         val editor = prefs.edit()

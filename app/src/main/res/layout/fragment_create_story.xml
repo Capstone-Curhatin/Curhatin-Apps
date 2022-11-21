@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,45 +9,144 @@
     tools:context=".home.CreateStoryFragment">
 
     <LinearLayout
+        android:id="@+id/linear_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="16dp">
+        android:layout_marginVertical="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/eva_arrow_back_outline"/>
+            android:src="@drawable/eva_arrow_back_outline" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="14dp"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/create_story"
             android:textColor="@color/black_opacity"
-            android:textSize="14sp"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/poppins_medium"
-            android:layout_marginStart="14dp"/>
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btbn_upload"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:text="Upload"
-            android:textAllCaps="false"
+            android:background="@drawable/button_login"
             android:fontFamily="@font/poppins_medium"
+            android:text="@string/upload"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:background="@drawable/button_login"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black_opacity"/>
+        android:layout_marginTop="16dp"
+        android:background="@color/black_opacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_top" />
 
-</LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@id/user_picture"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black_opacity"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/user_picture"
+        app:layout_constraintTop_toTopOf="@+id/user_picture"
+        tools:text="Wahid" />
+
+    <TextView
+        android:id="@+id/tv_anonymous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/set_anonymously"
+        android:textColor="@color/blue"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_picture"
+        app:layout_constraintStart_toEndOf="@+id/user_picture"
+        tools:ignore="SmallSp" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/is_anonymous"
+        android:layout_width="51sp"
+        android:layout_height="10dp"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_anonymous"
+        app:layout_constraintStart_toEndOf="@+id/tv_anonymous"
+        app:layout_constraintTop_toTopOf="@+id/tv_anonymous"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/tv_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/category"
+        android:textColor="@color/black_opacity"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_anonymous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_user_name"
+        tools:ignore="SmallSp"
+        android:paddingVertical="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="4dp"
+        android:background="@drawable/bg_stroke_blue"
+        android:gravity="center_vertical"
+        app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24" />
+
+    <EditText
+        android:id="@+id/edt_body"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/hint_news_story"
+        android:textColor="@color/black_opacity"
+        android:textColorHint="@color/gray"
+        android:textSize="14sp"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_anonymous" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

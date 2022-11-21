@@ -50,5 +50,6 @@
     <string name="jam">jam</string>
     <string name="hr_ago">2hr ago</string>
     <string name="ok">OK</string>
+    <string name="retry">Retry</string>
 
 </resources>

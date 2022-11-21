@@ -7,10 +7,12 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.network.StoryService
 import com.capstone.core.data.request.StoryRequest
 import com.capstone.core.data.response.GenericResponse
+import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.data.source.StoryDataSource
 import com.capstone.core.data.source.StoryPagingSource
+import com.capstone.core.domain.model.Category
 import com.capstone.core.domain.model.Story
-import com.capstone.core.domain.usecase.repository.StoryRepositoryImpl
+import com.capstone.core.domain.repository.StoryRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -29,5 +31,8 @@ class StoryRepository @Inject constructor(
             enablePlaceholders = false
         ), pagingSourceFactory = {StoryPagingSource(service)}
     ).flow
+
+    override fun getCategory(): Flow<Resource<WrapperList<Category>>> =
+        data.getCategory()
 
 }

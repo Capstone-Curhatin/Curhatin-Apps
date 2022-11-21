@@ -12,7 +12,7 @@ import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.utils.*
 import com.capstone.curhatin.R
-import com.capstone.curhatin.auth.AuthViewModel
+import com.capstone.curhatin.viewmodel.AuthViewModel
 import com.capstone.curhatin.databinding.BottomSheetOtpBinding
 import com.capstone.curhatin.databinding.FragmentRegisterDoctorBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -90,11 +90,13 @@ class RegisterDoctorFragment : Fragment() {
                 val request = VerifyOtpRequest(email, it.toString().toInt())
                 viewModel.userVerification(request).observe(viewLifecycleOwner){res ->
                     when(res){
-                        is Resource.Loading -> {}
+                        is Resource.Loading -> {setLoading()}
                         is Resource.Error -> {
+                            stopLoading()
                             setDialogError(res.message.toString())
                         }
                         is Resource.Success -> {
+                            stopLoading()
                             setDialogSuccess(resources.getString(R.string.register_message_alert))
                             bottomDialog.dismiss()
                             navigateBack()

@@ -2,8 +2,8 @@ package com.capstone.core.di
 
 import com.capstone.core.data.repository.AuthRepository
 import com.capstone.core.data.repository.StoryRepository
-import com.capstone.core.domain.usecase.repository.AuthRepositoryImpl
-import com.capstone.core.domain.usecase.repository.StoryRepositoryImpl
+import com.capstone.core.domain.repository.AuthRepositoryImpl
+import com.capstone.core.domain.repository.StoryRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
