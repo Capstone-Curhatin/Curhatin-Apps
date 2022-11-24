@@ -32,4 +32,8 @@ class AuthRepository @Inject constructor(
 
     override fun updateFcmToken(fcm: String): Flow<Resource<GenericResponse>> =
         data.updateFcmToken(fcm)
+
+    override fun logout(): Flow<Resource<GenericResponse>> =
+        data.logout()
+
 }

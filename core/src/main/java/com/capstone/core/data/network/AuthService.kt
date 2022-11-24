@@ -6,11 +6,13 @@ import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.data.response.auth.LoginResponse
 import com.capstone.core.utils.Endpoints
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthService {
@@ -47,4 +49,6 @@ interface AuthService {
         @Field("fcm") fcm: String
     ): Response<GenericResponse>
 
+    @POST(Endpoints.LOGOUT)
+    suspend fun logout(): Response<GenericResponse>
 }
