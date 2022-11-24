@@ -1,10 +1,47 @@
-{
+  {
   "project_info": {
     "project_number": "436640257233",
     "project_id": "curhatin-b3604",
     "storage_bucket": "curhatin-b3604.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436640257233:android:15d520da497362839661f0",
+        "android_client_info": {
+          "package_name": "com.capstone.core"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436640257233-hb89h9lht8a3tjaa6olif8ktrvkqdqhj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.core",
+            "certificate_hash": "c78939303360e2c2029bd4018f4db5eb453f7262"
+          }
+        },
+        {
+          "client_id": "436640257233-pskhagrtk784s30c8lqu9rtneo6295rp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBClGEztsxiFGDJUqEoEQohfyhPC1TCY7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436640257233-pskhagrtk784s30c8lqu9rtneo6295rp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:436640257233:android:8e7e1cb39c3b29449661f0",
