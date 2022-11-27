@@ -1,30 +1,22 @@
 package com.capstone.curhatin.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.HorizontalScrollView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.core.data.common.Resource
 import com.capstone.core.domain.model.Category
-import com.capstone.core.ui.adapter.CategoryAdapter
 import com.capstone.core.ui.adapter.StoryPagingAdapter
 import com.capstone.core.utils.*
-import com.capstone.curhatin.auth.AuthActivity
 import com.capstone.curhatin.databinding.FragmentHomeBinding
 import com.capstone.curhatin.viewmodel.CategoryViewModel
 import com.capstone.curhatin.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import java.util.concurrent.TimeoutException
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -35,7 +27,6 @@ class HomeFragment : Fragment() {
     private val viewModel: StoryViewModel by viewModels()
     private val categoryViewModel: CategoryViewModel by viewModels()
     private lateinit var mAdapter: StoryPagingAdapter
-    private lateinit var cAdapter: CategoryAdapter
     private val listCategory = ArrayList<Category>()
 
     override fun onCreateView(
@@ -55,6 +46,7 @@ class HomeFragment : Fragment() {
 
         setRecycler()
         loadState()
+        //setCategory()
     }
 
     private fun setRecycler(){
@@ -70,13 +62,37 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setCategory() {
-        cAdapter = CategoryAdapter(listCategory)
-        binding.rvCategory.apply {
-            adapter = cAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
+   /* private fun setCategory() {
 
+        categoryViewModel.getCategory().observe(viewLifecycleOwner) { res ->
+            when (res) {
+                is Resource.Loading -> {
+                    setLoading()
+                }
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+
+                    val name = ArrayList<String>()
+                    val id = ArrayList<Int>()
+
+                    res.data?.data?.forEach {
+                        id.add(it.id)
+                        name.add(it.name)
+                    }
+
+                    cAdapter = CategoryAdapter(listCategory)
+                    binding.rvCategory.apply {
+                        adapter = cAdapter
+                        layoutManager = LinearLayoutManager(requireContext())
+
+                    }
+                }
+            }
+        }
     }
 
     private fun category() = lifecycleScope.launch {
@@ -91,12 +107,11 @@ class HomeFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     stopLoading()
-                    setCategory()
 
                 }
             }
         }
-    }
+    }*/
 
     private fun loadState() {
         mAdapter.addLoadStateListener { loadState ->
