@@ -74,4 +74,7 @@
     <string name="set_anonymously">Set anonymously?</string>
     <string name="category">Category</string>
     <string name="hint_news_story">What do you think?</string>
+    <string name="different_password_message_alert">Password is different, please check and try again</string>
+    <string name="update_password_message_alert">Congratulation! Your password has  been changed successfully, please login with your new password</string>
+    <string name="create_new">Create New</string>
 </resources>

@@ -9,6 +9,7 @@ object Endpoints {
     const val REQUEST_OTP = "request_otp"
     const val VERIFY_OTP = "verify_otp"
     const val UPDATE_FCM = "update_fcm"
+    const val UPDATE_PASSWORD = "updatePassword"
 
     // Story
     const val CREATE_STORY = "createStory"
