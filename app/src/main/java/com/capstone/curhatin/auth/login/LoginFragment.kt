@@ -48,7 +48,6 @@ class LoginFragment : Fragment() {
                 LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
             )}
         }
-
     }
 
     private fun sendObservable() {

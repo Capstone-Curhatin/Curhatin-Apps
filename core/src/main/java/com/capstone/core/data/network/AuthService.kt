@@ -10,9 +10,11 @@ import com.capstone.core.utils.Endpoints
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
+import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface AuthService {
 
@@ -31,10 +33,9 @@ interface AuthService {
         @Body request: VerifyOtpRequest
     ): Response<GenericResponse>
 
-    @FormUrlEncoded
     @GET(Endpoints.REQUEST_OTP)
     suspend fun requestOtp(
-        @Field("email") email: String
+       @Query("email") email: String
     ): Response<GenericResponse>
 
     @POST(Endpoints.VERIFY_OTP)
