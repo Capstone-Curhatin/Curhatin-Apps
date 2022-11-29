@@ -94,11 +94,13 @@ class RegisterFragment : Fragment() {
                 val request = VerifyOtpRequest(email, it.toString().toInt())
                 viewModel.userVerification(request).observe(viewLifecycleOwner){res ->
                     when(res){
-                        is Resource.Loading -> {}
+                        is Resource.Loading -> {setLoading()}
                         is Resource.Error -> {
+                            stopLoading()
                             setDialogError(res.message.toString())
                         }
                         is Resource.Success -> {
+                            stopLoading()
                             setDialogSuccess(resources.getString(R.string.register_message_alert))
                             bottomDialog.dismiss()
                             navigateBack()
@@ -114,11 +116,13 @@ class RegisterFragment : Fragment() {
         bindingOtp.resendOtp.setOnClickListener {
             viewModel.requestOtp(email).observe(viewLifecycleOwner){ res ->
                 when(res){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {setLoading()}
                     is Resource.Error -> {
+                        stopLoading()
                         setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
+                        stopLoading()
                         setDialogSuccess(res.data?.message.toString())
                     }
                 }
