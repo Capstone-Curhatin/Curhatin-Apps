@@ -48,5 +48,9 @@
         android:id="@+id/newPasswordFragment"
         android:name="com.capstone.curhatin.auth.forgot.NewPasswordFragment"
         android:label="fragment_new_password"
-        tools:layout="@layout/fragment_new_password" />
+        tools:layout="@layout/fragment_new_password" >
+        <action
+            android:id="@+id/action_newPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

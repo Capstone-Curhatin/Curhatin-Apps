@@ -1,6 +1,7 @@
 package com.capstone.core.data.network
 
 import com.capstone.core.data.request.auth.LoginRequest
+import com.capstone.core.data.request.auth.PasswordRequest
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.data.response.GenericResponse
@@ -47,4 +48,9 @@ interface AuthService {
         @Field("fcm") fcm: String
     ): Response<GenericResponse>
 
+    @FormUrlEncoded
+    @POST(Endpoints.UPDATE_PASSWORD)
+    suspend fun updatePassword(
+        @Body request: PasswordRequest
+    ): Response<GenericResponse>
 }
