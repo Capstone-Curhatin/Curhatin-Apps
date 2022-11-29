@@ -16,4 +16,7 @@ object Endpoints {
     const val GET_STORY = "getAllStory"
     const val GET_CATEGORY = "getAllCategory"
 
+    // User
+    const val FETCH_USER = "fetch"
+
 }

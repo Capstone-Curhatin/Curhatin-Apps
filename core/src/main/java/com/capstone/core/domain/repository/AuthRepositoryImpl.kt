@@ -1,6 +1,7 @@
 package com.capstone.core.domain.repository
 
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
 import com.capstone.core.data.request.auth.PasswordRequest
 import com.capstone.core.data.request.auth.RegisterRequest
@@ -16,7 +17,11 @@ interface AuthRepositoryImpl {
     fun userVerification(request: VerifyOtpRequest): Flow<Resource<GenericResponse>>
     fun requestOtp(email: String): Flow<Resource<GenericResponse>>
     fun verifyOtp(request: VerifyOtpRequest): Flow<Resource<GenericResponse>>
+<<<<<<< HEAD
+    fun updateFcmToken(fcm: FcmRequest): Flow<Resource<GenericResponse>>
+=======
     fun updateFcmToken(fcm: String): Flow<Resource<GenericResponse>>
     fun updatePassword(request: PasswordRequest): Flow<Resource<GenericResponse>>
+>>>>>>> 1ea4c8a065481aa2db6494a6cec57ff2a95aef89
 
 }

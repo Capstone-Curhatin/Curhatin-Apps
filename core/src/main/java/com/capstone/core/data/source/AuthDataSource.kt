@@ -5,6 +5,7 @@ import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.AuthService
+import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
 import com.capstone.core.data.request.auth.PasswordRequest
 import com.capstone.core.data.request.auth.RegisterRequest
@@ -64,11 +65,12 @@ class AuthDataSource @Inject constructor(
         emit(res)
     }.flowOn(dispatchers.io)
 
-    fun updateFcmToken(fcm: String): Flow<Resource<GenericResponse>> = flow {
+    fun updateFcmToken(fcm: FcmRequest): Flow<Resource<GenericResponse>> = flow {
         emit(Resource.Loading())
 
         val res = safeCall.enqueue(fcm, errorParser::converterGenericError, service::updateFcmToken)
         emit(res)
+        Timber.d("DEBUG UPDATE FCM: $res")
     }.flowOn(dispatchers.io)
 
     fun updatePassword(request: PasswordRequest): Flow<Resource<GenericResponse>> = flow {

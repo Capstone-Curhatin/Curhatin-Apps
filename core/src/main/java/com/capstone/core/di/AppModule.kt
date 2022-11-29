@@ -8,9 +8,11 @@ import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.AuthService
 import com.capstone.core.data.network.StoryService
+import com.capstone.core.data.network.UserService
 import com.capstone.core.data.network.connection.JwtInterceptor
 import com.capstone.core.data.source.AuthDataSource
 import com.capstone.core.data.source.StoryDataSource
+import com.capstone.core.data.source.UserDataSource
 import com.capstone.core.utils.MySharedPreference
 import dagger.Module
 import dagger.Provides
@@ -77,6 +79,11 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideUserService(retrofit: Retrofit): UserService =
+        retrofit.create(UserService::class.java)
+
+    @Provides
+    @Singleton
     fun provideAuthDataSource(
         safeCall: SafeCall,
         errorParser: ErrorParser,
@@ -92,4 +99,14 @@ object AppModule {
         errorParser: ErrorParser,
         service: StoryService
     ) = StoryDataSource(safeCall, dispatcher, errorParser, service)
+
+    @Provides
+    @Singleton
+    fun provideUserDataSource(
+        safeCall: SafeCall,
+        dispatcher: MyDispatchers,
+        errorParser: ErrorParser,
+        service: UserService,
+        prefs: MySharedPreference
+    ) = UserDataSource(safeCall, dispatcher, errorParser, service, prefs)
 }
