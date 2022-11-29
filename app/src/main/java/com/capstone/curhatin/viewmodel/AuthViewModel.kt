@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
+import com.capstone.core.data.request.auth.PasswordRequest
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.data.response.GenericResponse
@@ -33,4 +34,7 @@ class AuthViewModel @Inject constructor(
         useCase.requestOtp(email).asLiveData()
 
     fun updateFcmToken(fcm: FcmRequest) = useCase.updateFcmToken(fcm)
+
+    fun updatePassword(request: PasswordRequest): LiveData<Resource<GenericResponse>> =
+        useCase.updatePassword(request).asLiveData()
 }

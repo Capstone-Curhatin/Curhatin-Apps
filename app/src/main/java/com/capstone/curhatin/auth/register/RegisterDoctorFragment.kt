@@ -57,11 +57,13 @@ class RegisterDoctorFragment : Fragment() {
 
             viewModel.register(request).observe(viewLifecycleOwner){ res ->
                 when(res){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {setLoading()}
                     is Resource.Error -> {
+                        stopLoading()
                         setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
+                        stopLoading()
                         showDialogOtp(email)
                     }
                 }
@@ -112,11 +114,13 @@ class RegisterDoctorFragment : Fragment() {
         bindingOtp.resendOtp.setOnClickListener {
             viewModel.requestOtp(email).observe(viewLifecycleOwner){ res ->
                 when(res){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {setLoading()}
                     is Resource.Error -> {
+                        stopLoading()
                         setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
+                        stopLoading()
                         setDialogSuccess(res.data?.message.toString())
                     }
                 }

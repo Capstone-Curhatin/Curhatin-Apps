@@ -3,6 +3,7 @@ package com.capstone.core.data.repository
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
+import com.capstone.core.data.request.auth.PasswordRequest
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.data.response.GenericResponse
@@ -33,4 +34,7 @@ class AuthRepository @Inject constructor(
 
     override fun updateFcmToken(fcm: FcmRequest): Flow<Resource<GenericResponse>> =
         data.updateFcmToken(fcm)
+
+    override fun updatePassword(request: PasswordRequest): Flow<Resource<GenericResponse>> =
+        data.updatePassword(request)
 }
