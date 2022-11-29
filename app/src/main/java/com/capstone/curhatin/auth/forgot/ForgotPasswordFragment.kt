@@ -42,19 +42,14 @@ class ForgotPasswordFragment : Fragment() {
 
     private fun sendObservable() {
         with(binding) {
-            val mBundle = Bundle()
             val email = etEmail.getTextTrim()
-            mBundle.putString(NewPasswordFragment.EMAIL, email)
 
             viewModel.requestOtp(email).observe(viewLifecycleOwner){ res ->
                 when(res){
                     is Resource.Loading -> {setLoading()}
                     is Resource.Error -> {
                         stopLoading()
-//                        setDialogError(res.message.toString())
-                        navigateDirection(
-                            ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToNewPasswordFragment()
-                        )
+                        setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
                         stopLoading()
@@ -86,14 +81,16 @@ class ForgotPasswordFragment : Fragment() {
                 val request = VerifyOtpRequest(email, it.toString().toInt())
                 viewModel.userVerification(request).observe(viewLifecycleOwner){res ->
                     when(res){
-                        is Resource.Loading -> {}
+                        is Resource.Loading -> {setLoading()}
                         is Resource.Error -> {
+                            stopLoading()
                             setDialogError(res.message.toString())
                         }
                         is Resource.Success -> {
+                            stopLoading()
                             bottomDialog.dismiss()
                             navigateDirection(
-                                ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToNewPasswordFragment()
+                                ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToNewPasswordFragment(email)
                             )
                         }
                     }
@@ -107,11 +104,13 @@ class ForgotPasswordFragment : Fragment() {
         bindingOtp.resendOtp.setOnClickListener {
             viewModel.requestOtp(email).observe(viewLifecycleOwner){ res ->
                 when(res){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {setLoading()}
                     is Resource.Error -> {
+                        stopLoading()
                         setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
+                        stopLoading()
                         setDialogSuccess(res.data?.message.toString())
                     }
                 }

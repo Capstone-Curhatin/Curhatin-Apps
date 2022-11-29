@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.PasswordRequest
 import com.capstone.core.utils.*
@@ -21,6 +22,7 @@ class NewPasswordFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AuthViewModel by viewModels()
+    private val args : NewPasswordFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,20 +41,22 @@ class NewPasswordFragment : Fragment() {
 
     private fun sendObservable() {
         with(binding) {
+            val email = args.email
             val newPassword = etNewPassword.getTextTrim()
             val confirmPassword = etConfirmPassword.getTextTrim()
 
             if( newPassword == confirmPassword ){
-                val email = arguments?.getString(EMAIL)
                 val request = PasswordRequest(email = email, password = newPassword)
 
                 viewModel.updatePassword(request).observe(viewLifecycleOwner){ res ->
                     when(res){
-                        is Resource.Loading -> {}
+                        is Resource.Loading -> {setLoading()}
                         is Resource.Error -> {
+                            stopLoading()
                             setDialogError(res.message.toString())
                         }
                         is Resource.Success -> {
+                            stopLoading()
                             setDialogSuccess(resources.getString(R.string.update_password_message_alert))
                             navigateDirection(
                                 NewPasswordFragmentDirections.actionNewPasswordFragmentToLoginFragment()
@@ -64,9 +68,5 @@ class NewPasswordFragment : Fragment() {
                 setDialogError(resources.getString(R.string.different_password_message_alert))
             }
         }
-    }
-
-    companion object {
-        var EMAIL = "email"
     }
 }

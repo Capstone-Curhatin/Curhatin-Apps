@@ -49,7 +49,6 @@ interface AuthService {
         @Field("fcm") fcm: String
     ): Response<GenericResponse>
 
-    @FormUrlEncoded
     @POST(Endpoints.UPDATE_PASSWORD)
     suspend fun updatePassword(
         @Body request: PasswordRequest
