@@ -10,6 +10,7 @@ class MySharedPreference(context: Context) {
         private const val PREFS_NAME = "prefs name"
         private const val TOKEN = "token"
         private const val LOGIN = "login"
+        private const val FCM = "fcm"
 
         // User
         private const val ID = "id"
@@ -31,6 +32,15 @@ class MySharedPreference(context: Context) {
 
     fun getToken(): String =
         prefs.getString(TOKEN, "").toString()
+
+    fun setFcm(value: String){
+        val editor = prefs.edit()
+        editor.putString(FCM, value)
+        editor.apply()
+    }
+
+    fun getFcm(): String =
+        prefs.getString(FCM, "").toString()
 
     fun setLogin(value: Boolean){
         val editor = prefs.edit()

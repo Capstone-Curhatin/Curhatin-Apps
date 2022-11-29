@@ -1,6 +1,7 @@
 package com.capstone.core.domain.usecase.auth
 
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
@@ -15,6 +16,6 @@ interface AuthUseCase {
     fun userVerification(request: VerifyOtpRequest): Flow<Resource<GenericResponse>>
     fun requestOtp(email: String): Flow<Resource<GenericResponse>>
     fun verifyOtp(request: VerifyOtpRequest): Flow<Resource<GenericResponse>>
-    fun updateFcmToken(fcm: String): Flow<Resource<GenericResponse>>
+    fun updateFcmToken(fcm: FcmRequest): Flow<Resource<GenericResponse>>
 
 }

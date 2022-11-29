@@ -1,5 +1,6 @@
 package com.capstone.core.data.network
 
+import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
@@ -9,7 +10,6 @@ import com.capstone.core.utils.Endpoints
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
-import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -42,10 +42,9 @@ interface AuthService {
         @Body request: VerifyOtpRequest
     ): Response<GenericResponse>
 
-    @FormUrlEncoded
     @POST(Endpoints.UPDATE_FCM)
     suspend fun updateFcmToken(
-        @Field("fcm") fcm: String
+        @Body request: FcmRequest
     ): Response<GenericResponse>
 
 }

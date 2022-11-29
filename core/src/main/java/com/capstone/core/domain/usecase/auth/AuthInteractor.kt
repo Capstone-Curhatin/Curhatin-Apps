@@ -1,6 +1,7 @@
 package com.capstone.core.domain.usecase.auth
 
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
@@ -29,6 +30,6 @@ class AuthInteractor @Inject constructor(
     override fun verifyOtp(request: VerifyOtpRequest): Flow<Resource<GenericResponse>> =
         repo.verifyOtp(request)
 
-    override fun updateFcmToken(fcm: String): Flow<Resource<GenericResponse>> =
+    override fun updateFcmToken(fcm: FcmRequest): Flow<Resource<GenericResponse>> =
         repo.updateFcmToken(fcm)
 }
