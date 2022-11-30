@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.ui.adapter.StoryPagingAdapter
+import com.capstone.core.utils.*
+
 import com.capstone.core.utils.MySharedPreference
 import com.capstone.core.utils.navigateDirection
 import com.capstone.curhatin.databinding.FragmentHomeBinding
@@ -20,6 +22,7 @@ import com.capstone.curhatin.viewmodel.AuthViewModel
 import com.capstone.curhatin.viewmodel.StoryViewModel
 import com.capstone.curhatin.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -55,7 +58,7 @@ class HomeFragment : Fragment() {
         loadState()
     }
 
-    private fun setRecycler(){
+    private fun setRecycler() {
         mAdapter = StoryPagingAdapter()
         binding.rvStory.apply {
             adapter = mAdapter
@@ -63,7 +66,7 @@ class HomeFragment : Fragment() {
             itemAnimator = DefaultItemAnimator()
         }
 
-        viewModel.getStories().observe(viewLifecycleOwner){ res ->
+        viewModel.getStories().observe(viewLifecycleOwner) { res ->
             mAdapter.submitData(lifecycle, res)
         }
     }
@@ -78,5 +81,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 }

@@ -149,6 +149,7 @@
                     android:src="@drawable/healthicons_phone_outline_blue" />
 
                 <TextView
+                    android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -178,6 +179,7 @@
                     android:contentDescription="@string/email" />
 
                 <TextView
+                    android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

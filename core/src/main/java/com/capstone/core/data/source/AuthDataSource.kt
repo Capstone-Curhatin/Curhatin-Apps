@@ -1,5 +1,6 @@
 package com.capstone.core.data.source
 
+import android.util.Log
 import com.capstone.core.data.common.ErrorParser
 import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.Resource
@@ -69,6 +70,13 @@ class AuthDataSource @Inject constructor(
         emit(Resource.Loading())
 
         val res = safeCall.enqueue(request, errorParser::converterGenericError, service::updatePassword)
+        emit(res)
+    }.flowOn(dispatchers.io)
+
+    fun logout(): Flow<Resource<GenericResponse>> = flow {
+        emit(Resource.Loading())
+
+        val res = safeCall.enqueue(errorParser::converterGenericError, service::logout)
         emit(res)
     }.flowOn(dispatchers.io)
 
