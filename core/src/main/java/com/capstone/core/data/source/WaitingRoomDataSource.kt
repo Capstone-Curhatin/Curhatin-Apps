@@ -78,8 +78,8 @@ class WaitingRoomDataSource : WaitingRoomStorage {
                 }else{
                     trySend(Resource.Success(priority[0].user_id!!))
                     waiting_room.child(priority[0].user_id.toString()).removeValue()
+                    waiting_room.removeEventListener(this)
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
