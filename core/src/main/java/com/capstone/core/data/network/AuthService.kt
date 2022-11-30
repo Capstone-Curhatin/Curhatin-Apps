@@ -43,10 +43,6 @@ interface AuthService {
         @Body request: VerifyOtpRequest
     ): Response<GenericResponse>
 
-    @POST(Endpoints.UPDATE_FCM)
-    suspend fun updateFcmToken(
-        @Body request: FcmRequest
-    ): Response<GenericResponse>
 
     @POST(Endpoints.UPDATE_PASSWORD)
     suspend fun updatePassword(

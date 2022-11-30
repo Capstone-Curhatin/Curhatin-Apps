@@ -13,6 +13,8 @@ import com.capstone.core.data.network.connection.JwtInterceptor
 import com.capstone.core.data.source.AuthDataSource
 import com.capstone.core.data.source.StoryDataSource
 import com.capstone.core.data.source.UserDataSource
+import com.capstone.core.data.source.WaitingRoomDataSource
+import com.capstone.core.data.source.firebase.WaitingRoomStorage
 import com.capstone.core.utils.MySharedPreference
 import dagger.Module
 import dagger.Provides
@@ -109,4 +111,8 @@ object AppModule {
         service: UserService,
         prefs: MySharedPreference
     ) = UserDataSource(safeCall, dispatcher, errorParser, service, prefs)
+
+    @Provides
+    @Singleton
+    fun provideWaitingRoomDataSource(): WaitingRoomStorage = WaitingRoomDataSource()
 }

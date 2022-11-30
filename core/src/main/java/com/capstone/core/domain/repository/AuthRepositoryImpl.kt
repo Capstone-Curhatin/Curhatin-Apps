@@ -17,7 +17,6 @@ interface AuthRepositoryImpl {
     fun userVerification(request: VerifyOtpRequest): Flow<Resource<GenericResponse>>
     fun requestOtp(email: String): Flow<Resource<GenericResponse>>
     fun verifyOtp(request: VerifyOtpRequest): Flow<Resource<GenericResponse>>
-    fun updateFcmToken(fcm: FcmRequest): Flow<Resource<GenericResponse>>
     fun updatePassword(request: PasswordRequest): Flow<Resource<GenericResponse>>
 
 }

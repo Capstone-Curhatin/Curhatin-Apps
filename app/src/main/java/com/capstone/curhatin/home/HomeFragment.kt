@@ -51,9 +51,6 @@ class HomeFragment : Fragment() {
             navigateDirection(HomeFragmentDirections.actionHomeFragmentToCreateStoryFragment())
         }
 
-        Timber.d("Check FCM: ${prefs.getFcm()}")
-
-        updateFcm()
         setRecycler()
         loadState()
     }
@@ -78,15 +75,6 @@ class HomeFragment : Fragment() {
                 lottieLoading.isVisible = loadState.source.refresh is LoadState.Loading
                 rvStory.isVisible =
                     !(loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && mAdapter.itemCount < 1)
-            }
-        }
-    }
-
-    private fun updateFcm(){
-        userViewModel.fetch().observe(viewLifecycleOwner){ res ->
-            if (res is Resource.Success){
-                val fcm = res.data?.data?.fcm
-                Timber.d("New Token: $fcm --> ${prefs.getFcm()}")
             }
         }
     }
