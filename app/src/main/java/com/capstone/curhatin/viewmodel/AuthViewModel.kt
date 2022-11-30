@@ -33,6 +33,10 @@ class AuthViewModel @Inject constructor(
     fun requestOtp(email: String): LiveData<Resource<GenericResponse>> =
         useCase.requestOtp(email).asLiveData()
 
+
+    fun logout(): LiveData<Resource<GenericResponse>> =
+        useCase.logout().asLiveData()
+
     fun updatePassword(request: PasswordRequest): LiveData<Resource<GenericResponse>> =
         useCase.updatePassword(request).asLiveData()
 }
