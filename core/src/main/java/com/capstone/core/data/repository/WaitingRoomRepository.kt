@@ -18,4 +18,8 @@ class WaitingRoomRepository @Inject constructor(
     override fun updateStatus(request: WaitingRoomRequest): Flow<Resource<GenericResponse>> =
         data.updateStatus(request)
 
+    override fun getPriority(id: Int): Flow<Resource<Int>> =
+        data.getPriority(id)
+
+
 }

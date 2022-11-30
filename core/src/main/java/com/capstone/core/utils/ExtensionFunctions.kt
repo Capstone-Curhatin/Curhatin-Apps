@@ -9,6 +9,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.capstone.core.data.common.DialogType
+import com.capstone.core.ui.dialog.DialogFinding
 import com.capstone.core.ui.dialog.DialogLoading
 import com.capstone.core.ui.dialog.PopupDialog
 import timber.log.Timber
@@ -61,10 +62,29 @@ fun Fragment.setDialogError(msg: String) =
         }
     }).show(parentFragmentManager, null)
 
+
+/**
+this function call dialog with sad animation
+ */
+fun Fragment.setDialogSad(msg: String) =
+    PopupDialog(DialogType.SAD, msg, object : PopupDialog.DialogCallback{
+        override fun dismissDialog(dialog: DialogFragment) {
+            dialog.dismiss()
+        }
+    }).show(parentFragmentManager, null)
+
 /**
     this function for call loading dialog
  */
 fun Fragment.setLoading() =
     DialogLoading.start(requireContext())
 
-fun Fragment.stopLoading() = DialogLoading.stop()
+fun stopLoading() = DialogLoading.stop()
+
+/**
+    this function for call finding dialog
+ */
+fun Fragment.setFinding() =
+    DialogFinding.start(requireContext())
+
+fun stopFinding() = DialogFinding.stop()

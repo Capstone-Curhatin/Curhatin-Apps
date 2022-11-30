@@ -21,5 +21,8 @@ class WaitingRoomViewModel @Inject constructor(
     fun updateWaitingRoom(request: WaitingRoomRequest): LiveData<Resource<GenericResponse>> =
         useCase.updateStatus(request).asLiveData()
 
+    fun getPriority(id: Int): LiveData<Resource<Int>> =
+        useCase.getPriority(id).asLiveData()
+
 
 }

@@ -3,6 +3,7 @@ package com.capstone.core.data.source
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.WaitingRoomRequest
 import com.capstone.core.data.response.GenericResponse
+import com.capstone.core.data.response.chat.WaitingRoomResponse
 import com.capstone.core.data.source.firebase.WaitingRoomStorage
 import com.capstone.core.utils.Constant
 import com.capstone.core.utils.Endpoints
@@ -14,6 +15,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import timber.log.Timber
 
 class WaitingRoomDataSource : WaitingRoomStorage {
 
@@ -52,6 +54,42 @@ class WaitingRoomDataSource : WaitingRoomStorage {
 
         awaitClose { this.cancel() }
     }
+
+    override fun getPriority(id: Int): Flow<Resource<Int>> = callbackFlow {
+        trySend(Resource.Loading())
+
+        waiting_room.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                val list = ArrayList<WaitingRoomResponse>()
+
+                snapshot.children.forEach {
+                    val data = it.getValue(WaitingRoomResponse::class.java)
+                    if (data != null && data.user_id != id) list.add(data)
+                }
+
+                val priorityDate = list.sortedBy { it.date }.take(list.size).toTypedArray()
+                val priority = priorityDate.filter { it.online == true }
+
+                Timber.d("PRIORITY: $priority")
+
+                if (priority.isEmpty()){
+                    trySend(Resource.Success(0))
+                }else{
+                    trySend(Resource.Success(priority[0].user_id!!))
+                    waiting_room.child(priority[0].user_id.toString()).removeValue()
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(Resource.Error(error.message))
+            }
+        })
+
+        awaitClose { this.close() }
+    }
+
 
     companion object {
         val waiting_room = FirebaseDatabase.getInstance().getReference(Endpoints.WAITING_ROOM)
