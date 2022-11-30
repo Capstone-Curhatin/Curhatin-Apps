@@ -40,6 +40,7 @@ class PopupDialog(
         when(type){
             DialogType.SUCCESS -> { binding.lottieSuccess.visibility = View.VISIBLE }
             DialogType.ERROR -> { binding.lottieError.visibility = View.VISIBLE }
+            DialogType.SAD -> {binding.lottieSad.visibility = View.VISIBLE}
         }
 
         binding.tvMessage.text = message

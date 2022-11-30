@@ -2,12 +2,15 @@ package com.capstone.curhatin.chat
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.WaitingRoomRequest
 import com.capstone.core.utils.*
@@ -17,10 +20,12 @@ import com.capstone.curhatin.databinding.FragmentChatBinding
 import com.capstone.curhatin.viewmodel.WaitingRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.time.LocalDateTime
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
@@ -79,6 +84,30 @@ class ChatFragment : Fragment() {
                         stopLoading()
                         setDialogSuccess(res.data?.message.toString())
                         bottomDialog.dismiss()
+                    }
+                }
+            }
+        }
+
+        bindingMode.btnSpeaker.setOnClickListener {
+            modeViewModel.getPriority(prefs.getUser().id).observe(viewLifecycleOwner) { res ->
+                when(res){
+                    is Resource.Loading -> {setFinding()}
+                    is Resource.Error -> {
+                        stopFinding()
+                        setDialogError(res.message.toString())
+                    }
+                    is Resource.Success -> {
+                        if (res.data != 0){
+                            stopFinding()
+                        }else{
+                            val timerJob = lifecycleScope.launch(Dispatchers.Main){
+                                delay(Constant.FINDING_DURATION)
+                                stopFinding()
+                                setDialogSad(Constant.WAITING_FAILURE_STATUS)
+                            }
+                            timerJob.cancel()
+                        }
                     }
                 }
             }

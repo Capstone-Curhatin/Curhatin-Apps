@@ -9,4 +9,6 @@ interface WaitingRoomRepositoryImpl {
 
     fun createRoom(request: WaitingRoomRequest): Flow<Resource<GenericResponse>>
     fun updateStatus(request: WaitingRoomRequest): Flow<Resource<GenericResponse>>
+    fun getPriority(id: Int): Flow<Resource<Int>>
+
 }
