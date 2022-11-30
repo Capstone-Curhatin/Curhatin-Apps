@@ -10,11 +10,21 @@ import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.ui.adapter.StoryPagingAdapter
 import com.capstone.core.utils.*
+
+import com.capstone.core.utils.MySharedPreference
+import com.capstone.core.utils.navigateDirection
 import com.capstone.curhatin.databinding.FragmentHomeBinding
+import com.capstone.curhatin.viewmodel.AuthViewModel
 import com.capstone.curhatin.viewmodel.StoryViewModel
+import com.capstone.curhatin.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
+import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -23,7 +33,11 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: StoryViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var mAdapter: StoryPagingAdapter
+
+    @Inject lateinit var prefs: MySharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

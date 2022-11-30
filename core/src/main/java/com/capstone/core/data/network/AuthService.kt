@@ -1,6 +1,8 @@
 package com.capstone.core.data.network
 
+import com.capstone.core.data.request.auth.FcmRequest
 import com.capstone.core.data.request.auth.LoginRequest
+import com.capstone.core.data.request.auth.PasswordRequest
 import com.capstone.core.data.request.auth.RegisterRequest
 import com.capstone.core.data.request.auth.VerifyOtpRequest
 import com.capstone.core.data.response.GenericResponse
@@ -14,6 +16,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface AuthService {
 
@@ -32,10 +35,9 @@ interface AuthService {
         @Body request: VerifyOtpRequest
     ): Response<GenericResponse>
 
-    @FormUrlEncoded
     @GET(Endpoints.REQUEST_OTP)
     suspend fun requestOtp(
-        @Field("email") email: String
+       @Query("email") email: String
     ): Response<GenericResponse>
 
     @POST(Endpoints.VERIFY_OTP)
@@ -43,12 +45,12 @@ interface AuthService {
         @Body request: VerifyOtpRequest
     ): Response<GenericResponse>
 
-    @FormUrlEncoded
-    @POST(Endpoints.UPDATE_FCM)
-    suspend fun updateFcmToken(
-        @Field("fcm") fcm: String
-    ): Response<GenericResponse>
 
     @POST(Endpoints.LOGOUT)
     suspend fun logout(): Response<GenericResponse>
+
+    @POST(Endpoints.UPDATE_PASSWORD)
+    suspend fun updatePassword(
+        @Body request: PasswordRequest
+    ): Response<GenericResponse>
 }

@@ -10,10 +10,17 @@ object Endpoints {
     const val VERIFY_OTP = "verify_otp"
     const val UPDATE_FCM = "update_fcm"
     const val LOGOUT = "logout"
+    const val UPDATE_PASSWORD = "updatePassword"
 
     // Story
     const val CREATE_STORY = "createStory"
     const val GET_STORY = "getAllStory"
     const val GET_CATEGORY = "getAllCategory"
+
+    // User
+    const val FETCH_USER = "fetch"
+
+    // Chat
+    const val WAITING_ROOM = "waiting_room"
 
 }
