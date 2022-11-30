@@ -19,4 +19,7 @@ object Endpoints {
     // User
     const val FETCH_USER = "fetch"
 
+    // Chat
+    const val WAITING_ROOM = "waiting_room"
+
 }

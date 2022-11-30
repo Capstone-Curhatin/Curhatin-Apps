@@ -33,8 +33,6 @@ class AuthViewModel @Inject constructor(
     fun requestOtp(email: String): LiveData<Resource<GenericResponse>> =
         useCase.requestOtp(email).asLiveData()
 
-    fun updateFcmToken(fcm: FcmRequest) = useCase.updateFcmToken(fcm)
-
     fun updatePassword(request: PasswordRequest): LiveData<Resource<GenericResponse>> =
         useCase.updatePassword(request).asLiveData()
 }

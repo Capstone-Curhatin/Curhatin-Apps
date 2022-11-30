@@ -32,9 +32,6 @@ class AuthRepository @Inject constructor(
     override fun verifyOtp(request: VerifyOtpRequest): Flow<Resource<GenericResponse>> =
         data.verifyOtp(request)
 
-    override fun updateFcmToken(fcm: FcmRequest): Flow<Resource<GenericResponse>> =
-        data.updateFcmToken(fcm)
-
     override fun updatePassword(request: PasswordRequest): Flow<Resource<GenericResponse>> =
         data.updatePassword(request)
 }

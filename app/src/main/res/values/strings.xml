@@ -77,4 +77,7 @@
     <string name="different_password_message_alert">Password is different, please check and try again</string>
     <string name="update_password_message_alert">Congratulation! Your password has  been changed successfully, please login with your new password</string>
     <string name="create_new">Create New</string>
+    <string name="listen">Pendengar</string>
+    <string name="or">Atau</string>
+    <string name="speaker">Pencerita</string>
 </resources>
