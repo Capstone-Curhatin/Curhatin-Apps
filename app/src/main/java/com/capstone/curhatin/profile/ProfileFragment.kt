@@ -11,10 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.capstone.core.data.common.Resource
-import com.capstone.core.utils.MySharedPreference
-import com.capstone.core.utils.setDialogError
-import com.capstone.core.utils.setLoading
-import com.capstone.core.utils.stopLoading
+import com.capstone.core.utils.*
 import com.capstone.curhatin.auth.AuthActivity
 import com.capstone.curhatin.databinding.FragmentProfileBinding
 import com.capstone.curhatin.viewmodel.AuthViewModel
@@ -46,6 +43,8 @@ class ProfileFragment : Fragment() {
         binding.name.text = pref.getUser().name
         binding.tvEmail.text = pref.getUser().email
         binding.phone.text = pref.getUser().phone
+
+        binding.myPost.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToMyPostFragment())}
 
         builder = AlertDialog.Builder(requireActivity())
 

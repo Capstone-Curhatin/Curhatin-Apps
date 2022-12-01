@@ -10,6 +10,7 @@ import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.data.source.StoryDataSource
 import com.capstone.core.data.source.StoryPagingSource
+import com.capstone.core.data.source.StoryUserPagingSource
 import com.capstone.core.domain.model.Category
 import com.capstone.core.domain.model.Story
 import com.capstone.core.domain.repository.StoryRepositoryImpl
@@ -35,4 +36,11 @@ class StoryRepository @Inject constructor(
     override fun getCategory(): Flow<Resource<WrapperList<Category>>> =
         data.getCategory()
 
+    override fun getStoryByUser(): Flow<PagingData<Story>> = Pager(
+        config = PagingConfig(
+            pageSize = 5,
+            maxSize = 20,
+            enablePlaceholders = false
+        ), pagingSourceFactory = {StoryUserPagingSource(service)}
+    ).flow
 }

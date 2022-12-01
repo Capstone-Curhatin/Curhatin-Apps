@@ -26,4 +26,6 @@ class StoryViewModel @Inject constructor(
     fun getStories(): LiveData<PagingData<Story>> =
         useCase.getStory().distinctUntilChanged().cachedIn(viewModelScope).asLiveData()
 
+    fun getStoryByUser(): LiveData<PagingData<Story>> =
+        useCase.getStoryByUser().distinctUntilChanged().cachedIn(viewModelScope).asLiveData()
 }
