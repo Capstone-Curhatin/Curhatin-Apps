@@ -39,7 +39,6 @@ class CreateStoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.tvUserName.text = prefs.getUser().name
         binding.userPicture.setImageUrl(prefs.getUser().picture.toString())
         Timber.e("PICTURE: ${prefs.getUser().picture}")
@@ -47,6 +46,8 @@ class CreateStoryFragment : Fragment() {
         binding.btbnUpload.setOnClickListener { sendRequest() }
         binding.imgBack.setOnClickListener { navigateBack() }
 
+        isAnonymous = prefs.getAnonymous()
+        binding.isAnonymous.isChecked = isAnonymous
         // get value from switch button
         binding.isAnonymous.setOnCheckedChangeListener { _, _ ->
             isAnonymous = !isAnonymous

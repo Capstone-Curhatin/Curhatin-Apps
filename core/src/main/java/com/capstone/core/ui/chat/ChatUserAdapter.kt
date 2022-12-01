@@ -46,8 +46,12 @@ class ChatUserAdapter : RecyclerView.Adapter<ChatUserAdapter.ViewHolder>() {
             with(binding){
                 tvName.text = data.name
                 tvLastMessage.text = data.last_message
+                ivPicture.setImageUrl(data.image_url.toString())
 
-                ivPicture.load(data.image_url)
+                rootView.setOnClickListener {
+                    listener?.let { listener(data) }
+                }
+
             }
         }
     }

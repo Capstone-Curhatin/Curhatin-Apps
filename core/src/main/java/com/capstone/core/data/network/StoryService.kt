@@ -27,4 +27,9 @@ interface StoryService {
 
     @GET(Endpoints.GET_CATEGORY)
     suspend fun getCategory(): Response<WrapperList<Category>>
+
+    @GET(Endpoints.GET_STORY_BY_USER)
+    suspend fun getStoryByUser(
+        @Query("page") page: Int
+    ): WrapperPaginate<Story>
 }

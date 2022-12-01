@@ -68,6 +68,12 @@ class ChatFragment : Fragment() {
             itemAnimator = DefaultItemAnimator()
         }
 
+        mAdapter.setOnItemClick { user ->
+            navigateDirection(
+                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(user.id!!, user.name, user.image_url)
+            )
+        }
+
         chatViewModel.getUserMessage(prefs.getUser().id).observe(viewLifecycleOwner){res ->
             when(res){
                 is Resource.Loading -> {setLoading()}
@@ -103,7 +109,7 @@ class ChatFragment : Fragment() {
             val currentDate = LocalDateTime.now().toString()
 
             val user = prefs.getUser()
-            val request = WaitingRoomRequest(user.id, user.name, user.picture.toString(), true, true, date = currentDate) // masih static
+            val request = WaitingRoomRequest(user.id, user.name, user.picture.toString(), true, prefs.getAnonymous(), date = currentDate)
             modeViewModel.createWaitingRoom(request).observe(viewLifecycleOwner){ res ->
                 when(res){
                     is Resource.Loading -> {setLoading()}
