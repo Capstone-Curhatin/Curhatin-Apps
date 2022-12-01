@@ -42,5 +42,16 @@
         android:id="@+id/chatRoomFragment"
         android:name="com.capstone.curhatin.chat.ChatRoomFragment"
         android:label="fragment_chat_room"
-        tools:layout="@layout/fragment_chat_room" />
+        tools:layout="@layout/fragment_chat_room" >
+        <argument
+            android:name="receiver_id"
+            app:argType="integer" />
+        <argument
+            android:name="receiver_name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument android:name="receiver_image_url"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

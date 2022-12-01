@@ -10,10 +10,8 @@ import com.capstone.core.data.network.AuthService
 import com.capstone.core.data.network.StoryService
 import com.capstone.core.data.network.UserService
 import com.capstone.core.data.network.connection.JwtInterceptor
-import com.capstone.core.data.source.AuthDataSource
-import com.capstone.core.data.source.StoryDataSource
-import com.capstone.core.data.source.UserDataSource
-import com.capstone.core.data.source.WaitingRoomDataSource
+import com.capstone.core.data.source.*
+import com.capstone.core.data.source.firebase.ChatStorage
 import com.capstone.core.data.source.firebase.WaitingRoomStorage
 import com.capstone.core.utils.MySharedPreference
 import dagger.Module
@@ -115,4 +113,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideWaitingRoomDataSource(): WaitingRoomStorage = WaitingRoomDataSource()
+
+    @Provides
+    @Singleton
+    fun provideChatDataSource(): ChatStorage = ChatDataSource()
 }
