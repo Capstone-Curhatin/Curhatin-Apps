@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.WaitingRoomRequest
 import com.capstone.core.data.response.GenericResponse
+import com.capstone.core.data.response.chat.WaitingRoomResponse
 import com.capstone.core.domain.usecase.waiting.WaitingRoomUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class WaitingRoomViewModel @Inject constructor(
     fun updateWaitingRoom(request: WaitingRoomRequest): LiveData<Resource<GenericResponse>> =
         useCase.updateStatus(request).asLiveData()
 
-    fun getPriority(id: Int): LiveData<Resource<Int>> =
+    fun getPriority(id: Int): LiveData<Resource<WaitingRoomResponse>> =
         useCase.getPriority(id).asLiveData()
 
 

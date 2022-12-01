@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateStatus(status: Boolean){
-        val request = WaitingRoomRequest(prefs.getUser().id, online = status, "")
+        val request = WaitingRoomRequest(prefs.getUser().id, online = status)
         waitViewModel.updateWaitingRoom(request).observe(this){ res ->
             if (res is Resource.Success) Timber.d("OKE")
         }
