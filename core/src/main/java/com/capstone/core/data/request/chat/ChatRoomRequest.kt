@@ -1,9 +1,9 @@
-package com.capstone.core.data.request
+package com.capstone.core.data.request.chat
 
 import com.google.firebase.database.Exclude
 
 data class ChatRoomRequest(
-    var id: String,
+    var id: String? = "",
     val sender_id: Int,
     val receiver_id: Int,
     val message: String,

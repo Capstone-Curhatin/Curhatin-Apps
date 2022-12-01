@@ -1,4 +1,4 @@
-package com.capstone.core.data.source.firebase
+package com.capstone.core.domain.repository
 
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.chat.ChatRoomRequest
@@ -8,7 +8,7 @@ import com.capstone.core.data.response.chat.ChatRoomResponse
 import com.capstone.core.data.response.chat.ChatUserResponse
 import kotlinx.coroutines.flow.Flow
 
-interface ChatStorage {
+interface ChatRepositoryImpl {
 
     fun sendMessage(request: ChatRoomRequest): Flow<Resource<Boolean>>
     fun readMessage(request: ReadMessageRequest): Flow<Resource<List<ChatRoomResponse>>>

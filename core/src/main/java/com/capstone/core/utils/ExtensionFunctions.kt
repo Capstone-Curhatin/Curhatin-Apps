@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.capstone.core.R
 import com.capstone.core.data.common.DialogType
 import com.capstone.core.ui.dialog.DialogFinding
 import com.capstone.core.ui.dialog.DialogLoading
@@ -17,6 +18,7 @@ import timber.log.Timber
 fun ImageView.setImageUrl(url: String) =
     Glide.with(this)
         .load(url)
+        .placeholder(R.drawable.ic_person)
         .into(this)
 
 // get edittext text toString

@@ -54,6 +54,8 @@ class HomeFragment : Fragment() {
             navigateDirection(HomeFragmentDirections.actionHomeFragmentToCreateStoryFragment())
         }
 
+        binding.imgPicture.setImageUrl(prefs.getUser().picture.toString())
+
         setRecycler()
         loadState()
     }

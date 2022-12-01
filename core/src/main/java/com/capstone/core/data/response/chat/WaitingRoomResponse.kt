@@ -1,9 +1,9 @@
 package com.capstone.core.data.response.chat
 
 data class WaitingRoomResponse(
-    val user_id: Int? = null,
-    val name: String? = null,
-    val image_url: String? = null,
+    val user_id: Int? = -1,
+    val name: String? = "",
+    val image_url: String? = "",
     val online: Boolean? = true,
-    val date: String? = null
+    val date: String? = ""
 )

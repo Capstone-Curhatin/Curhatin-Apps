@@ -2,8 +2,6 @@ package com.capstone.curhatin.chat
 
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +9,23 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.WaitingRoomRequest
+import com.capstone.core.data.request.chat.ChatUserRequest
+import com.capstone.core.ui.chat.ChatUserAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.R
 import com.capstone.curhatin.databinding.BottomSheetModeBinding
 import com.capstone.curhatin.databinding.FragmentChatBinding
+import com.capstone.curhatin.viewmodel.ChatViewModel
 import com.capstone.curhatin.viewmodel.WaitingRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -34,6 +36,9 @@ class ChatFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val modeViewModel: WaitingRoomViewModel by viewModels()
+    private val chatViewModel: ChatViewModel by viewModels()
+
+    private lateinit var mAdapter: ChatUserAdapter
 
     @Inject lateinit var prefs: MySharedPreference
 
@@ -51,6 +56,37 @@ class ChatFragment : Fragment() {
 
         binding.imgAdd.setOnClickListener { showBottomMode() }
 
+        setRecycler()
+    }
+
+    private fun setRecycler(){
+
+        mAdapter = ChatUserAdapter()
+        binding.rvChat.apply {
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = DefaultItemAnimator()
+        }
+
+        mAdapter.setOnItemClick { user ->
+            navigateDirection(
+                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(user.id!!, user.name, user.image_url)
+            )
+        }
+
+        chatViewModel.getUserMessage(prefs.getUser().id).observe(viewLifecycleOwner){res ->
+            when(res){
+                is Resource.Loading -> {setLoading()}
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+                    mAdapter.setData = res.data!!
+                }
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -73,7 +109,7 @@ class ChatFragment : Fragment() {
             val currentDate = LocalDateTime.now().toString()
 
             val user = prefs.getUser()
-            val request = WaitingRoomRequest(user.id, user.name, user.picture.toString(), true, true, date = currentDate) // masih static
+            val request = WaitingRoomRequest(user.id, user.name, user.picture.toString(), true, prefs.getAnonymous(), date = currentDate)
             modeViewModel.createWaitingRoom(request).observe(viewLifecycleOwner){ res ->
                 when(res){
                     is Resource.Loading -> {setLoading()}
@@ -101,6 +137,26 @@ class ChatFragment : Fragment() {
                     is Resource.Success -> {
                         if (res.data != null){
                             stopFinding()
+                            bottomDialog.dismiss()
+
+                            val user = res.data
+                            // create group chat
+                            val chatGroupRequest = ChatUserRequest(
+                                sender_id = prefs.getUser().id, receiver_id = user?.user_id,
+                                sender_name = prefs.getUser().name, receiver_name = user?.name,
+                                sender_image_url = prefs.getUser().profile_photo_url,
+                                receiver_image_url = user?.image_url,
+                                anonymous = false
+                            )
+
+                            chatViewModel.createChatGroup(chatGroupRequest).observe(viewLifecycleOwner){res ->
+                                if (res.data == true){
+                                    // navigate to chat room
+                                    navigateDirection(
+                                        ChatFragmentDirections.actionChatFragmentToChatRoomFragment(user?.user_id!!, user.name, user.image_url)
+                                    )
+                                }
+                            }
                         }else{
                             val timerJob = lifecycleScope.launch(Dispatchers.Main){
                                 delay(Constant.FINDING_DURATION)

@@ -8,6 +8,7 @@
     tools:context=".chat.ChatRoomFragment">
 
     <LinearLayout
+        android:id="@+id/linear_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -33,6 +34,7 @@
             tools:src="@color/blue"/>
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,8 +54,17 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linear_top"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@id/linear_bottom"/>
 
     <LinearLayout
+        android:id="@+id/linear_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -2,6 +2,8 @@ package com.capstone.curhatin.di
 
 import com.capstone.core.domain.usecase.auth.AuthInteractor
 import com.capstone.core.domain.usecase.auth.AuthUseCase
+import com.capstone.core.domain.usecase.chat.ChatInteractor
+import com.capstone.core.domain.usecase.chat.ChatUseCase
 import com.capstone.core.domain.usecase.story.StoryInteractor
 import com.capstone.core.domain.usecase.story.StoryUseCase
 import com.capstone.core.domain.usecase.user.UserInteractor
@@ -34,4 +36,8 @@ abstract class ViewModelModule(){
     @Binds
     @ViewModelScoped
     abstract fun provideWaitingRoomUseCase(interactor: WaitingRoomInteractor): WaitingRoomUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideChatUseCase(interactor: ChatInteractor): ChatUseCase
 }
