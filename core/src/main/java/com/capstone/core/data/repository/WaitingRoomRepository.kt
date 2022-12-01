@@ -3,6 +3,7 @@ package com.capstone.core.data.repository
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.WaitingRoomRequest
 import com.capstone.core.data.response.GenericResponse
+import com.capstone.core.data.response.chat.WaitingRoomResponse
 import com.capstone.core.data.source.firebase.WaitingRoomStorage
 import com.capstone.core.domain.repository.WaitingRoomRepositoryImpl
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,7 @@ class WaitingRoomRepository @Inject constructor(
     override fun updateStatus(request: WaitingRoomRequest): Flow<Resource<GenericResponse>> =
         data.updateStatus(request)
 
-    override fun getPriority(id: Int): Flow<Resource<Int>> =
+    override fun getPriority(id: Int): Flow<Resource<WaitingRoomResponse>> =
         data.getPriority(id)
 
 
