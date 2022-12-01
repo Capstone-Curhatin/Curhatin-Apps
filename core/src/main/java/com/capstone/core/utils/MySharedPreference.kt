@@ -20,6 +20,7 @@ class MySharedPreference(context: Context) {
         private const val ROLE = "role"
         private const val PICTURE = "picture"
         private const val OTP = "otp"
+        private const val ANONYMOUS = "anonymous"
     }
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -76,10 +77,20 @@ class MySharedPreference(context: Context) {
             otp = prefs.getInt(OTP, 0)
         )
 
+    fun setAnonymous(data: Boolean) {
+        val editor = prefs.edit()
+        editor.apply {
+            putBoolean(ANONYMOUS, data)
+            apply()
+        }
+    }
+
+    fun getAnonymous(): Boolean = prefs.getBoolean(ANONYMOUS, false)
 
     fun logout(){
         val editor = prefs.edit()
         editor.clear()
         editor.apply()
     }
+
 }
