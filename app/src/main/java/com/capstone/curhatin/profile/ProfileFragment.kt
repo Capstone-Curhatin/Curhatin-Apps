@@ -1,13 +1,12 @@
 package com.capstone.curhatin.profile
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.capstone.core.data.common.Resource
@@ -43,6 +42,7 @@ class ProfileFragment : Fragment() {
         binding.name.text = pref.getUser().name
         binding.tvEmail.text = pref.getUser().email
         binding.phone.text = pref.getUser().phone
+        binding.isAnonymous.isChecked = pref.getAnonymous()
 
         binding.myPost.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToMyPostFragment())}
 
@@ -54,6 +54,21 @@ class ProfileFragment : Fragment() {
                 .setCancelable(true)
                 .setPositiveButton("Yes") { dialogInterface, it ->
                     logout()
+                }
+                .setNegativeButton("No") { dialogInterface, it ->
+                    dialogInterface.cancel()
+                }
+                .show()
+        }
+
+        // get value from switch button
+        binding.isAnonymous.setOnCheckedChangeListener { _, _ ->
+
+            builder.setTitle("Set Anonymously")
+                .setMessage("Are you sure want to set anonymously?")
+                .setCancelable(true)
+                .setPositiveButton("Yes") { dialogInterface, it ->
+                    pref.setAnonymous(!pref.getAnonymous())
                 }
                 .setNegativeButton("No") { dialogInterface, it ->
                     dialogInterface.cancel()
@@ -82,4 +97,5 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
 }
