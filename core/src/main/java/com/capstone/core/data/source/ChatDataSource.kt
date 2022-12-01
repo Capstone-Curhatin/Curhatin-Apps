@@ -15,7 +15,7 @@ class ChatDataSource : ChatStorage {
 
         request.id = db.push().key.toString()
 
-        db.child(request.sender_id.toString() + "/chat-room/" + request.id).setValue(request.toMap())
+        db.child(request.sender_id.toString()).child("chat-room").child(request.id).setValue(request.toMap())
             .addOnSuccessListener {
                 trySend(Resource.Success(true))
             }

@@ -71,8 +71,9 @@ class ChatFragment : Fragment() {
 
         bindingMode.btnListen.setOnClickListener {
             val currentDate = LocalDateTime.now().toString()
-            Timber.d("CURRENT TIME: $currentDate")
-            val request = WaitingRoomRequest(user_id = prefs.getUser().id, date = currentDate)
+
+            val user = prefs.getUser()
+            val request = WaitingRoomRequest(user.id, user.name, user.picture.toString(), true, true, date = currentDate) // masih static
             modeViewModel.createWaitingRoom(request).observe(viewLifecycleOwner){ res ->
                 when(res){
                     is Resource.Loading -> {setLoading()}
@@ -98,7 +99,7 @@ class ChatFragment : Fragment() {
                         setDialogError(res.message.toString())
                     }
                     is Resource.Success -> {
-                        if (res.data != 0){
+                        if (res.data != null){
                             stopFinding()
                         }else{
                             val timerJob = lifecycleScope.launch(Dispatchers.Main){

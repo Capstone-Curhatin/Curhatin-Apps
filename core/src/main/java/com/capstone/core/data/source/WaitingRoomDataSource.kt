@@ -55,7 +55,7 @@ class WaitingRoomDataSource : WaitingRoomStorage {
         awaitClose { this.cancel() }
     }
 
-    override fun getPriority(id: Int): Flow<Resource<Int>> = callbackFlow {
+    override fun getPriority(id: Int): Flow<Resource<WaitingRoomResponse>> = callbackFlow {
         trySend(Resource.Loading())
 
         waiting_room.addValueEventListener(object : ValueEventListener{
@@ -74,9 +74,9 @@ class WaitingRoomDataSource : WaitingRoomStorage {
                 Timber.d("PRIORITY: $priority")
 
                 if (priority.isEmpty()){
-                    trySend(Resource.Success(0))
+                    trySend(Resource.Error("is_emtpy"))
                 }else{
-                    trySend(Resource.Success(priority[0].user_id!!))
+                    trySend(Resource.Success(priority.first()))
                     waiting_room.child(priority[0].user_id.toString()).removeValue()
                     waiting_room.removeEventListener(this)
                 }
