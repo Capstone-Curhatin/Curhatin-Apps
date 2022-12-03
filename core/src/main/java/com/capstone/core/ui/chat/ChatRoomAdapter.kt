@@ -3,6 +3,7 @@ package com.capstone.core.ui.chat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstone.core.R
 import com.capstone.core.data.response.chat.ChatRoomResponse
 import com.capstone.core.utils.DateTimeUtil
+import com.capstone.core.utils.setImageDrawable
 
 class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
 
@@ -33,10 +35,10 @@ class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<ChatRoomAdapte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == MESSAGE_TYPE_LEFT){
-            val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_sender, parent, false)
+            val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_left, parent, false)
             ViewHolder(binding)
         }else{
-            val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_receiver, parent, false)
+            val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_right, parent, false)
             ViewHolder(binding)
         }
     }
@@ -45,6 +47,10 @@ class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<ChatRoomAdapte
         val chatList = setData[position]
         holder.message.text = chatList.message
         holder.date.text = DateTimeUtil.getDescriptiveMessageDateTime(chatList.date.toString(), true)
+
+        // set icon image read
+//        if (chatList.read == false) holder.status.setImageDrawable(R.drawable.ic_chat_unread)
+//        else holder.status.setImageDrawable(R.drawable.ic_chat_read)
     }
 
     override fun getItemCount(): Int = setData.size
@@ -52,6 +58,7 @@ class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<ChatRoomAdapte
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val message: TextView = view.findViewById(R.id.tv_message)
         val date: TextView = view.findViewById(R.id.tv_date_chat)
+//        val status: ImageView = view.findViewById(R.id.iv_chat_status)
     }
 
     override fun getItemViewType(position: Int): Int {

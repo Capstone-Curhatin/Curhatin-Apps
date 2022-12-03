@@ -24,15 +24,18 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        tools:text="Abd. Wahid"
         android:fontFamily="@font/poppins_medium"
-        android:textSize="16sp"
         android:textColor="@color/black_opacity"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_last_date"
         app:layout_constraintStart_toEndOf="@+id/iv_picture"
-        app:layout_constraintTop_toTopOf="@+id/iv_picture" />
+        app:layout_constraintTop_toTopOf="@+id/iv_picture"
+        tools:text="Abd. Wahid" />
 
 
     <TextView
@@ -50,5 +53,20 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         tools:text="@tools:sample/lorem/random"
         tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/tv_last_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_light"
+        android:maxLines="1"
+        android:layout_marginRight="8dp"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_name"
+        tools:ignore="SmallSp"
+        tools:text="Today, 19:32" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

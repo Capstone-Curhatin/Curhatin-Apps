@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -14,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.chat.ChatRoomRequest
 import com.capstone.core.data.request.chat.ReadMessageRequest
+import com.capstone.core.data.request.chat.SendNotificationRequest
 import com.capstone.core.ui.chat.ChatRoomAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentChatRoomBinding
 import com.capstone.curhatin.viewmodel.ChatViewModel
+import com.capstone.curhatin.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -29,6 +32,8 @@ class ChatRoomFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ChatViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
+
     private val args: ChatRoomFragmentArgs by navArgs()
     @Inject lateinit var prefs: MySharedPreference
 
@@ -46,9 +51,14 @@ class ChatRoomFragment : Fragment() {
 
         binding.ivBack.setOnClickListener { navigateBack() }
 
+        // hide send button when the edittext is null
+        binding.edtMessage.doOnTextChanged { text, _, _, _ ->
+            if (text?.isEmpty() == true) binding.ivSend.visibility = View.GONE
+            else binding.ivSend.visibility = View.VISIBLE
+        }
+
         readMessage()
         setHeader()
-        // function for send message
         sendMessage()
     }
 
@@ -56,10 +66,9 @@ class ChatRoomFragment : Fragment() {
         val mAdapter = ChatRoomAdapter(prefs.getUser().id)
         binding.rvChat.apply {
             adapter = mAdapter
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false).apply {
-                stackFromEnd = true
-                isSmoothScrollbarEnabled = true
-            }
+            val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            manager.stackFromEnd = true
+            layoutManager = manager
             itemAnimator = DefaultItemAnimator()
         }
 
@@ -74,6 +83,7 @@ class ChatRoomFragment : Fragment() {
                 is Resource.Success -> {
                     stopLoading()
                     mAdapter.setData = res.data!!
+                    if (res.data!!.isNotEmpty()) binding.rvChat.smoothScrollToPosition(res.data!!.size - 1)
                 }
             }
         }
@@ -93,6 +103,8 @@ class ChatRoomFragment : Fragment() {
 
             viewModel.sendMessage(request).observe(viewLifecycleOwner){
                 binding.edtMessage.text.clear()
+                val send = SendNotificationRequest(args.receiverId, prefs.getUser().name, message)
+                userViewModel.sendNotification(send)
             }
         }
     }

@@ -11,6 +11,7 @@ object Endpoints {
     const val UPDATE_FCM = "update_fcm"
     const val LOGOUT = "logout"
     const val UPDATE_PASSWORD = "updatePassword"
+    const val NOTIFICATION = "sendNotification"
 
     // Story
     const val CREATE_STORY = "createStory"

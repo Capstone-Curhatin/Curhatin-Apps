@@ -14,5 +14,6 @@ interface ChatUseCase {
     fun readMessage(request: ReadMessageRequest): Flow<Resource<List<ChatRoomResponse>>>
     fun createChatGroup(request: ChatUserRequest): Flow<Resource<Boolean>>
     fun getUserMessage(id: Int): Flow<Resource<List<ChatUserResponse>>>
+    fun setReadMessage(request: ReadMessageRequest): Flow<Resource<Boolean>>
 
 }

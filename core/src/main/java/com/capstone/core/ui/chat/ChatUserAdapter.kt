@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.databinding.ItemChatUserBinding
+import com.capstone.core.utils.DateTimeUtil
 import com.capstone.core.utils.setImageUrl
 
 class ChatUserAdapter : RecyclerView.Adapter<ChatUserAdapter.ViewHolder>() {
@@ -44,9 +45,12 @@ class ChatUserAdapter : RecyclerView.Adapter<ChatUserAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: ItemChatUserBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(data: ChatUserResponse, listener: ((ChatUserResponse) -> Unit)?){
             with(binding){
+
                 tvName.text = data.name
-                tvLastMessage.text = data.last_message
                 ivPicture.setImageUrl(data.image_url.toString())
+
+                tvLastMessage.text = data.last_message
+                tvLastDate.text = DateTimeUtil.getDescriptiveMessageDateTime(data.last_date.toString(), true)
 
                 rootView.setOnClickListener {
                     listener?.let { listener(data) }

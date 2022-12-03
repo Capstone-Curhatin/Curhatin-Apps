@@ -24,4 +24,7 @@ class ChatRepository @Inject constructor(private val data: ChatStorage) : ChatRe
 
     override fun getUserMessage(id: Int): Flow<Resource<List<ChatUserResponse>>> =
         data.getUserMessage(id)
+
+    override fun setReadMessage(request: ReadMessageRequest): Flow<Resource<Boolean>> =
+        data.setReadMessage(request)
 }
