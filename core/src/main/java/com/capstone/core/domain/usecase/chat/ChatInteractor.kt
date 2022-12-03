@@ -23,4 +23,7 @@ class ChatInteractor @Inject constructor(private val repo: ChatRepositoryImpl) :
 
     override fun getUserMessage(id: Int): Flow<Resource<List<ChatUserResponse>>> =
         repo.getUserMessage(id)
+
+    override fun setReadMessage(request: ReadMessageRequest): Flow<Resource<Boolean>> =
+        repo.setReadMessage(request)
 }

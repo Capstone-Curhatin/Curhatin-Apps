@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -132,30 +133,29 @@ class ChatFragment : Fragment() {
                     is Resource.Loading -> {setFinding()}
                     is Resource.Error -> {
                         stopFinding()
-                        setDialogError(res.message.toString())
+                        setDialogSad(res.message.toString())
                     }
                     is Resource.Success -> {
-                        if (res.data != null){
+                        if (res.data?.status == true){
                             stopFinding()
                             bottomDialog.dismiss()
 
-                            val user = res.data
-                            // create group chat
-                            val chatGroupRequest = ChatUserRequest(
-                                sender_id = prefs.getUser().id, receiver_id = user?.user_id,
-                                sender_name = prefs.getUser().name, receiver_name = user?.name,
-                                sender_image_url = prefs.getUser().profile_photo_url,
-                                receiver_image_url = user?.image_url,
-                                anonymous = false
+                            val user = res.data?.data
+                            navigateDirection(
+                                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(user?.user_id!!, user.name, user.image_url)
                             )
 
-                            chatViewModel.createChatGroup(chatGroupRequest).observe(viewLifecycleOwner){res ->
-                                if (res.data == true){
-                                    // navigate to chat room
-                                    navigateDirection(
-                                        ChatFragmentDirections.actionChatFragmentToChatRoomFragment(user?.user_id!!, user.name, user.image_url)
-                                    )
-                                }
+                            // create group chat
+                            val chatGroupRequest = ChatUserRequest(
+                                sender_id = prefs.getUser().id, receiver_id = user.user_id,
+                                sender_name = prefs.getUser().name, receiver_name = user.name,
+                                sender_image_url = prefs.getUser().profile_photo_url,
+                                receiver_image_url = user.image_url,
+                                anonymous = user.anonymous
+                            )
+
+                            chatViewModel.createChatGroup(chatGroupRequest).observe(viewLifecycleOwner){
+                                Timber.d("Create Chat Group: $it")
                             }
                         }else{
                             val timerJob = lifecycleScope.launch(Dispatchers.Main){
@@ -169,6 +169,6 @@ class ChatFragment : Fragment() {
                 }
             }
         }
-
     }
+
 }

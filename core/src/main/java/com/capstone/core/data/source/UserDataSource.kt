@@ -6,6 +6,7 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.UserService
 import com.capstone.core.data.request.auth.FcmRequest
+import com.capstone.core.data.request.chat.SendNotificationRequest
 import com.capstone.core.data.response.wrapper.Wrapper
 import com.capstone.core.domain.model.User
 import com.capstone.core.utils.MySharedPreference
@@ -31,6 +32,12 @@ class UserDataSource @Inject constructor(
             safeCall.enqueue(prefs.getFcm(), converter::converterGenericError, service::updateFcmToken)
             Timber.d("UPDATED FCM")
         }
+        emit(res)
+    }.flowOn(dispatchers.io)
+
+    fun sendNotification(request: SendNotificationRequest) = flow<Any> {
+
+        val res = safeCall.enqueue(request, converter::converterGenericError, service::sendNotification)
         emit(res)
     }.flowOn(dispatchers.io)
 
