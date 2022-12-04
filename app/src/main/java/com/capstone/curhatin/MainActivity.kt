@@ -2,6 +2,7 @@ package com.capstone.curhatin
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager.LayoutParams
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        window?.setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE)
         setContentView(binding.root)
 
         updateFcm()

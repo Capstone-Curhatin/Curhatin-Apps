@@ -18,6 +18,7 @@ interface AuthRepositoryImpl {
     fun requestOtp(email: String): Flow<Resource<GenericResponse>>
     fun verifyOtp(request: VerifyOtpRequest): Flow<Resource<GenericResponse>>
     fun logout(): Flow<Resource<GenericResponse>>
-    fun updatePassword(request: PasswordRequest): Flow<Resource<GenericResponse>>
+    fun updatePassword(request: PasswordRequest
+    ): Flow<Resource<GenericResponse>>
 
 }

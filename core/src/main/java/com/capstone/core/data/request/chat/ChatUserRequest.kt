@@ -11,7 +11,8 @@ data class ChatUserRequest(
     val receiver_image_url: String? = "",
     val last_message: String? = "",
     val last_date: String? = null,
-    val anonymous: Boolean? = false,
+    val anonymous_sender: Boolean? = false,
+    val anonymous_receiver: Boolean? = false,
     val unread: Int? = 0
 ){
     @Exclude
@@ -22,7 +23,8 @@ data class ChatUserRequest(
             "image_url" to receiver_image_url,
             "last_message" to last_message,
             "last_date" to last_date,
-            "unread" to unread
+            "unread" to unread,
+            "anonymous" to anonymous_receiver
         )
 
     @Exclude
@@ -33,7 +35,8 @@ data class ChatUserRequest(
             "image_url" to sender_image_url,
             "last_message" to last_message,
             "last_date" to last_date,
-            "unread" to unread
+            "unread" to unread,
+            "anonymous" to anonymous_sender
         )
 
     @Exclude
@@ -41,7 +44,7 @@ data class ChatUserRequest(
         mapOf(
             "last_date" to last_date,
             "last_message" to last_message,
-            "unread" to unread
+            "unread" to unread,
         )
 
 }

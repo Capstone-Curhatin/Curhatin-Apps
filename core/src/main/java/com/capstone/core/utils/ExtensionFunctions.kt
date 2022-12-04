@@ -1,5 +1,6 @@
 package com.capstone.core.utils
 
+import android.graphics.drawable.Drawable
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -19,6 +20,11 @@ fun ImageView.setImageUrl(url: String) =
     Glide.with(this)
         .load(url)
         .placeholder(R.drawable.ic_person)
+        .into(this)
+
+fun ImageView.setImageDrawable(drawable: Int) =
+    Glide.with(this)
+        .load(drawable)
         .into(this)
 
 // get edittext text toString

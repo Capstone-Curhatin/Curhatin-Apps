@@ -11,6 +11,7 @@ object Endpoints {
     const val UPDATE_FCM = "update_fcm"
     const val LOGOUT = "logout"
     const val UPDATE_PASSWORD = "updatePassword"
+    const val NOTIFICATION = "sendNotification"
 
     // Story
     const val CREATE_STORY = "createStory"
@@ -24,6 +25,6 @@ object Endpoints {
     // Chat
     const val WAITING_ROOM = "waiting_room"
     const val CHAT = "chat"
-    const val CHAT_ROOM = "chat_room"
+    const val CHAT_ROOM = "_chat_room"
 
 }

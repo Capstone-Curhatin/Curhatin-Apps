@@ -4,11 +4,13 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.WaitingRoomRequest
 import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.data.response.chat.WaitingRoomResponse
+import com.capstone.core.data.response.chat.WaitingRoomUser
 import com.capstone.core.data.source.firebase.WaitingRoomStorage
 import com.capstone.core.utils.Constant
 import com.capstone.core.utils.Endpoints
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.cancel
@@ -42,6 +44,7 @@ class WaitingRoomDataSource : WaitingRoomStorage {
                     waiting_room.child(request.user_id.toString()).updateChildren(request.updateMap())
                     val response = GenericResponse(true, "OK")
                     trySend(Resource.Success(response))
+                    waiting_room.removeEventListener(this)
                 }else{
                     trySend(Resource.Error(Constant.UNKNOWN_ERROR))
                 }
@@ -61,10 +64,10 @@ class WaitingRoomDataSource : WaitingRoomStorage {
         waiting_room.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                val list = ArrayList<WaitingRoomResponse>()
+                val list = ArrayList<WaitingRoomUser>()
 
                 snapshot.children.forEach {
-                    val data = it.getValue(WaitingRoomResponse::class.java)
+                    val data = it.getValue(WaitingRoomUser::class.java)
                     if (data != null && data.user_id != id) list.add(data)
                 }
 
@@ -74,9 +77,11 @@ class WaitingRoomDataSource : WaitingRoomStorage {
                 Timber.d("PRIORITY: $priority")
 
                 if (priority.isEmpty()){
-                    trySend(Resource.Error("is_emtpy"))
+                    val response = WaitingRoomResponse(false, null)
+                    trySend(Resource.Success(response))
                 }else{
-                    trySend(Resource.Success(priority.first()))
+                    val response = WaitingRoomResponse(true, priority.first())
+                    trySend(Resource.Success(response))
                     waiting_room.child(priority[0].user_id.toString()).removeValue()
                     waiting_room.removeEventListener(this)
                 }

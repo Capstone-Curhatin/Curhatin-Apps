@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="8dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="80dp"
+    android:paddingEnd="4dp"
+    android:layout_marginStart="16dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -18,7 +21,7 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Lop you pull power hehehe" />
+        tools:text="Lop dahd kahsddhashdaj lajsdl asjldjaskldj aklsjdklas "/>
 
     <TextView
         android:id="@+id/tv_date_chat"
@@ -28,10 +31,11 @@
         android:fontFamily="@font/poppins_light"
         android:textColor="@color/black_opacity"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_message"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_message"
         tools:ignore="SmallSp"
-        tools:text="20:10" />
+        tools:text="Today, 20:10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

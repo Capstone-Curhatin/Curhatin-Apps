@@ -6,5 +6,6 @@ data class ChatRoomResponse(
     val date: String? = "",
     val read: Boolean? = false,
     val sender_id: Int? = 0,
-    val receiver_id: Int? = 0
+    val receiver_id: Int? = 0,
+    val anonymous: Boolean? = false
 )
