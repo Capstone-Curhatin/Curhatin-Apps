@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.databinding.ItemChatUserBinding
+import com.capstone.core.utils.Constant
 import com.capstone.core.utils.DateTimeUtil
 import com.capstone.core.utils.setImageUrl
 
@@ -46,8 +46,13 @@ class ChatUserAdapter : RecyclerView.Adapter<ChatUserAdapter.ViewHolder>() {
         fun bind(data: ChatUserResponse, listener: ((ChatUserResponse) -> Unit)?){
             with(binding){
 
-                tvName.text = data.name
-                ivPicture.setImageUrl(data.image_url.toString())
+                if (data.anonymous == true){
+                    tvName.text = Constant.ANONYMOUS
+                    ivPicture.setImageUrl(Constant.ANONYMOUS_IMAGE)
+                }else{
+                    tvName.text = data.name
+                    ivPicture.setImageUrl(data.image_url.toString())
+                }
 
                 tvLastMessage.text = data.last_message
                 tvLastDate.text = DateTimeUtil.getDescriptiveMessageDateTime(data.last_date.toString(), true)

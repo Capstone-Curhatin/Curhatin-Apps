@@ -71,7 +71,9 @@ class ChatFragment : Fragment() {
 
         mAdapter.setOnItemClick { user ->
             navigateDirection(
-                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(user.id!!, user.name, user.image_url)
+                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(
+                    user.id!!, user.name, user.image_url, user.anonymous!!
+                )
             )
         }
 
@@ -142,7 +144,9 @@ class ChatFragment : Fragment() {
 
                             val user = res.data?.data
                             navigateDirection(
-                                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(user?.user_id!!, user.name, user.image_url)
+                                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(
+                                    user?.user_id!!, user.name, user.image_url, user.anonymous!!
+                                )
                             )
 
                             // create group chat
@@ -170,5 +174,6 @@ class ChatFragment : Fragment() {
             }
         }
     }
+
 
 }

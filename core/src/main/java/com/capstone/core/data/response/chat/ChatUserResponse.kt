@@ -1,11 +1,11 @@
 package com.capstone.core.data.response.chat
 
 data class ChatUserResponse(
-    val id: Int? = null,
-    val image_url: String? = null,
-    val name: String? = null,
-    val last_message: String? = null,
-    val last_date: String? = null,
-    val unread: Int? = null,
+    val id: Int? = 0,
+    val image_url: String? = "",
+    val name: String? = "",
+    val last_message: String? = "",
+    val last_date: String? = "",
+    val unread: Int? = 0,
     val anonymous: Boolean? = false
 )
