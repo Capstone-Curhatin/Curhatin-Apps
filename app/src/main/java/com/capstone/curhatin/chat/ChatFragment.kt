@@ -155,7 +155,8 @@ class ChatFragment : Fragment() {
                                 sender_name = prefs.getUser().name, receiver_name = user.name,
                                 sender_image_url = prefs.getUser().profile_photo_url,
                                 receiver_image_url = user.image_url,
-                                anonymous = user.anonymous
+                                anonymous_sender = prefs.getAnonymous(),
+                                anonymous_receiver = user.anonymous
                             )
 
                             chatViewModel.createChatGroup(chatGroupRequest).observe(viewLifecycleOwner){
@@ -175,5 +176,14 @@ class ChatFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        stopFinding()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        stopFinding()
+    }
 
 }
