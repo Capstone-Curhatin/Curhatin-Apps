@@ -13,6 +13,7 @@ import com.google.firebase.database.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import timber.log.Timber
 
 
 class ChatDataSource : ChatStorage {
@@ -36,8 +37,18 @@ class ChatDataSource : ChatStorage {
                     .child(Endpoints.CHAT_ROOM).child(request.id.toString()).setValue(request.toMap())
                     .addOnSuccessListener {
 
-                        // update last message
-                        db.child(request.receiver_id.toString()).child(request.sender_id.toString()).updateChildren(reqLast.toUpdateLastMessage())
+                        // get unread messages from sender
+                        val query = db.child(request.sender_id.toString()).child(request.receiver_id.toString()).child(Endpoints.CHAT_ROOM)
+                            .orderByChild("read").equalTo(false)
+
+                        query.get().addOnCompleteListener { task ->
+                            if (task.isSuccessful){
+                                val count = task.result.childrenCount.toInt()
+                                // update unread messages and update las message into receiver user
+                                val reqReceiverLast = ChatUserRequest(last_date = request.date, last_message = request.message, unread = count)
+                                db.child(request.receiver_id.toString()).child(request.sender_id.toString()).updateChildren(reqReceiverLast.toUpdateLastMessage())
+                            }
+                        }
 
                         // send response
                         trySend(Resource.Success(true))

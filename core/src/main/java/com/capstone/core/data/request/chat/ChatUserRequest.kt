@@ -11,7 +11,8 @@ data class ChatUserRequest(
     val receiver_image_url: String? = "",
     val last_message: String? = "",
     val last_date: String? = null,
-    val anonymous: Boolean? = false,
+    val anonymous_sender: Boolean? = false,
+    val anonymous_receiver: Boolean? = false,
     val unread: Int? = 0
 ){
     @Exclude
@@ -23,7 +24,7 @@ data class ChatUserRequest(
             "last_message" to last_message,
             "last_date" to last_date,
             "unread" to unread,
-            "anonymous" to anonymous
+            "anonymous" to anonymous_receiver
         )
 
     @Exclude
@@ -35,7 +36,7 @@ data class ChatUserRequest(
             "last_message" to last_message,
             "last_date" to last_date,
             "unread" to unread,
-            "anonymous" to anonymous
+            "anonymous" to anonymous_sender
         )
 
     @Exclude
