@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
     private lateinit var mAdapter: StoryPagingAdapter
     private lateinit var cAdapter: CategoryAdapter
     private val categoryVM: CategoryViewModel by viewModels()
+    private var categoryId: Int? = null
 
     @Inject lateinit var prefs: MySharedPreference
 
@@ -103,6 +104,11 @@ class HomeFragment : Fragment() {
 
                 }
             }
+
+        }
+        cAdapter.setOnItemClick {
+            categoryId = it.id
+            setRecycler()
         }
     }
 

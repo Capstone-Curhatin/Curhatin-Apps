@@ -15,5 +15,6 @@ interface StoryRepositoryImpl {
     fun getStory(): Flow<PagingData<Story>>
     fun getCategory(): Flow<Resource<WrapperList<Category>>>
     fun getStoryByUser(): Flow<PagingData<Story>>
+    fun getStoryByCategory(id: Int): Flow<PagingData<Story>>
 
 }

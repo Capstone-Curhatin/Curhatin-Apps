@@ -27,4 +27,6 @@ class StoryInteractor @Inject constructor(
     override fun getStoryByUser(): Flow<PagingData<Story>> =
         repo.getStoryByUser()
 
+    override fun getStoryByCategory(id: Int): Flow<PagingData<Story>> =
+        repo.getStoryByCategory(id)
 }
