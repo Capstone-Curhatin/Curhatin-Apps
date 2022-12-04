@@ -86,7 +86,7 @@
         android:background="@drawable/btn_premium_shape"
         android:textSize="18sp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="@string/premium_price"
+        android:text="@string/coming_soon"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

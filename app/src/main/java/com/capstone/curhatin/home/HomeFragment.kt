@@ -11,7 +11,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
-import com.capstone.core.data.request.auth.FcmRequest
+import com.capstone.core.ui.adapter.CategoryAdapter
 import com.capstone.core.ui.adapter.StoryPagingAdapter
 import com.capstone.core.utils.*
 
@@ -19,11 +19,11 @@ import com.capstone.core.utils.MySharedPreference
 import com.capstone.core.utils.navigateDirection
 import com.capstone.curhatin.databinding.FragmentHomeBinding
 import com.capstone.curhatin.viewmodel.AuthViewModel
+import com.capstone.curhatin.viewmodel.CategoryViewModel
 import com.capstone.curhatin.viewmodel.StoryViewModel
 import com.capstone.curhatin.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,6 +36,8 @@ class HomeFragment : Fragment() {
     private val userViewModel: UserViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
     private lateinit var mAdapter: StoryPagingAdapter
+    private lateinit var cAdapter: CategoryAdapter
+    private val categoryVM: CategoryViewModel by viewModels()
 
     @Inject lateinit var prefs: MySharedPreference
 
@@ -55,7 +57,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.imgPicture.setImageUrl(prefs.getUser().picture.toString())
-
+        setCategory()
         setRecycler()
         loadState()
     }
@@ -70,6 +72,37 @@ class HomeFragment : Fragment() {
 
         viewModel.getStories().observe(viewLifecycleOwner) { res ->
             mAdapter.submitData(lifecycle, res)
+        }
+    }
+
+    private fun setCategory() {
+        cAdapter = CategoryAdapter()
+        binding.rvCategory.apply {
+            adapter = cAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = DefaultItemAnimator()
+        }
+        categoryVM.getCategory().observe(viewLifecycleOwner) { res ->
+            when (res) {
+                is Resource.Loading -> {
+                    setLoading()
+                }
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+                    cAdapter = CategoryAdapter()
+                    binding.rvCategory.apply {
+                        adapter = cAdapter
+                        layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                        itemAnimator = DefaultItemAnimator()
+                    }
+                    cAdapter.setData = res.data?.data!!
+
+                }
+            }
         }
     }
 
