@@ -22,7 +22,8 @@ data class ChatUserRequest(
             "image_url" to receiver_image_url,
             "last_message" to last_message,
             "last_date" to last_date,
-            "unread" to unread
+            "unread" to unread,
+            "anonymous" to anonymous
         )
 
     @Exclude
@@ -33,7 +34,8 @@ data class ChatUserRequest(
             "image_url" to sender_image_url,
             "last_message" to last_message,
             "last_date" to last_date,
-            "unread" to unread
+            "unread" to unread,
+            "anonymous" to anonymous
         )
 
     @Exclude
@@ -41,7 +43,7 @@ data class ChatUserRequest(
         mapOf(
             "last_date" to last_date,
             "last_message" to last_message,
-            "unread" to unread
+            "unread" to unread,
         )
 
 }

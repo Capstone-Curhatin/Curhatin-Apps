@@ -7,6 +7,7 @@ import com.capstone.core.data.request.chat.ReadMessageRequest
 import com.capstone.core.data.response.chat.ChatRoomResponse
 import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.data.source.firebase.ChatStorage
+import com.capstone.core.utils.Constant
 import com.capstone.core.utils.Endpoints
 import com.google.firebase.database.*
 import kotlinx.coroutines.channels.awaitClose
@@ -55,7 +56,7 @@ class ChatDataSource : ChatStorage {
     override fun readMessage(request: ReadMessageRequest): Flow<Resource<List<ChatRoomResponse>>> = callbackFlow {
         trySend(Resource.Loading())
 
-        db.child(request.sender_id.toString()).child(request.receive_id.toString())
+        Constant.CHAT_FIREBASE_INSTANCE.child(request.sender_id.toString()).child(request.receive_id.toString())
             .child(Endpoints.CHAT_ROOM).addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val list = ArrayList<ChatRoomResponse>()
@@ -71,6 +72,9 @@ class ChatDataSource : ChatStorage {
                     trySend(Resource.Error(error.message))
                 }
             })
+
+
+
 
         awaitClose { this.close() }
     }
@@ -102,7 +106,7 @@ class ChatDataSource : ChatStorage {
 
                 snapshot.children.forEach {
                     val data = it.getValue(ChatUserResponse::class.java)
-                    if (data != null) list.add(data)
+                    if (data != null && data.last_date?.isNotEmpty() == true) list.add(data)
                 }
 
                 // send response
@@ -120,37 +124,25 @@ class ChatDataSource : ChatStorage {
     override fun setReadMessage(request: ReadMessageRequest): Flow<Resource<Boolean>> = callbackFlow {
         trySend(Resource.Loading())
 
-//        val userMessages: DatabaseReference = db.child(request.receive_id.toString()).
-//        child(request.sender_id.toString()).child(Endpoints.CHAT_ROOM)
-//        val query: Query = userMessages.orderByChild("read").equalTo(false)
-//        val valueEventListener: ValueEventListener = object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                for (ds in dataSnapshot.children) {
-//                    ds.child("read").ref.setValue(true)
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {}
-//        }
-//        query.addListenerForSingleValueEvent(valueEventListener)
-
-        val chatDb = db.child(request.receive_id.toString()).child(request.sender_id.toString()).child(Endpoints.CHAT_ROOM)
-        chatDb.orderByChild("read").equalTo(false).addValueEventListener(object : ValueEventListener{
+        val valueEventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
-                snapshot.children.forEach {
-                    val map: MutableMap<String, Any?> = mutableMapOf()
-                    map["${it.key}/read"] = true
-                    chatDb.updateChildren(map)
+                for (i in snapshot.children){
+                    i.child("read").ref.setValue(true)
                 }
-                trySend(Resource.Success(true))
-
-                if (request.is_cancel == false) trySend(Resource.Success(false))
-
             }
 
-            override fun onCancelled(error: DatabaseError) {}
-        })
+            override fun onCancelled(error: DatabaseError) { }
+        }
+
+        val dbRef = FirebaseDatabase.getInstance().getReference(Endpoints.CHAT).child(request.receive_id.toString())
+            .child(request.sender_id.toString()).child(Endpoints.CHAT_ROOM)
+        if (request.is_cancel == false) {
+            dbRef.addValueEventListener(valueEventListener)
+            trySend(Resource.Success(false))
+        }else{
+            dbRef.removeEventListener(valueEventListener)
+            trySend(Resource.Success(true))
+        }
 
         awaitClose { this.close() }
     }

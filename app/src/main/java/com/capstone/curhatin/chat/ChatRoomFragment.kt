@@ -21,7 +21,9 @@ import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentChatRoomBinding
 import com.capstone.curhatin.viewmodel.ChatViewModel
 import com.capstone.curhatin.viewmodel.UserViewModel
+import com.google.firebase.database.*
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -36,6 +38,9 @@ class ChatRoomFragment : Fragment() {
 
     private val args: ChatRoomFragmentArgs by navArgs()
     @Inject lateinit var prefs: MySharedPreference
+
+    // set read chat from fragment
+    private lateinit var stateListener: ValueEventListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +58,9 @@ class ChatRoomFragment : Fragment() {
 
         // hide send button when the edittext is null
         binding.edtMessage.doOnTextChanged { text, _, _, _ ->
-            if (text?.isEmpty() == true) binding.ivSend.visibility = View.GONE
+            if (text?.isEmpty() == true ||
+                text?.isBlank() == true
+            ) binding.ivSend.visibility = View.GONE
             else binding.ivSend.visibility = View.VISIBLE
         }
 
@@ -83,7 +90,7 @@ class ChatRoomFragment : Fragment() {
                 is Resource.Success -> {
                     stopLoading()
                     mAdapter.setData = res.data!!
-                    if (res.data!!.isNotEmpty()) binding.rvChat.smoothScrollToPosition(res.data!!.size - 1)
+//                    if (res.data!!.isNotEmpty()) binding.rvChat.smoothScrollToPosition(res.data!!.size - 1)
                 }
             }
         }
@@ -101,16 +108,50 @@ class ChatRoomFragment : Fragment() {
                 date = currentDate
             )
 
+            binding.edtMessage.text.clear()
+
             viewModel.sendMessage(request).observe(viewLifecycleOwner){
-                binding.edtMessage.text.clear()
-                val send = SendNotificationRequest(args.receiverId, prefs.getUser().name, message)
+                val name = if (args.anonymous) Constant.ANONYMOUS else prefs.getUser().name
+                val send = SendNotificationRequest(args.receiverId, name, message)
                 userViewModel.sendNotification(send)
             }
         }
     }
 
     private fun setHeader(){
-        binding.tvName.text = args.receiverName
+        if (args.anonymous){
+            binding.tvName.text = Constant.ANONYMOUS
+            binding.ivProfile.setImageUrl(Constant.ANONYMOUS_IMAGE)
+        }else{
+            binding.tvName.text = args.receiverName
+            binding.ivProfile.setImageUrl(args.receiverImageUrl.toString())
+        }
+
+    }
+
+
+    // set read status
+    private val dbReference: DatabaseReference = FirebaseDatabase.getInstance().getReference(Endpoints.CHAT)
+    override fun onStart() {
+        super.onStart()
+        Timber.d("onStart")
+        stateListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (i in snapshot.children){
+                    i.child("read").ref.setValue(true)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        }
+        dbReference.child(args.receiverId.toString()).child(prefs.getUser().id.toString())
+            .child(Endpoints.CHAT_ROOM).addValueEventListener(stateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.d("onStop")
+        dbReference.child(args.receiverId.toString()).child(prefs.getUser().id.toString())
+            .child(Endpoints.CHAT_ROOM).removeEventListener(stateListener)
     }
 
 }

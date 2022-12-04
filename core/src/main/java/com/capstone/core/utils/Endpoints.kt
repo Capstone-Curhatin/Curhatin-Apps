@@ -25,6 +25,6 @@ object Endpoints {
     // Chat
     const val WAITING_ROOM = "waiting_room"
     const val CHAT = "chat"
-    const val CHAT_ROOM = "chat_room"
+    const val CHAT_ROOM = "_chat_room"
 
 }

@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.core.R
 import com.capstone.core.data.response.chat.ChatRoomResponse
+import com.capstone.core.databinding.ItemChatLeftBinding
+import com.capstone.core.databinding.ItemChatRightBinding
 import com.capstone.core.utils.DateTimeUtil
 import com.capstone.core.utils.setImageDrawable
 
-class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
+class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val MESSAGE_TYPE_LEFT = 0
@@ -33,32 +35,41 @@ class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<ChatRoomAdapte
         get() = listDiffer.currentList
         set(value) = listDiffer.submitList(value)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == MESSAGE_TYPE_LEFT){
-            val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_left, parent, false)
-            ViewHolder(binding)
+            val binding = ItemChatLeftBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LeftViewHolder(binding)
         }else{
-            val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_right, parent, false)
-            ViewHolder(binding)
+            val binding = ItemChatRightBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RightViewHolder(binding)
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val chatList = setData[position]
-        holder.message.text = chatList.message
-        holder.date.text = DateTimeUtil.getDescriptiveMessageDateTime(chatList.date.toString(), true)
-
-        // set icon image read
-//        if (chatList.read == false) holder.status.setImageDrawable(R.drawable.ic_chat_unread)
-//        else holder.status.setImageDrawable(R.drawable.ic_chat_read)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = setData[position]
+        when(holder){
+            is LeftViewHolder -> {holder.bind(item)}
+            is RightViewHolder -> {holder.bind(item)}
+        }
     }
 
     override fun getItemCount(): Int = setData.size
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val message: TextView = view.findViewById(R.id.tv_message)
-        val date: TextView = view.findViewById(R.id.tv_date_chat)
-//        val status: ImageView = view.findViewById(R.id.iv_chat_status)
+    class LeftViewHolder(private val binding: ItemChatLeftBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(data: ChatRoomResponse){
+            binding.tvMessage.text = data.message
+            binding.tvDateChat.text = DateTimeUtil.getDescriptiveMessageDateTime(data.date.toString(), true)
+        }
+    }
+
+    class RightViewHolder(private val binding: ItemChatRightBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(data: ChatRoomResponse){
+            binding.tvMessage.text = data.message
+            binding.tvDateChat.text = DateTimeUtil.getDescriptiveMessageDateTime(data.date.toString(), true)
+
+            if (data.read == false) binding.ivChatStatus.setImageDrawable(R.drawable.ic_chat_unread)
+            else binding.ivChatStatus.setImageDrawable(R.drawable.ic_chat_read)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -68,4 +79,5 @@ class ChatRoomAdapter(private val id: Int) : RecyclerView.Adapter<ChatRoomAdapte
             MESSAGE_TYPE_LEFT
         }
     }
+
 }
