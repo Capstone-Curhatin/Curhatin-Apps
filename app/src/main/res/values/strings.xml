@@ -54,6 +54,8 @@
     <string name="review">Review</string>
     <string name="view_all">View All</string>
     <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_foto_profile">Edit Foto</string>
     <string name="name">Name</string>
     <string name="location">Location</string>
     <string name="right_arrow">Right Arrow</string>
