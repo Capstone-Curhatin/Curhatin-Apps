@@ -8,10 +8,7 @@ import com.capstone.core.domain.model.Category
 import com.capstone.core.domain.model.Story
 import com.capstone.core.utils.Endpoints
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface StoryService {
 
@@ -31,5 +28,11 @@ interface StoryService {
     @GET(Endpoints.GET_STORY_BY_USER)
     suspend fun getStoryByUser(
         @Query("page") page: Int
+    ): WrapperPaginate<Story>
+
+    @GET(Endpoints.GET_STORY_BY_CATEGORY)
+    suspend fun getStoryByCategory(
+        @Query("page") page: Int,
+        @Field("category_id") category_id: Int
     ): WrapperPaginate<Story>
 }

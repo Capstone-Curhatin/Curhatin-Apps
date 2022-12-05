@@ -12,4 +12,5 @@
     <color name="colorDividerView">#ECECEC</color>
     <color name="gray">#B7B7B7</color>
     <color name="light_gray">#F1F1F1</color>
+    <color name="gray_8989">#898989</color>
 </resources>

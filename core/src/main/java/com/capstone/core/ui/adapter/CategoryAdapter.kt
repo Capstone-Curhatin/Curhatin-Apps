@@ -1,5 +1,7 @@
 package com.capstone.core.ui.adapter
 
+import android.content.ContentValues
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -46,6 +48,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
             with(binding) {
                 tvCategory.text = data.name
 
+                itemView.setOnClickListener {
+                    listener?.let { listener(data) }
+
+                }
 
             }
         }

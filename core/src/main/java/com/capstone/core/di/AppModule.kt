@@ -12,6 +12,7 @@ import com.capstone.core.data.network.UserService
 import com.capstone.core.data.network.connection.JwtInterceptor
 import com.capstone.core.data.source.*
 import com.capstone.core.data.source.firebase.ChatStorage
+import com.capstone.core.data.source.firebase.CommentStorage
 import com.capstone.core.data.source.firebase.NotificationStorage
 import com.capstone.core.data.source.firebase.WaitingRoomStorage
 import com.capstone.core.utils.MySharedPreference
@@ -122,4 +123,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNotificationDataSource(): NotificationStorage = NotificationDataSource()
+
+    @Provides
+    @Singleton
+    fun provideCommentDataSource(): CommentStorage = CommentDataSource()
 }

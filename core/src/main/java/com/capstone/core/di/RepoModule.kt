@@ -28,4 +28,7 @@ abstract class RepoModule {
 
     @Binds
     abstract fun provideNotificationRepository(repo: NotificationRepository): NotificationRepositoryImpl
+
+    @Binds
+    abstract fun provideCommentRepository(repo: CommentRepository): CommentRepositoryImpl
 }
