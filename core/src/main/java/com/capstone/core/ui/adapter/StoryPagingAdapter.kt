@@ -53,6 +53,10 @@ class StoryPagingAdapter : PagingDataAdapter<Story, StoryPagingAdapter.ViewHolde
                     userPicture.setImageUrl(if(data.user.picture != null) "${BuildConfig.BASE_URL}/public/${data.user.picture}" else data.user.profile_photo_url.toString() )
                 }
 
+                linearComments.setOnClickListener {
+                    listener?.let { listener(data.id) }
+                }
+
             }
         }
     }

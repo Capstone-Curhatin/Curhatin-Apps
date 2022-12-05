@@ -87,35 +87,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_picture" />
 
-    <ImageView
-        android:id="@+id/img_comments"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+    <LinearLayout
+        android:id="@+id/linear_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:src="@drawable/ic_comments"
-        app:layout_constraintStart_toStartOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@id/divider" />
-
-    <TextView
-        android:id="@+id/tv_total_comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/poppins"
-        android:textColor="@color/black_opacity"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_comments"
-        app:layout_constraintStart_toEndOf="@+id/img_comments"
-        app:layout_constraintTop_toTopOf="@+id/img_comments"
-        tools:text="12 comments" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_comment_right"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_total_comments"
+        android:background="@drawable/ripple_rectangle_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_total_comments" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider">
+
+        <ImageView
+            android:id="@+id/img_comments"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_comments" />
+
+        <TextView
+            android:id="@+id/tv_total_comments"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black_opacity"
+            android:textSize="12sp"
+            tools:text="12 comments" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_comment_right" />
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
