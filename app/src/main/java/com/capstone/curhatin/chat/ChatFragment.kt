@@ -166,7 +166,7 @@ class ChatFragment : Fragment() {
                             val timerJob = lifecycleScope.launch(Dispatchers.Main){
                                 delay(Constant.FINDING_DURATION)
                                 stopFinding()
-                                setDialogSad(Constant.WAITING_FAILURE_STATUS)
+                                setDialogSad(Constant.USER_LISTEN_NOT_FOUND)
                             }
                             timerJob.cancel()
                         }

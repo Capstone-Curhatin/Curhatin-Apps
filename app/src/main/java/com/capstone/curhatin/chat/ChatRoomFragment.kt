@@ -16,10 +16,12 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.chat.ChatRoomRequest
 import com.capstone.core.data.request.chat.ReadMessageRequest
 import com.capstone.core.data.request.chat.SendNotificationRequest
+import com.capstone.core.data.request.notification.CreateNotificationRequest
 import com.capstone.core.ui.chat.ChatRoomAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentChatRoomBinding
 import com.capstone.curhatin.viewmodel.ChatViewModel
+import com.capstone.curhatin.viewmodel.NotificationViewModel
 import com.capstone.curhatin.viewmodel.UserViewModel
 import com.google.firebase.database.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,12 +37,14 @@ class ChatRoomFragment : Fragment() {
 
     private val viewModel: ChatViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
+    private val notificationViewModel: NotificationViewModel by viewModels()
 
     private val args: ChatRoomFragmentArgs by navArgs()
     @Inject lateinit var prefs: MySharedPreference
 
     // set read chat from fragment
     private lateinit var stateListener: ValueEventListener
+    private lateinit var resetStateListener: ValueEventListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -115,6 +119,13 @@ class ChatRoomFragment : Fragment() {
                 val send = SendNotificationRequest(args.receiverId, name, message)
                 userViewModel.sendNotification(send)
             }
+
+            val notification = CreateNotificationRequest(
+                receiver_id = args.receiverId, receiver_name = args.receiverName,
+                receiver_image = args.receiverImageUrl, anonymous = args.anonymous,
+                body = Constant.NOTIFICATION_CHAT, date = LocalDateTime.now().toString()
+            )
+            notificationViewModel.createStory(notification)
         }
     }
 
@@ -130,7 +141,7 @@ class ChatRoomFragment : Fragment() {
     }
 
 
-    // set read status
+    // set read status and reset unread count
     private val dbReference: DatabaseReference = FirebaseDatabase.getInstance().getReference(Endpoints.CHAT)
     override fun onStart() {
         super.onStart()
@@ -143,8 +154,19 @@ class ChatRoomFragment : Fragment() {
             }
             override fun onCancelled(error: DatabaseError) {}
         }
+
         dbReference.child(args.receiverId.toString()).child(prefs.getUser().id.toString())
             .child(Endpoints.CHAT_ROOM).addValueEventListener(stateListener)
+
+        resetStateListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.child("unread").ref.setValue(0)
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        }
+
+        dbReference.child(prefs.getUser().id.toString()).child(args.receiverId.toString())
+            .addValueEventListener(resetStateListener)
     }
 
     override fun onStop() {
@@ -152,6 +174,9 @@ class ChatRoomFragment : Fragment() {
         Timber.d("onStop")
         dbReference.child(args.receiverId.toString()).child(prefs.getUser().id.toString())
             .child(Endpoints.CHAT_ROOM).removeEventListener(stateListener)
+
+        dbReference.child(prefs.getUser().id.toString()).child(args.receiverId.toString())
+            .removeEventListener(resetStateListener)
     }
 
 }

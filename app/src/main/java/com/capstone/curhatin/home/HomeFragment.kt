@@ -14,16 +14,12 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.ui.adapter.CategoryAdapter
 import com.capstone.core.ui.adapter.StoryPagingAdapter
 import com.capstone.core.utils.*
-
-import com.capstone.core.utils.MySharedPreference
-import com.capstone.core.utils.navigateDirection
 import com.capstone.curhatin.databinding.FragmentHomeBinding
 import com.capstone.curhatin.viewmodel.AuthViewModel
 import com.capstone.curhatin.viewmodel.CategoryViewModel
 import com.capstone.curhatin.viewmodel.StoryViewModel
 import com.capstone.curhatin.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 import javax.inject.Inject
 
 @AndroidEntryPoint
