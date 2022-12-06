@@ -43,8 +43,11 @@ class ProfileFragment : Fragment() {
         binding.tvEmail.text = pref.getUser().email
         binding.phone.text = pref.getUser().phone
         binding.isAnonymous.isChecked = pref.getAnonymous()
+        binding.circleImageView.setImageUrl(pref.getUser().picture.toString())
 
         binding.myPost.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToMyPostFragment())}
+        binding.getPremium.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToPremiumFragment())}
+        binding.editProfileTitle.setOnClickListener { navigateDirection(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()) }
 
         builder = AlertDialog.Builder(requireActivity())
 

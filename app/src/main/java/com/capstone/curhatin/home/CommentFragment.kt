@@ -1,60 +1,112 @@
 package com.capstone.curhatin.home
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.capstone.curhatin.R
+import androidx.annotation.RequiresApi
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.comment.CreateCommentRequest
+import com.capstone.core.ui.adapter.CommentAdapter
+import com.capstone.core.utils.*
+import com.capstone.curhatin.databinding.FragmentCommentBinding
+import com.capstone.curhatin.viewmodel.CommentViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CommentFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class CommentFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentCommentBinding? = null
+    private val binding get() = _binding!!
+
+    private val args: CommentFragmentArgs by navArgs()
+    private val viewModel: CommentViewModel by viewModels()
+
+    private var isAnonymous = false
+    private lateinit var mAdapter: CommentAdapter
+    @Inject lateinit var prefs: MySharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comment, container, false)
+    ): View {
+        _binding = FragmentCommentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CommentFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CommentFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // back to previous fragment
+        binding.imgBack.setOnClickListener { navigateBack() }
+
+        // set send icon
+        binding.etComment.doOnTextChanged { text, _, _, _ ->
+            if (text?.isEmpty() == true ||
+                text?.isBlank() == true
+            ) binding.ivSend.visibility = View.GONE
+            else binding.ivSend.visibility = View.VISIBLE
+        }
+
+        // set anonymous comment
+        isAnonymous = prefs.getAnonymous()
+        binding.isAnonymous.isChecked = isAnonymous
+        // get value from switch button
+        binding.isAnonymous.setOnCheckedChangeListener { _, _ ->
+            isAnonymous = !isAnonymous
+        }
+
+        binding.ivSend.setOnClickListener { sendComment() }
+
+        setRecycler()
+        readComments()
+    }
+
+    private fun readComments(){
+        viewModel.getComments(args.id.toString()).observe(viewLifecycleOwner){ res ->
+            when(res){
+                is Resource.Loading -> {setLoading()}
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+                    mAdapter.setData = res.data!!
                 }
             }
+        }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun sendComment(){
+        val body = binding.etComment.getTextTrim()
+        val request = CreateCommentRequest(
+            id_story = args.id, id_user = prefs.getUser().id, anonymous = isAnonymous,
+            image = prefs.getUser().picture.toString(), name = prefs.getUser().name, body = body, date = LocalDateTime.now().toString()
+        )
+
+        binding.etComment.text.clear()
+        viewModel.createViewModel(request)
+    }
+
+    private fun setRecycler(){
+        mAdapter = CommentAdapter()
+        binding.rvComments.apply {
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = DefaultItemAnimator()
+        }
+    }
+
 }

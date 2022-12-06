@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createStoryFragment"
             app:destination="@id/createStoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -35,6 +38,12 @@
         <action
             android:id="@+id/action_profileFragment_to_myPostFragment"
             app:destination="@id/myPostFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_premiumFragment"
+            app:destination="@id/premiumFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/createStoryFragment"
@@ -65,4 +74,27 @@
         android:name="com.capstone.curhatin.profile.MyPostFragment"
         android:label="fragment_my_post"
         tools:layout="@layout/fragment_my_post" />
+    <fragment
+        android:id="@+id/premiumFragment"
+        android:name="com.capstone.curhatin.premium.PremiumFragment"
+        android:label="fragment_premium"
+        tools:layout="@layout/fragment_premium" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.capstone.curhatin.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.capstone.curhatin.home.CommentFragment"
+        android:label="fragment_comment"
+        tools:layout="@layout/fragment_comment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.capstone.core.data.source.firebase
+package com.capstone.core.data.source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
