@@ -20,7 +20,7 @@ interface UserService {
         @Field("fcm") fcm: String
     ): Response<GenericResponse>
 
-    @POST(Endpoints.NOTIFICATION)
+    @POST(Endpoints.SEND_NOTIFICATION)
     suspend fun sendNotification(
         @Body request: SendNotificationRequest
     ): Response<Any>

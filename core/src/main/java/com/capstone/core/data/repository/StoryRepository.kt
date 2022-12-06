@@ -11,7 +11,7 @@ import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.data.source.StoryDataSource
 import com.capstone.core.data.source.StoryPagingSource
 import com.capstone.core.data.source.StoryUserPagingSource
-import com.capstone.core.data.source.firebase.StoryCategoryPagingSource
+import com.capstone.core.data.source.StoryCategoryPagingSource
 import com.capstone.core.domain.model.Category
 import com.capstone.core.domain.model.Story
 import com.capstone.core.domain.repository.StoryRepositoryImpl

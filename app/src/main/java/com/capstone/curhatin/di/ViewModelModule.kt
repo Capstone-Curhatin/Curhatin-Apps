@@ -4,6 +4,10 @@ import com.capstone.core.domain.usecase.auth.AuthInteractor
 import com.capstone.core.domain.usecase.auth.AuthUseCase
 import com.capstone.core.domain.usecase.chat.ChatInteractor
 import com.capstone.core.domain.usecase.chat.ChatUseCase
+import com.capstone.core.domain.usecase.comment.CommentInteractor
+import com.capstone.core.domain.usecase.comment.CommentUseCase
+import com.capstone.core.domain.usecase.notification.NotificationInteractor
+import com.capstone.core.domain.usecase.notification.NotificationUseCase
 import com.capstone.core.domain.usecase.story.StoryInteractor
 import com.capstone.core.domain.usecase.story.StoryUseCase
 import com.capstone.core.domain.usecase.user.UserInteractor
@@ -40,4 +44,12 @@ abstract class ViewModelModule(){
     @Binds
     @ViewModelScoped
     abstract fun provideChatUseCase(interactor: ChatInteractor): ChatUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideNotificationUseCase(interactor: NotificationInteractor): NotificationUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideCommentUseCase(interactor: CommentInteractor): CommentUseCase
 }

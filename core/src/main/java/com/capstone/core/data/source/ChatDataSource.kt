@@ -4,6 +4,7 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.chat.ChatRoomRequest
 import com.capstone.core.data.request.chat.ChatUserRequest
 import com.capstone.core.data.request.chat.ReadMessageRequest
+import com.capstone.core.data.request.notification.CreateNotificationRequest
 import com.capstone.core.data.response.chat.ChatRoomResponse
 import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.data.source.firebase.ChatStorage
