@@ -5,56 +5,79 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.core.data.common.Resource
+import com.capstone.core.ui.chat.DoctorAdapter
+import com.capstone.core.utils.MySharedPreference
+import com.capstone.core.utils.setDialogError
+import com.capstone.core.utils.setLoading
+import com.capstone.core.utils.stopLoading
 import com.capstone.curhatin.R
+import com.capstone.curhatin.databinding.FragmentDoctorChatBinding
+import com.capstone.curhatin.databinding.FragmentListDoctorBinding
+import com.capstone.curhatin.viewmodel.DoctorViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ListDoctorFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class ListDoctorFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentListDoctorBinding? = null
+    private val binding get() = _binding!!
+
+    @Inject
+    lateinit var pref: MySharedPreference
+    private val viewModel: DoctorViewModel by viewModels()
+
+    private lateinit var mAdapter: DoctorAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_doctor, container, false)
+        _binding = FragmentListDoctorBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListDoctorFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListDoctorFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setRecycler()
+    }
+
+
+
+    private fun setRecycler() {
+        mAdapter = DoctorAdapter()
+        binding.rvDoctor.apply {
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = DefaultItemAnimator()
+        }
+
+        mAdapter.setOnItemClick { user ->
+//            navigateDirection(
+//                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(
+//                    user.id!!, user.name, user.image_url, user.anonymous!!
+//                )
+//            )
+        }
+
+        viewModel.getDoctor().observe(viewLifecycleOwner) {res ->
+            when(res){
+                is Resource.Loading -> {setLoading()}
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+                    mAdapter.setData = res.data?.data!!
                 }
             }
+        }
     }
+
 }

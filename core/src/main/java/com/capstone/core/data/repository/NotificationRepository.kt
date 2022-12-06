@@ -18,5 +18,4 @@ class NotificationRepository @Inject constructor(private val data: NotificationS
 
     override fun countNotification(id: String): Flow<Resource<Int>> =
         data.countNotification(id)
-
 }

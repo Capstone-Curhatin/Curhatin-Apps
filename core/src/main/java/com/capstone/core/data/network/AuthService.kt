@@ -45,7 +45,6 @@ interface AuthService {
         @Body request: VerifyOtpRequest
     ): Response<GenericResponse>
 
-
     @POST(Endpoints.LOGOUT)
     suspend fun logout(): Response<GenericResponse>
 

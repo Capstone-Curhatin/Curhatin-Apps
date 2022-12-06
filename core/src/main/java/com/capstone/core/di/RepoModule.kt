@@ -31,4 +31,7 @@ abstract class RepoModule {
 
     @Binds
     abstract fun provideCommentRepository(repo: CommentRepository): CommentRepositoryImpl
+
+    @Binds
+    abstract fun provideDoctorRepository(repo: DoctorRepository): DoctorRepositoryImpl
 }

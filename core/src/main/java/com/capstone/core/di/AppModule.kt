@@ -7,6 +7,7 @@ import com.capstone.core.data.common.ErrorParser
 import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.AuthService
+import com.capstone.core.data.network.DoctorService
 import com.capstone.core.data.network.StoryService
 import com.capstone.core.data.network.UserService
 import com.capstone.core.data.network.connection.JwtInterceptor
@@ -86,6 +87,11 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideDoctorService(retrofit: Retrofit): DoctorService =
+        retrofit.create(DoctorService::class.java)
+
+    @Provides
+    @Singleton
     fun provideAuthDataSource(
         safeCall: SafeCall,
         errorParser: ErrorParser,
@@ -111,6 +117,15 @@ object AppModule {
         service: UserService,
         prefs: MySharedPreference
     ) = UserDataSource(safeCall, dispatcher, errorParser, service, prefs)
+
+    @Provides
+    @Singleton
+    fun provideDoctorDataSource(
+        safeCall: SafeCall,
+        dispatcher: MyDispatchers,
+        errorParser: ErrorParser,
+        service: DoctorService
+    ) = DoctorDataSource(safeCall, dispatcher, errorParser, service)
 
     @Provides
     @Singleton
