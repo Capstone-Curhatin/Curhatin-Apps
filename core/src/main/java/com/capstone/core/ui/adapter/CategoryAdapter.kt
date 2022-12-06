@@ -48,11 +48,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
             with(binding) {
                 tvCategory.text = data.name
 
-                itemView.setOnClickListener {
+                tvCategory.setOnClickListener {
                     listener?.let { listener(data) }
 
                 }
-
             }
         }
     }

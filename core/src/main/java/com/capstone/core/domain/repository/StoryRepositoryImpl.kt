@@ -10,11 +10,10 @@ import com.capstone.core.domain.model.Story
 import kotlinx.coroutines.flow.Flow
 
 interface StoryRepositoryImpl {
-
     fun createStory(request: StoryRequest): Flow<Resource<GenericResponse>>
     fun getStory(): Flow<PagingData<Story>>
     fun getCategory(): Flow<Resource<WrapperList<Category>>>
     fun getStoryByUser(): Flow<PagingData<Story>>
     fun getStoryByCategory(id: Int): Flow<PagingData<Story>>
-
+    fun increment(id: Int): Flow<Resource<Any>>
 }

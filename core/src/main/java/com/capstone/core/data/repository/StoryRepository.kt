@@ -11,7 +11,6 @@ import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.data.source.StoryDataSource
 import com.capstone.core.data.source.StoryPagingSource
 import com.capstone.core.data.source.StoryUserPagingSource
-import com.capstone.core.data.source.StoryCategoryPagingSource
 import com.capstone.core.domain.model.Category
 import com.capstone.core.domain.model.Story
 import com.capstone.core.domain.repository.StoryRepositoryImpl
@@ -50,6 +49,9 @@ class StoryRepository @Inject constructor(
             pageSize = 5,
             maxSize = 20,
             enablePlaceholders = false
-        ), pagingSourceFactory = { StoryCategoryPagingSource(service,id) }
+        ), pagingSourceFactory = { StoryPagingSource(service, id) }
     ).flow
+
+    override fun increment(id: Int): Flow<Resource<Any>> =
+        data.increment(id)
 }

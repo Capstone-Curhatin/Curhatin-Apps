@@ -33,6 +33,17 @@ interface StoryService {
     @GET(Endpoints.GET_STORY_BY_CATEGORY)
     suspend fun getStoryByCategory(
         @Query("page") page: Int,
-        @Field("category_id") category_id: Int
+        @Path("id") id: Int
     ): WrapperPaginate<Story>
+
+    @GET(Endpoints.INCREMENT_COMMENTS)
+    suspend fun increment(
+        @Path("id") id: Int
+    ): Response<Any>
+
+    @GET(Endpoints.DECREMENT_COMMENTS)
+    suspend fun decrement(
+        @Path("id") id: Int
+    ): Response<Any>
+
 }

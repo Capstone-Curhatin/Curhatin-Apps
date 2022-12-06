@@ -10,8 +10,7 @@ data class CreateNotificationRequest(
     val body: String? = null,
     val anonymous: Boolean? = false,
     val date: String? = null,
-    val read: Boolean? = false,
-    val unread: Int? = 0
+    val read: Boolean? = false
 ){
 
     @Exclude
@@ -25,12 +24,6 @@ data class CreateNotificationRequest(
             "anonymous" to anonymous,
             "date" to date,
             "read" to read
-        )
-
-    @Exclude
-    fun unreadToMap(): Map<String, Any?> =
-        mapOf(
-            "unread" to unread
         )
 
 }

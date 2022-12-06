@@ -50,7 +50,7 @@ class StoryPagingAdapter : PagingDataAdapter<Story, StoryPagingAdapter.ViewHolde
                 tvTotalComments.text = if (data.comments <= 0) "No comments" else "${data.comments} comments"
 
                 if (!data.is_anonymous){
-                    userPicture.setImageUrl(if(data.user.picture != null) "${BuildConfig.BASE_URL}/public/${data.user.picture}" else data.user.profile_photo_url.toString() )
+                    userPicture.setImageUrl(data.user.picture ?: data.user.profile_photo_url.toString())
                 }
 
                 linearComments.setOnClickListener {
