@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    tools:context=".profile.EditProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,19 +25,9 @@
             android:id="@+id/back_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/arrow_white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/tick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="360dp"
-            android:layout_marginTop="25dp"
-            android:src="@drawable/ic_tick"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,61 +35,50 @@
             android:id="@+id/edit_profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_semibold"
             android:text="@string/edit_profile"
             android:textColor="@color/white"
-            android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
+            app:layout_constraintStart_toEndOf="@+id/back_arrow"
+            app:layout_constraintTop_toTopOf="@+id/back_arrow" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="137dp"
+            android:id="@+id/iv_user"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/bg_oval_white"
             android:elevation="10dp"
+            android:padding="5dp"
             android:src="@drawable/foto_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_picture"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="130dp"
-            android:background="@drawable/bg_oval_white"
-            android:padding="10dp"
-            android:src="@drawable/ic_person"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
-
         <com.capstone.curhatin.customview.NameEditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
             android:backgroundTint="@color/gray"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_picture" />
+            app:layout_constraintTop_toBottomOf="@+id/ev_profile" />
 
         <com.capstone.curhatin.customview.PhoneEditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="24dp"
             android:backgroundTint="@color/gray"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,19 +86,19 @@
             app:layout_constraintTop_toBottomOf="@+id/et_username" />
 
         <TextView
-            android:id="@+id/edit_foto_profile"
-            android:layout_width="56dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="16dp"
+            android:id="@+id/ev_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:elevation="10dp"
             android:fontFamily="@font/poppins"
             android:gravity="center"
             android:text="@string/edit_foto_profile"
             android:textColor="@color/blue"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/circleImageView"
-            app:layout_constraintStart_toStartOf="@+id/circleImageView"
-            app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_user"
+            app:layout_constraintStart_toStartOf="@+id/iv_user"
+            app:layout_constraintTop_toBottomOf="@+id/iv_user" />
 
         <TextView
             android:id="@+id/copyright"
@@ -136,5 +116,20 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/button_login"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/save_profile"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/copyright"
+            tools:layout_editor_absoluteX="24dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+
+</FrameLayout>

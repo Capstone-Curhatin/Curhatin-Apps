@@ -95,4 +95,6 @@
     <string name="str_number">STR Number</string>
     <string name="comments">Comments</string>
     <string name="send_button">Send Button</string>
+    <string name="update_profile_message_alert">Profile berhasil diubah</string>
+    <string name="save_profile">Save Profile</string>
 </resources>

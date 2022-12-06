@@ -66,8 +66,8 @@
 
             <TextView
                 android:id="@+id/edit_profile_title"
-                android:layout_width="65dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/profile_role_premium"
                 android:elevation="10dp"
@@ -76,6 +76,7 @@
                 android:text="@string/edit_profile"
                 android:textColor="@color/white"
                 android:textSize="11sp"
+                android:padding="3dp"
                 app:layout_constraintEnd_toEndOf="@+id/appCompatButton"
                 app:layout_constraintHorizontal_bias="0.905"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView"
