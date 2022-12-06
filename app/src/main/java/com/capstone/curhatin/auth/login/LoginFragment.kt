@@ -69,7 +69,7 @@ class LoginFragment : Fragment() {
                         prefs.setToken(data?.access_token.toString())
 
                         val user = data?.user
-                        val picture = user?.picture ?: user?.profile_photo_url
+                        val picture = user?.picture ?: Constant.ANONYMOUS_IMAGE
                         val data = User(
                             id = user!!.id, name = user.name, email = user.email, phone = user.phone,
                             picture = picture, role = user.role, otp = user.otp

@@ -98,4 +98,5 @@
     <string name="send_button">Send Button</string>
     <string name="update_profile_message_alert">Profile berhasil diubah</string>
     <string name="save_profile">Save Profile</string>
+    <string name="write_a_comment">Write a comment...</string>
 </resources>
