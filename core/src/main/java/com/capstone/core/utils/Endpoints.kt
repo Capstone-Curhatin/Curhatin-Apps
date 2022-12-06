@@ -18,8 +18,9 @@ object Endpoints {
     const val GET_STORY = "getAllStory"
     const val GET_CATEGORY = "getAllCategory"
     const val GET_STORY_BY_USER = "getStoryByUser"
-    const val GET_STORY_BY_CATEGORY = "getStoryByCategory"
-
+    const val GET_STORY_BY_CATEGORY = "getStoryByCategory/{category_id}/"
+    const val INCREMENT_COMMENTS = "incrementComment/{id}"
+    const val DECREMENT_COMMENTS = "decrementComment/{id}"
 
     // Firebase
     const val FETCH_USER = "fetch"

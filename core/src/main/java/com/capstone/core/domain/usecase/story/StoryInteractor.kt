@@ -29,4 +29,7 @@ class StoryInteractor @Inject constructor(
 
     override fun getStoryByCategory(id: Int): Flow<PagingData<Story>> =
         repo.getStoryByCategory(id)
+
+    override fun increment(id: Int): Flow<Resource<Any>> =
+        repo.increment(id)
 }

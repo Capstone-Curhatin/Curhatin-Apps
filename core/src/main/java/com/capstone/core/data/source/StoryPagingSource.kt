@@ -9,7 +9,10 @@ import com.capstone.core.utils.Constant
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class StoryPagingSource @Inject constructor(private val service: StoryService) : PagingSource<Int, Story>() {
+class StoryPagingSource @Inject constructor(
+    private val service: StoryService,
+    private val category_id: Int? = null
+) : PagingSource<Int, Story>() {
 
     override fun getRefreshKey(state: PagingState<Int, Story>): Int? =
         state.anchorPosition?.let { position ->
@@ -20,7 +23,10 @@ class StoryPagingSource @Inject constructor(private val service: StoryService) :
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Story> =
         try {
             val position = params.key ?: Constant.STARTING_INDEX
-            val result = service.getStory(position)
+            val result = when {
+                category_id != null -> {service.getStoryByCategory(position, category_id)}
+                else -> service.getStory(position)
+            }
 
             val stories = result.data
 

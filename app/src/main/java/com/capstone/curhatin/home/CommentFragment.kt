@@ -18,6 +18,7 @@ import com.capstone.core.ui.adapter.CommentAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentCommentBinding
 import com.capstone.curhatin.viewmodel.CommentViewModel
+import com.capstone.curhatin.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -30,6 +31,7 @@ class CommentFragment : Fragment() {
 
     private val args: CommentFragmentArgs by navArgs()
     private val viewModel: CommentViewModel by viewModels()
+    private val storyViewModel: StoryViewModel by viewModels()
 
     private var isAnonymous = false
     private lateinit var mAdapter: CommentAdapter
@@ -98,6 +100,7 @@ class CommentFragment : Fragment() {
 
         binding.etComment.text.clear()
         viewModel.createViewModel(request)
+        storyViewModel.increment(args.id)
     }
 
     private fun setRecycler(){

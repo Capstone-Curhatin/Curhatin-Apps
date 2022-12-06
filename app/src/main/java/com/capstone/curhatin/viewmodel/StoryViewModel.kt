@@ -12,7 +12,11 @@ import com.capstone.core.data.response.GenericResponse
 import com.capstone.core.domain.model.Story
 import com.capstone.core.domain.usecase.story.StoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,4 +32,13 @@ class StoryViewModel @Inject constructor(
 
     fun getStoryByUser(): LiveData<PagingData<Story>> =
         useCase.getStoryByUser().distinctUntilChanged().cachedIn(viewModelScope).asLiveData()
+
+    fun getStoryByCategory(id: Int): LiveData<PagingData<Story>> =
+        useCase.getStoryByCategory(id).distinctUntilChanged().cachedIn(viewModelScope).asLiveData()
+
+    fun increment(id: Int) {
+        viewModelScope.launch(Dispatchers.IO){
+            useCase.increment(id).collectLatest {}
+        }
+    }
 }

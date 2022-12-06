@@ -35,4 +35,10 @@ class StoryDataSource @Inject constructor(
         emit(res)
     }.flowOn(dispatchers.io)
 
+    fun increment(id: Int): Flow<Resource<Any>> = flow {
+        emit(Resource.Loading())
+
+        val res = safeCall.enqueue(id, errorParser::converterGenericError, service::increment)
+        emit(res)
+    }.flowOn(dispatchers.io)
 }
