@@ -1,11 +1,14 @@
 package com.capstone.curhatin.di
 
+import com.capstone.core.domain.model.Doctor
 import com.capstone.core.domain.usecase.auth.AuthInteractor
 import com.capstone.core.domain.usecase.auth.AuthUseCase
 import com.capstone.core.domain.usecase.chat.ChatInteractor
 import com.capstone.core.domain.usecase.chat.ChatUseCase
 import com.capstone.core.domain.usecase.comment.CommentInteractor
 import com.capstone.core.domain.usecase.comment.CommentUseCase
+import com.capstone.core.domain.usecase.doctor.DoctorInteractor
+import com.capstone.core.domain.usecase.doctor.DoctorUseCase
 import com.capstone.core.domain.usecase.notification.NotificationInteractor
 import com.capstone.core.domain.usecase.notification.NotificationUseCase
 import com.capstone.core.domain.usecase.story.StoryInteractor
@@ -52,4 +55,8 @@ abstract class ViewModelModule(){
     @Binds
     @ViewModelScoped
     abstract fun provideCommentUseCase(interactor: CommentInteractor): CommentUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideDoctorUseCase(interactor: DoctorInteractor): DoctorUseCase
 }

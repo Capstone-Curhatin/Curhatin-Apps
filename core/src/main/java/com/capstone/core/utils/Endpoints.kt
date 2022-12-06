@@ -34,4 +34,7 @@ object Endpoints {
     const val MY_NOTIFICATION = "my_notification"
     const val COMMENT = "comment"
 
+    //Doctor
+    const val GET_DOCTOR = "getDoctor"
+
 }

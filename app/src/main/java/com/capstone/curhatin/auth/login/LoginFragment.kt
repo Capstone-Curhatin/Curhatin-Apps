@@ -72,7 +72,7 @@ class LoginFragment : Fragment() {
                         val picture = user?.picture ?: Constant.ANONYMOUS_IMAGE
                         val data = User(
                             id = user!!.id, name = user.name, email = user.email, phone = user.phone,
-                            picture = picture, role = user.role, otp = user.otp
+                            picture = picture, role = user.role, otp = user.otp, is_premium = user.is_premium
                         )
                         prefs.setUser(data)
 

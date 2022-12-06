@@ -31,7 +31,6 @@ class AuthInteractor @Inject constructor(
     override fun verifyOtp(request: VerifyOtpRequest): Flow<Resource<GenericResponse>> =
         repo.verifyOtp(request)
 
-
     override fun logout(): Flow<Resource<GenericResponse>> =
         repo.logout()
 
