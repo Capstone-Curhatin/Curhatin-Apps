@@ -5,6 +5,7 @@ import android.view.View
 import android.view.WindowManager.LayoutParams
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.core.data.common.Resource
@@ -41,6 +42,11 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
         val navController = navHost.navController
         bottomNav.setupWithNavController(navController)
+
+        if (prefs.getUser().role == 1) {
+            bottomNav.menu[1].isEnabled = false
+            bottomNav.menu[1].isVisible = false
+        }
 
         navController.addOnDestinationChangedListener { _, dest, _ ->
             when (dest.id) {

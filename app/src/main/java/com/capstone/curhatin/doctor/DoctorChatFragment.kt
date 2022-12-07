@@ -66,6 +66,7 @@ class DoctorChatFragment : Fragment() {
             binding.rvChat.visibility = View.VISIBLE
             binding.constraintPremium.visibility = View.GONE
             binding.imgAdd.visibility = View.GONE
+            observable()
         }else checkPremium()
     }
 
