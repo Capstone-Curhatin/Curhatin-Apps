@@ -63,7 +63,7 @@ class MySharedPreference(context: Context) {
             putInt(ROLE, data.role)
             putString(PICTURE, data.picture)
             putInt(OTP, data.otp)
-            putBoolean(IS_PREMIUM, data.is_premium!!)
+            putBoolean(IS_PREMIUM, data.is_premium)
             apply()
         }
     }
