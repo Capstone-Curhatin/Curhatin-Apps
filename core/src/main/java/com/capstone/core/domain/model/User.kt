@@ -7,7 +7,7 @@ data class User(
     val email_verified_at: String? = null,
     val role: Int,
     val picture: String? = null,
-    val is_premium: Boolean? = null,
+    val is_premium: Boolean,
     val premium_period: String? = null,
     val phone: String,
     val otp: Int,

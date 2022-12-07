@@ -7,12 +7,22 @@
     tools:context=".premium.PremiumFragment">
 
     <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/eva_arrow_back_outline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="209dp"
         android:layout_marginTop="29dp"
         android:src="@drawable/pic_premium"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/back_arrow"
         tools:layout_editor_absoluteX="0dp" />
 
     <ImageView
