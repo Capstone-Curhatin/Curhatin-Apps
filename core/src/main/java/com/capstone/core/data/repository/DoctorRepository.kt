@@ -23,4 +23,7 @@ class DoctorRepository @Inject constructor(
     override fun getDoctor(): Flow<Resource<WrapperList<User>>> =
         data.getDoctor()
 
+    override fun detailDoctor(id: Int): Flow<Resource<WrapperList<User>>> =
+        data.detailDoctor(id)
+
 }

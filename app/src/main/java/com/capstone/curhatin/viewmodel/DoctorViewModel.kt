@@ -23,4 +23,7 @@ class DoctorViewModel @Inject constructor(
 
     fun getDoctor(): LiveData<Resource<WrapperList<User>>> =
         useCase.getDoctor().asLiveData()
+
+    fun detailDoctor(id: Int): LiveData<Resource<WrapperList<User>>> =
+        useCase.detailDoctor(id).asLiveData()
 }

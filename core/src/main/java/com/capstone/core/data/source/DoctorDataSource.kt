@@ -27,4 +27,11 @@ class DoctorDataSource @Inject constructor(
         val res = safeCall.enqueue(errorParser::converterGenericError, service::getDoctor)
         emit(res)
     }.flowOn(dispatchers.io)
+
+    fun detailDoctor(id: Int): Flow<Resource<WrapperList<User>>> = flow {
+        emit(Resource.Loading())
+
+        val res = safeCall.enqueue(id, errorParser::converterGenericError, service::detailDoctor)
+        emit(res)
+    }.flowOn(dispatchers.io)
 }

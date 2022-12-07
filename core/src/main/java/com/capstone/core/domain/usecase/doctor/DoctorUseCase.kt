@@ -11,4 +11,5 @@ import kotlinx.coroutines.flow.Flow
 interface DoctorUseCase {
 
     fun getDoctor(): Flow<Resource<WrapperList<User>>>
+    fun detailDoctor(id: Int): Flow<Resource<WrapperList<User>>>
 }

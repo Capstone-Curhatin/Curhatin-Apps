@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.ui.chat.DoctorAdapter
-import com.capstone.core.utils.MySharedPreference
-import com.capstone.core.utils.setDialogError
-import com.capstone.core.utils.setLoading
-import com.capstone.core.utils.stopLoading
+import com.capstone.core.utils.*
 import com.capstone.curhatin.R
 import com.capstone.curhatin.databinding.FragmentDoctorChatBinding
 import com.capstone.curhatin.databinding.FragmentListDoctorBinding
@@ -57,13 +54,6 @@ class ListDoctorFragment : Fragment() {
             itemAnimator = DefaultItemAnimator()
         }
 
-        mAdapter.setOnItemClick { user ->
-//            navigateDirection(
-//                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(
-//                    user.id!!, user.name, user.image_url, user.anonymous!!
-//                )
-//            )
-        }
 
         viewModel.getDoctor().observe(viewLifecycleOwner) {res ->
             when(res){
@@ -75,7 +65,14 @@ class ListDoctorFragment : Fragment() {
                 is Resource.Success -> {
                     stopLoading()
                     mAdapter.setData = res.data?.data!!
+
+
                 }
+            }
+            mAdapter.setOnItemClick {user ->
+                navigateDirection(
+                    ListDoctorFragmentDirections.actionListDoctorFragmentToProfileDoctorFragment(
+                        user.id) )
             }
         }
     }

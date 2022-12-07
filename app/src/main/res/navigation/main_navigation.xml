@@ -105,5 +105,19 @@
         android:id="@+id/listDoctorFragment"
         android:name="com.capstone.curhatin.doctor.ListDoctorFragment"
         android:label="fragment_list_doctor"
-        tools:layout="@layout/fragment_list_doctor" />
+        tools:layout="@layout/fragment_list_doctor" >
+        <action
+            android:id="@+id/action_listDoctorFragment_to_profileDoctorFragment"
+            app:destination="@id/profileDoctorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileDoctorFragment"
+        android:name="com.capstone.curhatin.doctor.ProfileDoctorFragment"
+        android:label="fragment_profile_doctor"
+        tools:layout="@layout/fragment_profile_doctor" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+    </fragment>
 </navigation>

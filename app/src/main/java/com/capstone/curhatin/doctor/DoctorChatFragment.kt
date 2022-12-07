@@ -44,7 +44,7 @@ class DoctorChatFragment : Fragment() {
     }
 
     private fun checkPremium() {
-        if (pref.getUser().is_premium) {
+        if (!pref.getUser().is_premium) {
             binding.rvChatDoctor.visibility = View.VISIBLE
             binding.constraintPremium.visibility = View.GONE
         } else {
