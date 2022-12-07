@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.notification.CreateNotificationRequest
+import com.capstone.core.data.response.NotificationResponse
 import com.capstone.core.domain.usecase.notification.NotificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,10 +20,14 @@ class NotificationViewModel @Inject constructor(private val useCase: Notificatio
 
     fun createStory(request: CreateNotificationRequest) {
         viewModelScope.launch(Dispatchers.IO){
-            useCase.createNotification(request).collectLatest {
-                Timber.d("Send Notification: $it")
-            }
+            useCase.createNotification(request).collectLatest {}
         }
     }
+
+    fun getNotification(id: String): LiveData<Resource<List<NotificationResponse>>> =
+        useCase.getNotification(id).asLiveData()
+
+    fun getCountNotification(id: String): LiveData<Resource<Int>> =
+        useCase.countNotification(id).asLiveData()
 
 }

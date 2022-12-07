@@ -30,20 +30,20 @@
         app:layout_constraintStart_toEndOf="@+id/iv_back"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_count"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/bg_notif"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        tools:text="20"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SmallSp" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_count"-->
+<!--        android:layout_width="18dp"-->
+<!--        android:layout_height="18dp"-->
+<!--        android:layout_marginTop="11dp"-->
+<!--        android:background="@drawable/bg_notif"-->
+<!--        android:fontFamily="@font/poppins"-->
+<!--        android:gravity="center"-->
+<!--        tools:text="20"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="10sp"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textView5"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="SmallSp" />-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,6 +57,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

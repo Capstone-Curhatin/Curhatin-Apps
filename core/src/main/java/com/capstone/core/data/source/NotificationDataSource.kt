@@ -60,6 +60,9 @@ class NotificationDataSource : NotificationStorage {
             if (task.isSuccessful){
                 val sum = task.result.childrenCount.toInt()
                 trySend(Resource.Success(sum))
+                Timber.d("Count: $sum")
+            }else{
+                Timber.d("Error")
             }
         }
 
