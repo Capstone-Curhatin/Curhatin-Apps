@@ -49,6 +49,14 @@ class DoctorChatFragment : Fragment() {
             itemAnimator = DefaultItemAnimator()
         }
 
+        mAdapter.setOnItemClick { user ->
+            navigateDirection(
+                DoctorChatFragmentDirections.actionDoctorChatFragmentToChatRoomDoctorFragment(
+                    user.id!!, user.name, user.image_url
+                )
+            )
+        }
+
         checkRole()
     }
 

@@ -94,6 +94,7 @@ class ChatRoomFragment : Fragment() {
                 is Resource.Success -> {
                     stopLoading()
                     mAdapter.setData = res.data!!
+                    Timber.d("Data: ${res.data}")
                     if (res.data!!.isNotEmpty()) binding.rvChat.smoothScrollToPosition(res.data!!.size - 1)
                 }
             }

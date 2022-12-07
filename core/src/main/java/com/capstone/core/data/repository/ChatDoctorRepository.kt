@@ -1,7 +1,9 @@
 package com.capstone.core.data.repository
 
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.chat.ReadMessageRequest
 import com.capstone.core.data.request.doctor.ChatRoomDoctorRequest
+import com.capstone.core.data.response.chat.ChatRoomResponse
 import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.data.source.firebase.ChatDoctorStorage
 import com.capstone.core.domain.repository.ChatDoctorRepositoryImpl
@@ -15,4 +17,7 @@ class ChatDoctorRepository @Inject constructor(private val data: ChatDoctorStora
 
     override fun sendMessage(request: ChatRoomDoctorRequest): Flow<Resource<Boolean>> =
         data.sendMessage(request)
+
+    override fun readMessage(request: ReadMessageRequest): Flow<Resource<List<ChatRoomResponse>>> =
+        data.readMessage(request)
 }

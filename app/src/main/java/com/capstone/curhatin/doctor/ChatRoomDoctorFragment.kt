@@ -10,8 +10,13 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.chat.ReadMessageRequest
 import com.capstone.core.data.request.chat.SendNotificationRequest
 import com.capstone.core.data.request.doctor.ChatRoomDoctorRequest
+import com.capstone.core.ui.chat.ChatRoomAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentChatRoomDoctorBinding
 import com.capstone.curhatin.viewmodel.ChatDoctorViewModel
@@ -54,8 +59,36 @@ class ChatRoomDoctorFragment : Fragment() {
             else binding.ivSend.visibility = View.VISIBLE
         }
 
+        readMessage()
         sendMessage()
         setHeader()
+    }
+
+    private fun readMessage(){
+        val mAdapter = ChatRoomAdapter(prefs.getUser().id)
+        binding.rvChat.apply {
+            adapter = mAdapter
+            val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            manager.stackFromEnd = true
+            layoutManager = manager
+            itemAnimator = DefaultItemAnimator()
+        }
+
+        val req = ReadMessageRequest(prefs.getUser().id, args.receiverId)
+        viewModel.readMessage(req).observe(viewLifecycleOwner) { res ->
+            when(res){
+                is Resource.Loading -> {setLoading()}
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+                    mAdapter.setData = res.data!!
+                    if (res.data!!.isNotEmpty()) binding.rvChat.smoothScrollToPosition(res.data!!.size - 1)
+                }
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

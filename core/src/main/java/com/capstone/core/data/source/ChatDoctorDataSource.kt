@@ -1,7 +1,9 @@
 package com.capstone.core.data.source
 
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.request.chat.ReadMessageRequest
 import com.capstone.core.data.request.doctor.ChatRoomDoctorRequest
+import com.capstone.core.data.response.chat.ChatRoomResponse
 import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.data.source.firebase.ChatDoctorStorage
 import com.capstone.core.utils.Endpoints
@@ -50,13 +52,13 @@ class ChatDoctorDataSource : ChatDoctorStorage {
         db.child(request.sender_id.toString()).child(request.receiver_id.toString()).child(Endpoints.CHAT_ROOM)
             .child(request.id.toString()).setValue(request.toMessageMap())
             .addOnSuccessListener {
-                db.child(request.sender_id.toString()).child(request.receiver_id.toString()).updateChildren(request.toSender())
+                db.child(request.sender_id.toString()).child(request.receiver_id.toString()).updateChildren(request.toReceiver())
 
                 // set data for receiver
                 db.child(request.receiver_id.toString()).child(request.sender_id.toString()).child(Endpoints.CHAT_ROOM)
                     .child(request.id.toString()).setValue(request.toMessageMap())
                     .addOnSuccessListener {
-                    db.child(request.receiver_id.toString()).child(request.sender_id.toString()).updateChildren(request.toReceiver())
+                    db.child(request.receiver_id.toString()).child(request.sender_id.toString()).updateChildren(request.toSender())
 
                         // get unread messages from sender
                         val query = db.child(request.sender_id.toString()).child(request.receiver_id.toString()).child(Endpoints.CHAT_ROOM)
@@ -65,9 +67,9 @@ class ChatDoctorDataSource : ChatDoctorStorage {
                         query.get().addOnCompleteListener { task ->
                             if (task.isSuccessful){
                                 val count = task.result.childrenCount.toInt()
-                                Timber.d("COUNT: $count")
+                                // set to receiver
                                 request.unread = count
-                                db.child(request.receiver_id.toString()).child(request.sender_id.toString()).updateChildren(request.toReceiver())
+                                db.child(request.receiver_id.toString()).child(request.sender_id.toString()).updateChildren(request.toSender())
                             }
                         }
 
@@ -80,6 +82,29 @@ class ChatDoctorDataSource : ChatDoctorStorage {
             .addOnFailureListener {
                 trySend(Resource.Error(it.printStackTrace().toString()))
             }
+
+        awaitClose { this.close() }
+    }
+
+    override fun readMessage(request: ReadMessageRequest): Flow<Resource<List<ChatRoomResponse>>> = callbackFlow {
+        trySend(Resource.Loading())
+
+        db.child(request.sender_id.toString()).child(request.receive_id.toString()).child(Endpoints.CHAT_ROOM)
+            .addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val list = ArrayList<ChatRoomResponse>()
+
+                    snapshot.children.forEach {
+                        val data = it.getValue(ChatRoomResponse::class.java)
+                        if (data != null) list.add(data)
+                    }
+                    trySend(Resource.Success(list))
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    trySend(Resource.Error(error.message))
+                }
+            })
 
         awaitClose { this.close() }
     }
