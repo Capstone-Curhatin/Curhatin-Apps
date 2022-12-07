@@ -94,6 +94,7 @@ class ChatRoomFragment : Fragment() {
                 is Resource.Success -> {
                     stopLoading()
                     mAdapter.setData = res.data!!
+                    Timber.d("Data: ${res.data}")
                     if (res.data!!.isNotEmpty()) binding.rvChat.smoothScrollToPosition(res.data!!.size - 1)
                 }
             }
@@ -122,8 +123,8 @@ class ChatRoomFragment : Fragment() {
 
             val notification = CreateNotificationRequest(
                 receiver_id = args.receiverId, receiver_name = args.receiverName,
-                receiver_image = args.receiverImageUrl, anonymous = args.anonymous,
-                body = Constant.NOTIFICATION_CHAT, date = LocalDateTime.now().toString()
+                receiver_image = args.receiverImageUrl, anonymous = prefs.getAnonymous(),
+                body = Constant.NOTIFICATION_CHAT, date = LocalDateTime.now().toString(), type = Constant.TYPE_CHAT
             )
             notificationViewModel.createStory(notification)
         }
@@ -137,7 +138,6 @@ class ChatRoomFragment : Fragment() {
             binding.tvName.text = args.receiverName
             binding.ivProfile.setImageUrl(args.receiverImageUrl.toString())
         }
-
     }
 
 

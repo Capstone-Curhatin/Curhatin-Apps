@@ -5,6 +5,8 @@ import com.capstone.core.domain.usecase.auth.AuthInteractor
 import com.capstone.core.domain.usecase.auth.AuthUseCase
 import com.capstone.core.domain.usecase.chat.ChatInteractor
 import com.capstone.core.domain.usecase.chat.ChatUseCase
+import com.capstone.core.domain.usecase.chatDoctor.ChatDoctorInteractor
+import com.capstone.core.domain.usecase.chatDoctor.ChatDoctorUseCase
 import com.capstone.core.domain.usecase.comment.CommentInteractor
 import com.capstone.core.domain.usecase.comment.CommentUseCase
 import com.capstone.core.domain.usecase.doctor.DoctorInteractor
@@ -59,4 +61,8 @@ abstract class ViewModelModule(){
     @Binds
     @ViewModelScoped
     abstract fun provideDoctorUseCase(interactor: DoctorInteractor): DoctorUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideChatDoctorUseCase(interactor: ChatDoctorInteractor): ChatDoctorUseCase
 }

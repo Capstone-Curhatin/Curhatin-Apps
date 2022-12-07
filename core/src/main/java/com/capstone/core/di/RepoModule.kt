@@ -34,4 +34,7 @@ abstract class RepoModule {
 
     @Binds
     abstract fun provideDoctorRepository(repo: DoctorRepository): DoctorRepositoryImpl
+
+    @Binds
+    abstract fun provideChatDoctorRepository(repo: ChatDoctorRepository): ChatDoctorRepositoryImpl
 }

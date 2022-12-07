@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="85dp"
     android:layout_marginStart="16dp"
@@ -38,6 +38,7 @@
             android:fontFamily="@font/poppins_medium"
             android:text="@string/nama_dokter"
             android:textSize="14sp"
+            android:textColor="@color/black_opacity"
             app:layout_constraintBottom_toTopOf="@+id/tv_sp_dokter"
             app:layout_constraintStart_toStartOf="@+id/tv_sp_dokter"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +51,7 @@
             android:layout_marginTop="1dp"
             android:fontFamily="@font/poppins"
             android:text="@string/sp_doc"
-            android:textSize="8sp"
+            android:textSize="10sp"
             app:layout_constraintStart_toEndOf="@+id/img_picture"
             app:layout_constraintTop_toBottomOf="@+id/tv_nama_dokter" />
 
@@ -79,36 +80,40 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:text="@string/experience"
-            android:textSize="8sp"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
-        <TextView
-            android:id="@+id/tv_review"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/bg_info_doctor"
-            android:drawableStart="@drawable/ic_review"
-            android:fontFamily="@font/poppins"
-            android:padding="2dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:text="@string/review"
-            android:textSize="8sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_experience"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_review"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="16dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:background="@drawable/bg_info_doctor"-->
+<!--            android:drawableStart="@drawable/ic_review"-->
+<!--            android:fontFamily="@font/poppins"-->
+<!--            android:padding="2dp"-->
+<!--            android:paddingStart="4dp"-->
+<!--            android:paddingEnd="4dp"-->
+<!--            android:text="@string/review"-->
+<!--            android:textSize="8sp"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tv_experience"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/view" />-->
 
         <ImageView
+            android:id="@+id/img_chat"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="1dp"
             android:src="@drawable/ic_chat"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/view"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>
 
 

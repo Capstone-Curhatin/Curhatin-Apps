@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_doctorChatFragment_to_listDoctorFragment"
             app:destination="@id/listDoctorFragment" />
+        <action
+            android:id="@+id/action_doctorChatFragment_to_chatRoomDoctorFragment"
+            app:destination="@id/chatRoomDoctorFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -102,8 +108,35 @@
             app:argType="integer" />
     </fragment>
     <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.capstone.curhatin.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
         android:id="@+id/listDoctorFragment"
         android:name="com.capstone.curhatin.doctor.ListDoctorFragment"
         android:label="fragment_list_doctor"
-        tools:layout="@layout/fragment_list_doctor" />
+        tools:layout="@layout/fragment_list_doctor" >
+        <action
+            android:id="@+id/action_listDoctorFragment_to_chatRoomDoctorFragment"
+            app:destination="@id/chatRoomDoctorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatRoomDoctorFragment"
+        android:name="com.capstone.curhatin.doctor.ChatRoomDoctorFragment"
+        android:label="fragment_chat_room_doctor"
+        tools:layout="@layout/fragment_chat_room_doctor" >
+        <argument
+            android:name="receiverId"
+            app:argType="integer" />
+        <argument
+            android:name="receiver_name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="receiver_image_url"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

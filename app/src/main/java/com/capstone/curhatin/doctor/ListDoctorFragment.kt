@@ -1,21 +1,16 @@
 package com.capstone.curhatin.doctor
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.ui.chat.DoctorAdapter
-import com.capstone.core.utils.MySharedPreference
-import com.capstone.core.utils.setDialogError
-import com.capstone.core.utils.setLoading
-import com.capstone.core.utils.stopLoading
-import com.capstone.curhatin.R
-import com.capstone.curhatin.databinding.FragmentDoctorChatBinding
+import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentListDoctorBinding
 import com.capstone.curhatin.viewmodel.DoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,8 +42,6 @@ class ListDoctorFragment : Fragment() {
         setRecycler()
     }
 
-
-
     private fun setRecycler() {
         mAdapter = DoctorAdapter()
         binding.rvDoctor.apply {
@@ -58,11 +51,11 @@ class ListDoctorFragment : Fragment() {
         }
 
         mAdapter.setOnItemClick { user ->
-//            navigateDirection(
-//                ChatFragmentDirections.actionChatFragmentToChatRoomFragment(
-//                    user.id!!, user.name, user.image_url, user.anonymous!!
-//                )
-//            )
+            navigateDirection(
+                ListDoctorFragmentDirections.actionListDoctorFragmentToChatRoomDoctorFragment(
+                    user.id, user.name, user.picture
+                )
+            )
         }
 
         viewModel.getDoctor().observe(viewLifecycleOwner) {res ->

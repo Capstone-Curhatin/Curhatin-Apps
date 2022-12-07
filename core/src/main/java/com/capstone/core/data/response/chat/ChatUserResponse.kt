@@ -7,5 +7,5 @@ data class ChatUserResponse(
     val last_message: String? = "",
     val last_date: String? = "",
     val unread: Int? = 0,
-    val anonymous: Boolean? = false
+    val anonymous: Boolean? = null
 )
