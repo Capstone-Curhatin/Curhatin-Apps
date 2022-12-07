@@ -32,7 +32,11 @@
         android:id="@+id/doctorChatFragment"
         android:name="com.capstone.curhatin.doctor.DoctorChatFragment"
         android:label="fragment_doctor_chat"
-        tools:layout="@layout/fragment_doctor_chat" />
+        tools:layout="@layout/fragment_doctor_chat" >
+        <action
+            android:id="@+id/action_doctorChatFragment_to_listDoctorFragment"
+            app:destination="@id/listDoctorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.capstone.curhatin.profile.ProfileFragment"
@@ -105,4 +109,10 @@
         android:name="com.capstone.curhatin.notification.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/listDoctorFragment"
+        android:name="com.capstone.curhatin.doctor.ListDoctorFragment"
+        android:label="fragment_list_doctor"
+        tools:layout="@layout/fragment_list_doctor" />
 </navigation>

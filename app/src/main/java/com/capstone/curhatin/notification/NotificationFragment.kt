@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.ui.adapter.NotificationAdapter
-import com.capstone.core.utils.MySharedPreference
-import com.capstone.core.utils.setDialogError
-import com.capstone.core.utils.setLoading
-import com.capstone.core.utils.stopLoading
+import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentNotificationBinding
 import com.capstone.curhatin.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +44,8 @@ class NotificationFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DefaultItemAnimator()
         }
+
+        binding.ivBack.setOnClickListener { navigateBack() }
 
         sendObserver()
     }

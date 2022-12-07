@@ -22,6 +22,8 @@ object Constant {
 
     const val NOTIFICATION_CHAT = "reply your message"
     const val NOTIFICATION_STORY = "reply your story"
+    const val TYPE_CHAT = "type_chat"
+    const val TYPE_COMMENT = "type_comment"
 
     const val SPLASH_DURATION: Long = 1500
     const val FINDING_DURATION: Long = 180000

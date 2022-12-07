@@ -21,6 +21,7 @@ class MySharedPreference(context: Context) {
         private const val PICTURE = "picture"
         private const val OTP = "otp"
         private const val ANONYMOUS = "anonymous"
+        private const val IS_PREMIUM = "is_premium"
     }
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -62,6 +63,7 @@ class MySharedPreference(context: Context) {
             putInt(ROLE, data.role)
             putString(PICTURE, data.picture)
             putInt(OTP, data.otp)
+            putBoolean(IS_PREMIUM, data.is_premium!!)
             apply()
         }
     }
@@ -74,7 +76,8 @@ class MySharedPreference(context: Context) {
             phone = prefs.getString(PHONE, "").toString(),
             picture = prefs.getString(PICTURE, "").toString(),
             role = prefs.getInt(ROLE, 0),
-            otp = prefs.getInt(OTP, 0)
+            otp = prefs.getInt(OTP, 0),
+            is_premium = prefs.getBoolean(IS_PREMIUM, false)
         )
 
     fun setAnonymous(data: Boolean) {

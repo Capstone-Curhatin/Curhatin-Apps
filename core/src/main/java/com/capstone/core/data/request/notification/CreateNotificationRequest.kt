@@ -10,7 +10,8 @@ data class CreateNotificationRequest(
     val body: String? = null,
     val anonymous: Boolean? = false,
     val date: String? = null,
-    val read: Boolean? = false
+    val read: Boolean? = false,
+    val type: String? = null
 ){
 
     @Exclude
@@ -23,7 +24,8 @@ data class CreateNotificationRequest(
             "body" to body,
             "anonymous" to anonymous,
             "date" to date,
-            "read" to read
+            "read" to read,
+            "type" to type
         )
 
 }
