@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_doctor" />
+        tools:listitem="@layout/item_chat_user" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_premium"

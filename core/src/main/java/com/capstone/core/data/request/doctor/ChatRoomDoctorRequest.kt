@@ -4,10 +4,10 @@ import com.google.firebase.database.Exclude
 
 data class ChatRoomDoctorRequest(
     var id: String? = null,
-    val sender_id: String,
+    val sender_id: Int,
     val sender_name: String,
     val sender_image: String,
-    val receiver_id: String,
+    val receiver_id: Int,
     val receiver_name: String,
     val receiver_image: String,
     val message: String,

@@ -137,7 +137,6 @@ class ChatRoomFragment : Fragment() {
             binding.tvName.text = args.receiverName
             binding.ivProfile.setImageUrl(args.receiverImageUrl.toString())
         }
-
     }
 
 

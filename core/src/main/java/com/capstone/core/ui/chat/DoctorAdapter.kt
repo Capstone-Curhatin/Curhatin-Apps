@@ -50,7 +50,7 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapter.ViewHolder>() {
                 tvExperience.text = data.doctor?.experience.toString()
 //                tvReview.text = data.doctor?.reviews.toString()
 
-                rootView.setOnClickListener {
+                imgChat.setOnClickListener {
                     listener?.let { listener(data) }
                 }
 

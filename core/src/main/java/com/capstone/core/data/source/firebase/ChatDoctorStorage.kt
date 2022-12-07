@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ChatDoctorStorage {
     
-//    fun getUserMessage(id: String): Flow<Resource<List<ChatUserResponse>>>
+    fun getUserMessage(id: String): Flow<Resource<List<ChatUserResponse>>>
     fun sendMessage(request: ChatRoomDoctorRequest): Flow<Resource<Boolean>>
 
 }

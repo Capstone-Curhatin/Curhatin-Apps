@@ -5,9 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.capstone.core.utils.MySharedPreference
-import com.capstone.core.utils.navigateDirection
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.core.data.common.Resource
+import com.capstone.core.ui.chat.ChatUserAdapter
+import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentDoctorChatBinding
+import com.capstone.curhatin.viewmodel.ChatDoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,6 +26,9 @@ class DoctorChatFragment : Fragment() {
     @Inject
     lateinit var pref: MySharedPreference
 
+    private val viewModel: ChatDoctorViewModel by viewModels()
+    private lateinit var mAdapter: ChatUserAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +41,13 @@ class DoctorChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.imgAdd.setOnClickListener { navigateDirection(DoctorChatFragmentDirections.actionDoctorChatFragmentToListDoctorFragment()) }
+
+        mAdapter = ChatUserAdapter()
+        binding.rvChat.apply {
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = DefaultItemAnimator()
+        }
 
         checkRole()
     }
@@ -51,10 +66,29 @@ class DoctorChatFragment : Fragment() {
             binding.linearSearch.visibility = View.VISIBLE
             binding.rvChat.visibility = View.VISIBLE
             binding.constraintPremium.visibility = View.GONE
+
+            observable()
         } else {
             binding.linearSearch.visibility = View.GONE
             binding.rvChat.visibility = View.GONE
             binding.constraintPremium.visibility = View.VISIBLE
+        }
+    }
+
+
+    private fun observable(){
+        viewModel.getUserMessage(pref.getUser().id.toString()).observe(viewLifecycleOwner){ res ->
+            when(res){
+                is Resource.Loading -> {setLoading()}
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+                    mAdapter.setData = res.data!!
+                }
+            }
         }
     }
 
