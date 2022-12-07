@@ -78,7 +78,7 @@ class CreateStoryFragment : Fragment() {
                     setDialogError(res.message.toString())
                 }
                 is Resource.Success -> {
-                    setDialogSuccess(res.data?.message.toString())
+                    setDialogSuccess(Constant.SUCCESS_CREATE_STORY)
                     stopLoading()
                     navigateBack()
                 }

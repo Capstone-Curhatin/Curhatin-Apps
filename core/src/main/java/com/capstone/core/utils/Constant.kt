@@ -11,6 +11,8 @@ object Constant {
     const val UNKNOWN_ERROR = "Unknown error occurred, please try again later."
     const val TIMEOUT_ERROR = "The server took too long to respond, please try again later."
 
+    const val SUCCESS_CREATE_STORY = "Congratulations, your story has been successfully uploaded"
+
     const val WAITING_ADDED_STATUS = "Success added to waiting room. We will contact you again"
     const val WAITING_FAILURE_STATUS = "Failed add to waiting room. Try again later!"
     const val FINDING_EMPTY = "waiting empty"

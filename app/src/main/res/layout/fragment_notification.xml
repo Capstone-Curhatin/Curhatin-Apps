@@ -9,10 +9,12 @@
 
     <ImageView
         android:id="@+id/iv_back"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="4dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="17dp"
+        android:background="@drawable/ripple_oval_light_gray_gray"
         android:src="@drawable/eva_arrow_back_outline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

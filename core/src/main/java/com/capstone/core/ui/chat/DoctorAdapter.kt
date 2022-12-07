@@ -48,7 +48,7 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapter.ViewHolder>() {
                 imgPicture.setImageUrl(data.picture.toString())
 
                 tvExperience.text = data.doctor?.experience.toString()
-                tvReview.text = data.doctor?.reviews.toString()
+//                tvReview.text = data.doctor?.reviews.toString()
 
                 rootView.setOnClickListener {
                     listener?.let { listener(data) }
