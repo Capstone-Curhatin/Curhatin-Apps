@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    tools:context=".doctor.ChatRoomDoctorFragment">
+
+    <LinearLayout
+        android:id="@+id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:src="@drawable/eva_arrow_back_outline"
+            android:background="@drawable/ripple_round_white"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_oval_blue"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Abd Wahid"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black_opacity"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/iv_report"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_more_vertical"
+            android:background="@drawable/ripple_round_white"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_chat_left"
+        android:layout_below="@id/linear_top"
+        android:layout_above="@id/linear_bottom"/>
+
+    <LinearLayout
+        android:id="@+id/linear_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/edt_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/type_here"
+            android:fontFamily="@font/poppins"
+            android:textSize="14sp"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black_opacity"
+            android:background="@null"/>
+
+        <ImageView
+            android:id="@+id/iv_send"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_send_message"
+            android:background="@drawable/ripple_round_white"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

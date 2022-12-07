@@ -31,29 +31,37 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapter.ViewHolder>() {
         this.listener = listener
     }
 
+    private var listenerDetail: ((User) -> Unit)? = null
+    fun setOnDetailItemClick(listener: ((User) -> Unit)?){
+        this.listenerDetail = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemDoctorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(setData[position], listener)
+        holder.bind(setData[position], listener, listenerDetail)
     }
 
     override fun getItemCount(): Int = setData.size
 
     inner class ViewHolder(private val binding: ItemDoctorBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(data: User, listener: ((User) -> Unit)?){
+        fun bind(data: User, listener: ((User) -> Unit)?, listenerDetail: ((User) -> Unit)?){
             with(binding){
                 tvNamaDokter.text = data.name
                 tvSpDokter.text = data.doctor?.specialist
                 imgPicture.setImageUrl(data.picture.toString())
 
                 tvExperience.text = data.doctor?.experience.toString()
-                tvReview.text = data.doctor?.reviews.toString()
+//                tvReview.text = data.doctor?.reviews.toString()
 
-                rootView.setOnClickListener {
+                imgChat.setOnClickListener {
                     listener?.let { listener(data) }
+                }
+                rootView.setOnClickListener {
+                    listenerDetail?.let { listenerDetail(data) }
                 }
 
             }

@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.ui.chat.ChatUserAdapter
-import com.capstone.core.ui.chat.DoctorAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentDoctorChatBinding
-import com.capstone.curhatin.viewmodel.DoctorViewModel
+import com.capstone.curhatin.viewmodel.ChatDoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,10 +26,13 @@ class DoctorChatFragment : Fragment() {
     @Inject
     lateinit var pref: MySharedPreference
 
+    private val viewModel: ChatDoctorViewModel by viewModels()
+    private lateinit var mAdapter: ChatUserAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDoctorChatBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,17 +42,67 @@ class DoctorChatFragment : Fragment() {
 
         binding.imgAdd.setOnClickListener { navigateDirection(DoctorChatFragmentDirections.actionDoctorChatFragmentToListDoctorFragment()) }
 
-        checkPremium()
+        mAdapter = ChatUserAdapter()
+        binding.rvChat.apply {
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = DefaultItemAnimator()
+        }
+
+        mAdapter.setOnItemClick { user ->
+            navigateDirection(
+                DoctorChatFragmentDirections.actionDoctorChatFragmentToChatRoomDoctorFragment(
+                    user.id!!, user.name, user.image_url
+                )
+            )
+        }
+
+        checkRole()
+    }
+
+    private fun checkRole(){
+        if (pref.getUser().role == 1){
+            binding.linearSearch.visibility = View.VISIBLE
+            binding.rvChat.visibility = View.VISIBLE
+            binding.constraintPremium.visibility = View.GONE
+            binding.imgAdd.visibility = View.GONE
+        }else checkPremium()
     }
 
     private fun checkPremium() {
-        if (!pref.getUser().is_premium) {
-            binding.rvChatDoctor.visibility = View.VISIBLE
-            binding.constraintPremium.visibility = View.GONE
-        } else {
-            binding.rvChatDoctor.visibility = View.GONE
-            binding.constraintPremium.visibility = View.VISIBLE
 
+        if (pref.getUser().is_premium) {
+            binding.rvChat.visibility = View.VISIBLE
+
+            if (pref.getUser().is_premium) {
+                binding.linearSearch.visibility = View.VISIBLE
+                binding.rvChat.visibility = View.VISIBLE
+                binding.constraintPremium.visibility = View.GONE
+
+                observable()
+            } else {
+                binding.linearSearch.visibility = View.GONE
+                binding.rvChat.visibility = View.GONE
+                binding.constraintPremium.visibility = View.VISIBLE
+            }
         }
     }
+
+
+    private fun observable(){
+        viewModel.getUserMessage(pref.getUser().id.toString()).observe(viewLifecycleOwner){ res ->
+            when(res){
+                is Resource.Loading -> {setLoading()}
+                is Resource.Error -> {
+                    stopLoading()
+                    setDialogError(res.message.toString())
+                }
+                is Resource.Success -> {
+                    stopLoading()
+                    mAdapter.setData = res.data!!
+                }
+            }
+        }
+    }
+
 }

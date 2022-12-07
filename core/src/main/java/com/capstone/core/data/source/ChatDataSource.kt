@@ -4,17 +4,18 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.chat.ChatRoomRequest
 import com.capstone.core.data.request.chat.ChatUserRequest
 import com.capstone.core.data.request.chat.ReadMessageRequest
-import com.capstone.core.data.request.notification.CreateNotificationRequest
 import com.capstone.core.data.response.chat.ChatRoomResponse
 import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.data.source.firebase.ChatStorage
 import com.capstone.core.utils.Constant
 import com.capstone.core.utils.Endpoints
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import timber.log.Timber
 
 
 class ChatDataSource : ChatStorage {
@@ -68,7 +69,7 @@ class ChatDataSource : ChatStorage {
     override fun readMessage(request: ReadMessageRequest): Flow<Resource<List<ChatRoomResponse>>> = callbackFlow {
         trySend(Resource.Loading())
 
-        Constant.CHAT_FIREBASE_INSTANCE.child(request.sender_id.toString()).child(request.receive_id.toString())
+        db.child(request.sender_id.toString()).child(request.receive_id.toString())
             .child(Endpoints.CHAT_ROOM).addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val list = ArrayList<ChatRoomResponse>()
@@ -84,9 +85,6 @@ class ChatDataSource : ChatStorage {
                     trySend(Resource.Error(error.message))
                 }
             })
-
-
-
 
         awaitClose { this.close() }
     }

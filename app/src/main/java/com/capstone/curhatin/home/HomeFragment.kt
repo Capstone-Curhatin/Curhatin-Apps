@@ -17,6 +17,7 @@ import com.capstone.core.ui.adapter.StoryPagingAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentHomeBinding
 import com.capstone.curhatin.viewmodel.CategoryViewModel
+import com.capstone.curhatin.viewmodel.NotificationViewModel
 import com.capstone.curhatin.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -29,9 +30,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: StoryViewModel by viewModels()
+    private val notifViewModel: NotificationViewModel by viewModels()
     private lateinit var mAdapter: StoryPagingAdapter
-    private lateinit var cAdapter: CategoryAdapter
-    private val categoryViewModel: CategoryViewModel by viewModels()
 
     @Inject lateinit var prefs: MySharedPreference
 
@@ -51,10 +51,13 @@ class HomeFragment : Fragment() {
         }
 
         binding.imgPicture.setImageUrl(prefs.getUser().picture.toString())
+        binding.ivNotification.setOnClickListener {
+            navigateDirection(HomeFragmentDirections.actionHomeFragmentToNotificationFragment())
+        }
 
         setRecycler()
-//        setCategory()
         loadState()
+        setCountNotification()
     }
 
     private fun setRecycler() {
@@ -69,11 +72,6 @@ class HomeFragment : Fragment() {
             mAdapter.submitData(lifecycle, res)
         }
 
-//        cAdapter = CategoryAdapter()
-//        binding.rvCategory.apply {
-//            adapter = cAdapter
-//            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-//        }
 
         mAdapter.setOnClickListener {
             navigateDirection(
@@ -82,35 +80,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-//    private fun setCategory() {
-//        categoryViewModel.getCategory().observe(viewLifecycleOwner) { res ->
-//            val list = ArrayList<Category>()
-//            list.add(Category(0, "All"))
-//            res.data?.data?.forEach {
-//                list.add(it)
-//            }
-//
-//            cAdapter.setData = list
-//        }
-//
-//        cAdapter.setOnItemClick {
-//            setDataRecycler(it.id)
-//            Timber.d("ID: ${it.id}")
-//        }
-//    }
-
-//    private fun setDataRecycler(id: Int){
-//        if (id == 0){
-//            viewModel.getStories().observe(viewLifecycleOwner) { res ->
-//                mAdapter.submitData(lifecycle, res)
-//            }
-//        }else{
-//            viewModel.getStoryByCategory(id).observe(viewLifecycleOwner){ res ->
-//                Timber.d("Data Category: $res")
-//                mAdapter.submitData(lifecycle, res)
-//            }
-//        }
-//    }
+    private fun setCountNotification(){
+        notifViewModel.getCountNotification(prefs.getUser().id.toString()).observe(viewLifecycleOwner){ res ->
+            if (res is Resource.Success){
+                Timber.d("Total notification: ${res.data}")
+            }
+        }
+    }
 
     private fun loadState() {
         mAdapter.addLoadStateListener { loadState ->

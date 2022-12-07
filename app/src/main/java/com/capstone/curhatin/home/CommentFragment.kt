@@ -101,6 +101,12 @@ class CommentFragment : Fragment() {
         binding.etComment.text.clear()
         viewModel.createViewModel(request)
         storyViewModel.increment(args.id)
+
+//        val notification = CreateNotificationRequest(
+//            receiver_id = args.id, receiver_name = args.receiverName,
+//            receiver_image = args.receiverImageUrl, anonymous = prefs.getAnonymous(),
+//            body = Constant.NOTIFICATION_CHAT, date = LocalDateTime.now().toString(), type = Constant.TYPE_CHAT
+//        )
     }
 
     private fun setRecycler(){

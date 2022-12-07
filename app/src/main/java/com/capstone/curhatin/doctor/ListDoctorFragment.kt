@@ -1,18 +1,20 @@
 package com.capstone.curhatin.doctor
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.ui.chat.DoctorAdapter
 import com.capstone.core.utils.*
+
 import com.capstone.curhatin.R
 import com.capstone.curhatin.databinding.FragmentDoctorChatBinding
+
 import com.capstone.curhatin.databinding.FragmentListDoctorBinding
 import com.capstone.curhatin.viewmodel.DoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,8 +46,6 @@ class ListDoctorFragment : Fragment() {
         setRecycler()
     }
 
-
-
     private fun setRecycler() {
         mAdapter = DoctorAdapter()
         binding.rvDoctor.apply {
@@ -54,6 +54,20 @@ class ListDoctorFragment : Fragment() {
             itemAnimator = DefaultItemAnimator()
         }
 
+
+        mAdapter.setOnItemClick { user ->
+            navigateDirection(
+                ListDoctorFragmentDirections.actionListDoctorFragmentToChatRoomDoctorFragment(
+                    user.id, user.name, user.picture
+                )
+            )
+        }
+
+        mAdapter.setOnDetailItemClick { user ->
+            navigateDirection(
+                ListDoctorFragmentDirections.actionListDoctorFragmentToProfileDoctorFragment(user.id)
+            )
+        }
 
         viewModel.getDoctor().observe(viewLifecycleOwner) {res ->
             when(res){
@@ -69,11 +83,7 @@ class ListDoctorFragment : Fragment() {
 
                 }
             }
-            mAdapter.setOnItemClick {user ->
-                navigateDirection(
-                    ListDoctorFragmentDirections.actionListDoctorFragmentToProfileDoctorFragment(
-                        user.id) )
-            }
+
         }
     }
 

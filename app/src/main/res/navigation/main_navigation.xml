@@ -8,19 +8,22 @@
         android:id="@+id/homeFragment"
         android:name="com.capstone.curhatin.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_createStoryFragment"
             app:destination="@id/createStoryFragment" />
         <action
             android:id="@+id/action_homeFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.capstone.curhatin.chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" >
+        tools:layout="@layout/fragment_chat">
         <action
             android:id="@+id/action_chatFragment_to_chatRoomFragment"
             app:destination="@id/chatRoomFragment" />
@@ -29,16 +32,19 @@
         android:id="@+id/doctorChatFragment"
         android:name="com.capstone.curhatin.doctor.DoctorChatFragment"
         android:label="fragment_doctor_chat"
-        tools:layout="@layout/fragment_doctor_chat" >
+        tools:layout="@layout/fragment_doctor_chat">
         <action
             android:id="@+id/action_doctorChatFragment_to_listDoctorFragment"
             app:destination="@id/listDoctorFragment" />
+        <action
+            android:id="@+id/action_doctorChatFragment_to_chatRoomDoctorFragment"
+            app:destination="@id/chatRoomDoctorFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.capstone.curhatin.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_myPostFragment"
             app:destination="@id/myPostFragment" />
@@ -58,7 +64,7 @@
         android:id="@+id/chatRoomFragment"
         android:name="com.capstone.curhatin.chat.ChatRoomFragment"
         android:label="fragment_chat_room"
-        tools:layout="@layout/fragment_chat_room" >
+        tools:layout="@layout/fragment_chat_room">
         <argument
             android:name="receiver_id"
             app:argType="integer" />
@@ -66,7 +72,8 @@
             android:name="receiver_name"
             app:argType="string"
             app:nullable="true" />
-        <argument android:name="receiver_image_url"
+        <argument
+            android:name="receiver_image_url"
             app:argType="string"
             app:nullable="true" />
         <argument
@@ -87,7 +94,7 @@
         android:id="@+id/editProfileFragment"
         android:name="com.capstone.curhatin.profile.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
+        tools:layout="@layout/fragment_edit_profile">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -96,16 +103,26 @@
         android:id="@+id/commentFragment"
         android:name="com.capstone.curhatin.home.CommentFragment"
         android:label="fragment_comment"
-        tools:layout="@layout/fragment_comment" >
+        tools:layout="@layout/fragment_comment">
         <argument
             android:name="id"
             app:argType="integer" />
     </fragment>
     <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.capstone.curhatin.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
         android:id="@+id/listDoctorFragment"
         android:name="com.capstone.curhatin.doctor.ListDoctorFragment"
         android:label="fragment_list_doctor"
-        tools:layout="@layout/fragment_list_doctor" >
+        tools:layout="@layout/fragment_list_doctor">
+        <action
+            android:id="@+id/action_listDoctorFragment_to_chatRoomDoctorFragment"
+            app:destination="@id/chatRoomDoctorFragment" />
+
         <action
             android:id="@+id/action_listDoctorFragment_to_profileDoctorFragment"
             app:destination="@id/profileDoctorFragment" />
@@ -114,10 +131,28 @@
         android:id="@+id/profileDoctorFragment"
         android:name="com.capstone.curhatin.doctor.ProfileDoctorFragment"
         android:label="fragment_profile_doctor"
-        tools:layout="@layout/fragment_profile_doctor" >
+        tools:layout="@layout/fragment_profile_doctor">
         <argument
             android:name="id"
             app:argType="integer" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/chatRoomDoctorFragment"
+        android:name="com.capstone.curhatin.doctor.ChatRoomDoctorFragment"
+        android:label="fragment_chat_room_doctor"
+        tools:layout="@layout/fragment_chat_room_doctor">
+        <argument
+            android:name="receiverId"
+            app:argType="integer" />
+        <argument
+            android:name="receiver_name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="receiver_image_url"
+            app:argType="string"
+            app:nullable="true" />
 
     </fragment>
 </navigation>
