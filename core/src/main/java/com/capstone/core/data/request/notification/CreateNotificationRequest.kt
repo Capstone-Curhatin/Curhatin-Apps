@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude
 
 data class CreateNotificationRequest(
     var id: String? = null,
+    val sender_id: Int? = 0,
     val receiver_id: Int? = 0,
     val receiver_name: String? = null,
     val receiver_image: String? = null,
@@ -18,7 +19,7 @@ data class CreateNotificationRequest(
     fun toMap(): Map<String, Any?> =
         mapOf(
             "id" to id,
-            "receiver_id" to receiver_id,
+            "sender_id" to sender_id,
             "receiver_image" to receiver_image,
             "receiver_name" to receiver_name,
             "body" to body,

@@ -72,13 +72,14 @@
 
     <TextView
         android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:fontFamily="@font/poppins_medium"
         android:textColor="@color/black_opacity"
         android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_category"
         app:layout_constraintStart_toEndOf="@+id/user_picture"
         app:layout_constraintTop_toTopOf="@+id/user_picture"
         tools:text="Wahid" />
@@ -122,6 +123,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_user_name"
         tools:ignore="SmallSp"
+        android:maxLines="1"
         android:paddingVertical="4dp"
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
