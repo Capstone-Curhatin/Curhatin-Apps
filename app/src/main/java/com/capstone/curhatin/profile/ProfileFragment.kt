@@ -11,9 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.capstone.core.data.common.Resource
 import com.capstone.core.utils.*
+import com.capstone.curhatin.R
 import com.capstone.curhatin.auth.AuthActivity
+import com.capstone.curhatin.auth.forgot.ForgotPasswordFragment
 import com.capstone.curhatin.databinding.FragmentProfileBinding
 import com.capstone.curhatin.viewmodel.AuthViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,6 +51,7 @@ class ProfileFragment : Fragment() {
         binding.myPost.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToMyPostFragment())}
         binding.getPremium.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToPremiumFragment())}
         binding.editProfileTitle.setOnClickListener { navigateDirection(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()) }
+        binding.changePassword.setOnClickListener { changePassword() }
 
         builder = AlertDialog.Builder(requireActivity())
 
@@ -64,19 +68,13 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
-        // get value from switch button
-        binding.isAnonymous.setOnCheckedChangeListener { _, _ ->
 
-            builder.setTitle("Set Anonymously")
-                .setMessage("Are you sure want to set anonymously?")
-                .setCancelable(true)
-                .setPositiveButton("Yes") { dialogInterface, it ->
-                    pref.setAnonymous(!pref.getAnonymous())
-                }
-                .setNegativeButton("No") { dialogInterface, it ->
-                    dialogInterface.cancel()
-                }
-                .show()
+        binding.isAnonymous.setOnCheckedChangeListener { _ , isChecked  ->
+            if (isChecked) {
+                pref.setAnonymous(true)
+            } else {
+                pref.setAnonymous(false)
+            }
         }
     }
 
@@ -98,6 +96,16 @@ class ProfileFragment : Fragment() {
                     requireActivity().finish()
                 }
             }
+        }
+    }
+
+    private fun changePassword() {
+        val mFragment = ForgotPasswordFragment()
+        val mFragmentManager = parentFragmentManager
+        mFragmentManager.beginTransaction().apply {
+            replace(R.id.profileFragment, mFragment, ForgotPasswordFragment::class.java.simpleName)
+            addToBackStack(null)
+            commit()
         }
     }
 
