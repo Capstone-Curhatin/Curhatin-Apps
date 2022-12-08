@@ -74,8 +74,7 @@ class HomeFragment : Fragment() {
 
         viewModel.getStories().observe(viewLifecycleOwner) { res ->
             mAdapter.submitData(lifecycle, res)
-        }
-
+        }   
 
         mAdapter.setOnClickListener {
             navigateDirection(

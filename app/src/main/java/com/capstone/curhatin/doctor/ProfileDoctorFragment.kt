@@ -1,29 +1,18 @@
 package com.capstone.curhatin.doctor
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.capstone.core.data.common.Resource
-import com.capstone.core.data.response.wrapper.WrapperList
-import com.capstone.core.domain.model.Doctor
 import com.capstone.core.domain.model.User
 import com.capstone.core.utils.*
-import com.capstone.curhatin.R
-import com.capstone.curhatin.auth.AuthActivity
-import com.capstone.curhatin.databinding.FragmentListDoctorBinding
-import com.capstone.curhatin.databinding.FragmentProfileBinding
 import com.capstone.curhatin.databinding.FragmentProfileDoctorBinding
-import com.capstone.curhatin.home.CommentFragmentArgs
-import com.capstone.curhatin.viewmodel.AuthViewModel
 import com.capstone.curhatin.viewmodel.DoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,20 +27,20 @@ class ProfileDoctorFragment : Fragment() {
     @Inject
     lateinit var prefs: MySharedPreference
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        getDetail()
-
-        binding.backArrow.setOnClickListener { navigateBack() }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileDoctorBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        binding.backArrow.setOnClickListener { navigateBack() }
+        getDetail()
     }
 
     private fun getDetail() {
@@ -66,25 +55,25 @@ class ProfileDoctorFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     stopLoading()
-                    binding.ivPhoto.setImageUrl(res.data?.data?.profile_photo_url.toString())
-                    binding.tvName.text = res.data?.data?.name
-                    binding.tvSpecialist.text = res.data?.data?.doctor?.specialist
-                    binding.jobExperience.text = res.data?.data?.doctor?.experience.toString()
-                    binding.tvLocation.text = res.data?.data?.doctor?.place_of_practice
-                    binding.tvLocation.text = res.data?.data?.doctor?.str_number
-
-
+                    val data = res.data?.data
+                    if (data != null) setView(data)
 
                 }
-
-
-                // setData = res.data?.data
-
             }
         }
     }
 
+    private fun setView(data: User){
+        with(binding){
+            ivPhoto.setImageUrl(data.picture ?: Constant.ANONYMOUS_IMAGE)
+            tvName.text = data.name
+            tvSpecialist.text = data.doctor?.specialist
+            jobExperience.text = "${data.doctor?.experience} years"
+            tvStr.text = data.doctor?.str_number
 
+
+        }
+    }
 }
 
 
