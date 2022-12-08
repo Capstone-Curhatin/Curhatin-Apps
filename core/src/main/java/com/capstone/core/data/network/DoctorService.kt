@@ -1,5 +1,6 @@
 package com.capstone.core.data.network
 
+import com.capstone.core.data.response.wrapper.Wrapper
 import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.domain.model.User
 import com.capstone.core.utils.Endpoints
@@ -16,5 +17,5 @@ interface DoctorService {
     @GET(Endpoints.DETAIL_DOCTOR)
     suspend fun detailDoctor(
         @Path("id") id: Int
-    ): Response<WrapperList<User>>
+    ): Response<Wrapper<User>>
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.domain.model.Doctor
 import com.capstone.core.domain.model.User
 import com.capstone.core.utils.*
@@ -54,7 +55,7 @@ class ProfileDoctorFragment : Fragment() {
     }
 
     private fun getDetail() {
-        viewModel.detailDoctor(args.id).observe(viewLifecycleOwner){ res ->
+        viewModel.detailDoctor(args.id).observe(viewLifecycleOwner) { res ->
             when (res) {
                 is Resource.Loading -> {
                     setLoading()
@@ -65,15 +66,29 @@ class ProfileDoctorFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     stopLoading()
+                    binding.ivPhoto.setImageUrl(res.data?.data?.profile_photo_url.toString())
+                    binding.tvName.text = res.data?.data?.name
+                    binding.tvSpecialist.text = res.data?.data?.doctor?.specialist
+                    binding.jobExperience.text = res.data?.data?.doctor?.experience.toString()
+                    binding.tvLocation.text = res.data?.data?.doctor?.place_of_practice
+                    binding.tvLocation.text = res.data?.data?.doctor?.str_number
 
 
-                    //res.data?.data
+
                 }
+
+
+                // setData = res.data?.data
+
             }
         }
     }
 
 
+}
 
-    }
+
+
+
+
 

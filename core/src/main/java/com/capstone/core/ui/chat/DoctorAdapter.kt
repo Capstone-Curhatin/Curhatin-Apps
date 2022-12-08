@@ -62,6 +62,7 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapter.ViewHolder>() {
                 }
                 rootView.setOnClickListener {
                     listenerDetail?.let { listenerDetail(data) }
+                    //Log.d(TAG,"${data.id}")
                 }
 
             }

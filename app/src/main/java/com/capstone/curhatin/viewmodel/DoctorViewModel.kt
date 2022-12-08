@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.response.wrapper.Wrapper
 import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.domain.model.Doctor
 import com.capstone.core.domain.model.Story
@@ -24,6 +25,6 @@ class DoctorViewModel @Inject constructor(
     fun getDoctor(): LiveData<Resource<WrapperList<User>>> =
         useCase.getDoctor().asLiveData()
 
-    fun detailDoctor(id: Int): LiveData<Resource<WrapperList<User>>> =
+    fun detailDoctor(id: Int): LiveData<Resource<Wrapper<User>>> =
         useCase.detailDoctor(id).asLiveData()
 }

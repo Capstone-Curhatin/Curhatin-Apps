@@ -1,6 +1,8 @@
 package com.capstone.curhatin.doctor
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,6 +69,7 @@ class ListDoctorFragment : Fragment() {
             navigateDirection(
                 ListDoctorFragmentDirections.actionListDoctorFragmentToProfileDoctorFragment(user.id)
             )
+            Log.d(TAG,"${user.id}")
         }
 
         viewModel.getDoctor().observe(viewLifecycleOwner) {res ->
@@ -79,6 +82,7 @@ class ListDoctorFragment : Fragment() {
                 is Resource.Success -> {
                     stopLoading()
                     mAdapter.setData = res.data?.data!!
+                    //Log.d(TAG,"${res.data?.data}")
 
 
                 }

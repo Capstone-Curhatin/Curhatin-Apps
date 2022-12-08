@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.network.DoctorService
+import com.capstone.core.data.response.wrapper.Wrapper
 import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.data.source.DoctorDataSource
 import com.capstone.core.data.source.StoryDataSource
@@ -23,7 +24,7 @@ class DoctorRepository @Inject constructor(
     override fun getDoctor(): Flow<Resource<WrapperList<User>>> =
         data.getDoctor()
 
-    override fun detailDoctor(id: Int): Flow<Resource<WrapperList<User>>> =
+    override fun detailDoctor(id: Int): Flow<Resource<Wrapper<User>>> =
         data.detailDoctor(id)
 
 }
