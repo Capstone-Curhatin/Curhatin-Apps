@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.domain.model.Category
 import com.capstone.core.ui.adapter.CategoryAdapter
+import com.capstone.core.ui.adapter.StoryLoadStateAdapter
 import com.capstone.core.ui.adapter.StoryPagingAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentHomeBinding
@@ -63,7 +64,10 @@ class HomeFragment : Fragment() {
     private fun setRecycler() {
         mAdapter = StoryPagingAdapter()
         binding.rvStory.apply {
-            adapter = mAdapter
+            adapter = mAdapter.withLoadStateHeaderAndFooter(
+                footer = StoryLoadStateAdapter {mAdapter.retry()},
+                header = StoryLoadStateAdapter {mAdapter.retry()}
+            )
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DefaultItemAnimator()
         }
