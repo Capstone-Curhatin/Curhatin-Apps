@@ -1,6 +1,8 @@
 package com.capstone.curhatin.doctor
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.ui.chat.DoctorAdapter
 import com.capstone.core.utils.*
+
+import com.capstone.curhatin.R
+import com.capstone.curhatin.databinding.FragmentDoctorChatBinding
+
 import com.capstone.curhatin.databinding.FragmentListDoctorBinding
 import com.capstone.curhatin.viewmodel.DoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,12 +56,20 @@ class ListDoctorFragment : Fragment() {
             itemAnimator = DefaultItemAnimator()
         }
 
+
         mAdapter.setOnItemClick { user ->
             navigateDirection(
                 ListDoctorFragmentDirections.actionListDoctorFragmentToChatRoomDoctorFragment(
                     user.id, user.name, user.picture
                 )
             )
+        }
+
+        mAdapter.setOnDetailItemClick { user ->
+            navigateDirection(
+                ListDoctorFragmentDirections.actionListDoctorFragmentToProfileDoctorFragment(user.id)
+            )
+            Log.d(TAG,"${user.id}")
         }
 
         viewModel.getDoctor().observe(viewLifecycleOwner) {res ->
@@ -68,8 +82,12 @@ class ListDoctorFragment : Fragment() {
                 is Resource.Success -> {
                     stopLoading()
                     mAdapter.setData = res.data?.data!!
+                    //Log.d(TAG,"${res.data?.data}")
+
+
                 }
             }
+
         }
     }
 

@@ -8,7 +8,7 @@
     tools:context=".doctor.ProfileDoctorFragment">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/dr_photo"
+        android:id="@+id/iv_photo"
         android:layout_width="242dp"
         android:layout_height="156dp"
         android:layout_marginTop="16dp"
@@ -29,7 +29,7 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/dr_name"
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
@@ -39,11 +39,11 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dr_photo"
+        app:layout_constraintTop_toBottomOf="@+id/iv_photo"
         tools:text="@string/doctor_name" />
 
     <TextView
-        android:id="@+id/dr_specialist"
+        android:id="@+id/tv_specialist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
@@ -51,7 +51,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dr_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
         tools:text="@string/specialist_doctor" />
 
 
@@ -66,7 +66,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dr_specialist"
+        app:layout_constraintTop_toBottomOf="@+id/tv_specialist"
         tools:text="@string/job_experience" />
 
     <View
@@ -86,7 +86,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/expertises"
@@ -96,10 +96,10 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/expertise"
+        android:id="@+id/tv_expertise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"
         android:background="@drawable/bg_expertises"
         android:fontFamily="@font/poppins"
@@ -115,11 +115,11 @@
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/fluent_hat_graduation_24_regular"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expertise" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_expertise" />
 
     <TextView
         android:id="@+id/textView9"
@@ -131,13 +131,13 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toBottomOf="@+id/expertise" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_expertise" />
 
     <TextView
-        android:id="@+id/alumnus"
+        android:id="@+id/tv_alumnus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="7dp"
         android:fontFamily="@font/poppins"
         android:textColor="@color/black"
@@ -150,11 +150,11 @@
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alumnus" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_alumnus" />
 
     <TextView
         android:id="@+id/textView10"
@@ -166,13 +166,13 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
-        app:layout_constraintTop_toBottomOf="@+id/alumnus" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_alumnus" />
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/tv_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="7dp"
         android:fontFamily="@font/poppins"
         android:textColor="@color/black"
@@ -185,11 +185,11 @@
         android:id="@+id/imageView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_str"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_location" />
 
     <TextView
         android:id="@+id/textView11"
@@ -201,13 +201,13 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_location" />
 
     <TextView
-        android:id="@+id/str_number"
+        android:id="@+id/tv_str"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="7dp"
         android:fontFamily="@font/poppins"
         android:textColor="@color/black"

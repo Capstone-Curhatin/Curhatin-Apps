@@ -71,16 +71,21 @@ class DoctorChatFragment : Fragment() {
     }
 
     private fun checkPremium() {
-        if (pref.getUser().is_premium) {
-            binding.linearSearch.visibility = View.VISIBLE
-            binding.rvChat.visibility = View.VISIBLE
-            binding.constraintPremium.visibility = View.GONE
 
-            observable()
-        } else {
-            binding.linearSearch.visibility = View.GONE
-            binding.rvChat.visibility = View.GONE
-            binding.constraintPremium.visibility = View.VISIBLE
+        if (pref.getUser().is_premium) {
+            binding.rvChat.visibility = View.VISIBLE
+
+            if (pref.getUser().is_premium) {
+                binding.linearSearch.visibility = View.VISIBLE
+                binding.rvChat.visibility = View.VISIBLE
+                binding.constraintPremium.visibility = View.GONE
+
+                observable()
+            } else {
+                binding.linearSearch.visibility = View.GONE
+                binding.rvChat.visibility = View.GONE
+                binding.constraintPremium.visibility = View.VISIBLE
+            }
         }
     }
 

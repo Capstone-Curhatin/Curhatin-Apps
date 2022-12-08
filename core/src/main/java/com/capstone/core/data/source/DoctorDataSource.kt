@@ -6,6 +6,7 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.common.SafeCall
 import com.capstone.core.data.network.DoctorService
 import com.capstone.core.data.network.StoryService
+import com.capstone.core.data.response.wrapper.Wrapper
 import com.capstone.core.data.response.wrapper.WrapperList
 import com.capstone.core.domain.model.Category
 import com.capstone.core.domain.model.User
@@ -25,6 +26,13 @@ class DoctorDataSource @Inject constructor(
         emit(Resource.Loading())
 
         val res = safeCall.enqueue(errorParser::converterGenericError, service::getDoctor)
+        emit(res)
+    }.flowOn(dispatchers.io)
+
+    fun detailDoctor(id: Int): Flow<Resource<Wrapper<User>>> = flow {
+        emit(Resource.Loading())
+
+        val res = safeCall.enqueue(id, errorParser::converterGenericError, service::detailDoctor)
         emit(res)
     }.flowOn(dispatchers.io)
 }

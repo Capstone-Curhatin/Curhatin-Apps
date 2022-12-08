@@ -36,5 +36,6 @@ object Endpoints {
 
     //Doctor
     const val GET_DOCTOR = "getDoctor"
+    const val DETAIL_DOCTOR = "detailDoctor/{id}"
 
 }
