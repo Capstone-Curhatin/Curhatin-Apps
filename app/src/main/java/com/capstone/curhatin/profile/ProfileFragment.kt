@@ -51,10 +51,16 @@ class ProfileFragment : Fragment() {
         binding.myPost.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToMyPostFragment())}
         binding.getPremium.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToPremiumFragment())}
         binding.editProfileTitle.setOnClickListener { navigateDirection(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()) }
-        binding.changePassword.setOnClickListener { changePassword() }
+
+        binding.isAnonymous.setOnCheckedChangeListener { _ , isChecked  ->
+            if (isChecked) {
+                pref.setAnonymous(true)
+            } else {
+                pref.setAnonymous(false)
+            }
+        }
 
         builder = AlertDialog.Builder(requireActivity())
-
         binding.logout.setOnClickListener {
             builder.setTitle("Log Out")
                 .setMessage("Are you sure want to Log Out?")
@@ -68,14 +74,7 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
-
-        binding.isAnonymous.setOnCheckedChangeListener { _ , isChecked  ->
-            if (isChecked) {
-                pref.setAnonymous(true)
-            } else {
-                pref.setAnonymous(false)
-            }
-        }
+        checkRole()
     }
 
     private fun logout() = lifecycleScope.launch {
@@ -99,14 +98,23 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun changePassword() {
-        val mFragment = ForgotPasswordFragment()
-        val mFragmentManager = parentFragmentManager
-        mFragmentManager.beginTransaction().apply {
-            replace(R.id.profileFragment, mFragment, ForgotPasswordFragment::class.java.simpleName)
-            addToBackStack(null)
-            commit()
-        }
+    private fun checkRole(){
+        if (pref.getUser().role == 1){
+            binding.roleBasic.visibility = View.GONE
+            binding.rolePremium.visibility = View.GONE
+            binding.roleDoctor.visibility = View.VISIBLE
+        }else checkPremium()
     }
 
+    private fun checkPremium() {
+        if (pref.getUser().is_premium) {
+            binding.roleBasic.visibility = View.GONE
+            binding.rolePremium.visibility = View.VISIBLE
+            binding.roleDoctor.visibility = View.GONE
+        } else {
+            binding.roleBasic.visibility = View.VISIBLE
+            binding.rolePremium.visibility = View.GONE
+            binding.roleDoctor.visibility = View.GONE
+        }
+    }
 }
