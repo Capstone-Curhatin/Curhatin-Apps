@@ -29,14 +29,10 @@ object Endpoints {
     // Chat
     const val WAITING_ROOM = "waiting_room"
     const val CHAT = "chat"
+    const val CHAT_DOCTOR = "chat_doctor"
     const val CHAT_ROOM = "_chat_room"
     const val NOTIFICATION = "notification"
-    const val MY_NOTIFICATION = "my_notification"
     const val COMMENT = "comment"
-
-    // Chat Doctor
-    const val CHAT_DOCTOR = "chat_doctor"
-    const val CHAT_ROOM_DOCTOR = "_chat_room_doctor"
 
     //Doctor
     const val GET_DOCTOR = "getDoctor"

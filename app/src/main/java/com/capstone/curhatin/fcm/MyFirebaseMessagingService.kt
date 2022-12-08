@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.fragment.app.Fragment
 import com.capstone.core.data.common.ErrorParser
 import com.capstone.core.data.common.MyDispatchers
 import com.capstone.core.data.common.SafeCall
@@ -19,6 +20,7 @@ import com.capstone.curhatin.BuildConfig
 import com.capstone.curhatin.MainActivity
 import com.capstone.curhatin.R
 import com.capstone.curhatin.viewmodel.AuthViewModel
+import com.capstone.curhatin.viewmodel.UserViewModel
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
