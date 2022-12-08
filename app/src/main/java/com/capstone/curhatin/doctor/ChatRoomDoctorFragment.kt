@@ -16,12 +16,16 @@ import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.chat.ReadMessageRequest
 import com.capstone.core.data.request.chat.SendNotificationRequest
 import com.capstone.core.data.request.doctor.ChatRoomDoctorRequest
+import com.capstone.core.data.request.notification.CreateNotificationRequest
 import com.capstone.core.ui.chat.ChatRoomAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.databinding.FragmentChatRoomDoctorBinding
 import com.capstone.curhatin.viewmodel.ChatDoctorViewModel
+import com.capstone.curhatin.viewmodel.NotificationViewModel
 import com.capstone.curhatin.viewmodel.UserViewModel
+import com.google.firebase.database.*
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -33,9 +37,14 @@ class ChatRoomDoctorFragment : Fragment() {
 
     private val viewModel: ChatDoctorViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
+    private val notificationViewModel: NotificationViewModel by viewModels()
 
     private val args: ChatRoomDoctorFragmentArgs by navArgs()
     @Inject lateinit var prefs: MySharedPreference
+
+    // set read chat from fragment
+    private lateinit var stateListener: ValueEventListener
+    private lateinit var resetStateListener: ValueEventListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,12 +121,56 @@ class ChatRoomDoctorFragment : Fragment() {
                 userViewModel.sendNotification(send)
             }
 
+            val notification = CreateNotificationRequest(
+                receiver_id = args.receiverId, sender_id = prefs.getUser().id, receiver_name = prefs.getUser().name,
+                receiver_image = prefs.getUser().picture, anonymous = prefs.getAnonymous(),
+                body = Constant.NOTIFICATION_CHAT, date = LocalDateTime.now().toString(), type = Constant.TYPE_CHAT
+            )
+            notificationViewModel.createStory(notification)
         }
     }
 
     private fun setHeader(){
         binding.tvName.text = args.receiverName
         binding.ivProfile.setImageUrl(args.receiverImageUrl ?: Constant.ANONYMOUS_IMAGE)
+    }
+
+    // set read status and reset unread count
+    private val dbReference: DatabaseReference = FirebaseDatabase.getInstance().getReference(Endpoints.CHAT_DOCTOR)
+    override fun onStart() {
+        super.onStart()
+        Timber.d("onStart")
+        stateListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (i in snapshot.children){
+                    i.child("read").ref.setValue(true)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        }
+
+        dbReference.child(args.receiverId.toString()).child(prefs.getUser().id.toString())
+            .child(Endpoints.CHAT_ROOM).addValueEventListener(stateListener)
+
+        resetStateListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.child("unread").ref.setValue(0)
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        }
+
+        dbReference.child(prefs.getUser().id.toString()).child(args.receiverId.toString())
+            .addValueEventListener(resetStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.d("onStop")
+        dbReference.child(args.receiverId.toString()).child(prefs.getUser().id.toString())
+            .child(Endpoints.CHAT_ROOM).removeEventListener(stateListener)
+
+        dbReference.child(prefs.getUser().id.toString()).child(args.receiverId.toString())
+            .removeEventListener(resetStateListener)
     }
 
 }
