@@ -45,9 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="24dp"
-            android:textSize="14sp"
             android:backgroundTint="@color/gray"
             android:fontFamily="@font/poppins"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_tittle_login" />

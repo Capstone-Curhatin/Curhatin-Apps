@@ -11,9 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.capstone.core.data.common.Resource
 import com.capstone.core.utils.*
+import com.capstone.curhatin.R
 import com.capstone.curhatin.auth.AuthActivity
+import com.capstone.curhatin.auth.forgot.ForgotPasswordFragment
 import com.capstone.curhatin.databinding.FragmentProfileBinding
 import com.capstone.curhatin.viewmodel.AuthViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -49,8 +52,15 @@ class ProfileFragment : Fragment() {
         binding.getPremium.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToPremiumFragment())}
         binding.editProfileTitle.setOnClickListener { navigateDirection(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()) }
 
-        builder = AlertDialog.Builder(requireActivity())
+        binding.isAnonymous.setOnCheckedChangeListener { _ , isChecked  ->
+            if (isChecked) {
+                pref.setAnonymous(true)
+            } else {
+                pref.setAnonymous(false)
+            }
+        }
 
+        builder = AlertDialog.Builder(requireActivity())
         binding.logout.setOnClickListener {
             builder.setTitle("Log Out")
                 .setMessage("Are you sure want to Log Out?")
@@ -64,20 +74,7 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
-        // get value from switch button
-        binding.isAnonymous.setOnCheckedChangeListener { _, _ ->
-
-            builder.setTitle("Set Anonymously")
-                .setMessage("Are you sure want to set anonymously?")
-                .setCancelable(true)
-                .setPositiveButton("Yes") { dialogInterface, it ->
-                    pref.setAnonymous(!pref.getAnonymous())
-                }
-                .setNegativeButton("No") { dialogInterface, it ->
-                    dialogInterface.cancel()
-                }
-                .show()
-        }
+        checkRole()
     }
 
     private fun logout() = lifecycleScope.launch {
@@ -101,4 +98,23 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun checkRole(){
+        if (pref.getUser().role == 1){
+            binding.roleBasic.visibility = View.GONE
+            binding.rolePremium.visibility = View.GONE
+            binding.roleDoctor.visibility = View.VISIBLE
+        }else checkPremium()
+    }
+
+    private fun checkPremium() {
+        if (pref.getUser().is_premium) {
+            binding.roleBasic.visibility = View.GONE
+            binding.rolePremium.visibility = View.VISIBLE
+            binding.roleDoctor.visibility = View.GONE
+        } else {
+            binding.roleBasic.visibility = View.VISIBLE
+            binding.rolePremium.visibility = View.GONE
+            binding.roleDoctor.visibility = View.GONE
+        }
+    }
 }
