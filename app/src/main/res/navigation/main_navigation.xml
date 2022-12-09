@@ -84,7 +84,11 @@
         android:id="@+id/myPostFragment"
         android:name="com.capstone.curhatin.profile.MyPostFragment"
         android:label="fragment_my_post"
-        tools:layout="@layout/fragment_my_post" />
+        tools:layout="@layout/fragment_my_post" >
+        <action
+            android:id="@+id/action_myPostFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/premiumFragment"
         android:name="com.capstone.curhatin.premium.PremiumFragment"

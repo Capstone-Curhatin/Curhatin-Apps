@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.ui.adapter.StoryPagingAdapter
 import com.capstone.core.utils.MySharedPreference
 import com.capstone.core.utils.navigateBack
+import com.capstone.core.utils.navigateDirection
+import com.capstone.core.utils.setImageUrl
 import com.capstone.curhatin.databinding.FragmentMyPostBinding
+import com.capstone.curhatin.home.HomeFragmentDirections
 import com.capstone.curhatin.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -42,11 +45,14 @@ class MyPostFragment : Fragment() {
         binding.name.text = pref.getUser().name
         binding.tvEmail.text = pref.getUser().email
         binding.phone.text = pref.getUser().phone
+        binding.circleImageView.setImageUrl(pref.getUser().picture.toString())
+
 
         binding.backArrow.setOnClickListener { navigateBack() }
 
         setRecycler()
         loadState()
+        checkRole()
     }
 
     private fun setRecycler() {
@@ -59,6 +65,31 @@ class MyPostFragment : Fragment() {
 
         viewModel.getStoryByUser().observe(viewLifecycleOwner) { res ->
             mAdapter.submitData(lifecycle, res)
+        }
+        mAdapter.setOnClickListener {
+            navigateDirection(
+                MyPostFragmentDirections.actionMyPostFragmentToCommentFragment(it)
+            )
+        }
+    }
+
+    private fun checkRole(){
+        if (pref.getUser().role == 1){
+            binding.roleBasic.visibility = View.GONE
+            binding.rolePremium.visibility = View.GONE
+            binding.roleDoctor.visibility = View.VISIBLE
+        }else checkPremium()
+    }
+
+    private fun checkPremium() {
+        if (pref.getUser().is_premium) {
+            binding.roleBasic.visibility = View.GONE
+            binding.rolePremium.visibility = View.VISIBLE
+            binding.roleDoctor.visibility = View.GONE
+        } else {
+            binding.roleBasic.visibility = View.VISIBLE
+            binding.rolePremium.visibility = View.GONE
+            binding.roleDoctor.visibility = View.GONE
         }
     }
 

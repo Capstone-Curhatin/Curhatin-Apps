@@ -66,40 +66,37 @@ class DoctorChatFragment : Fragment() {
         checkRole()
     }
 
-    private fun checkRole(){
-        if (pref.getUser().role == 1){
+    private fun checkRole() {
+        if (pref.getUser().role == 1) {
             binding.linearSearch.visibility = View.VISIBLE
             binding.rvChat.visibility = View.VISIBLE
             binding.constraintPremium.visibility = View.GONE
             binding.imgAdd.visibility = View.GONE
             observable()
-        }else checkPremium()
+        } else checkPremium()
     }
 
     private fun checkPremium() {
-
         if (pref.getUser().is_premium) {
+            binding.linearSearch.visibility = View.VISIBLE
             binding.rvChat.visibility = View.VISIBLE
+            binding.constraintPremium.visibility = View.GONE
 
-            if (pref.getUser().is_premium) {
-                binding.linearSearch.visibility = View.VISIBLE
-                binding.rvChat.visibility = View.VISIBLE
-                binding.constraintPremium.visibility = View.GONE
-
-                observable()
-            } else {
-                binding.linearSearch.visibility = View.GONE
-                binding.rvChat.visibility = View.GONE
-                binding.constraintPremium.visibility = View.VISIBLE
-            }
+            observable()
+        } else {
+            binding.linearSearch.visibility = View.GONE
+            binding.rvChat.visibility = View.GONE
+            binding.constraintPremium.visibility = View.VISIBLE
         }
     }
 
 
-    private fun observable(){
-        viewModel.getUserMessage(pref.getUser().id.toString()).observe(viewLifecycleOwner){ res ->
-            when(res){
-                is Resource.Loading -> {setLoading()}
+    private fun observable() {
+        viewModel.getUserMessage(pref.getUser().id.toString()).observe(viewLifecycleOwner) { res ->
+            when (res) {
+                is Resource.Loading -> {
+                    setLoading()
+                }
                 is Resource.Error -> {
                     stopLoading()
                     setDialogError(res.message.toString())
@@ -109,11 +106,11 @@ class DoctorChatFragment : Fragment() {
                     listChat.clear()
                     listChat.addAll(res.data!!)
 
-                    if (listChat.isEmpty()){
+                    if (listChat.isEmpty()) {
                         binding.lottieEmpty.visibility = View.VISIBLE
                         binding.lottieNotFound.visibility = View.GONE
                         binding.rvChat.visibility = View.GONE
-                    }else{
+                    } else {
                         binding.lottieEmpty.visibility = View.GONE
                         binding.lottieNotFound.visibility = View.GONE
                         binding.rvChat.visibility = View.VISIBLE
@@ -124,19 +121,19 @@ class DoctorChatFragment : Fragment() {
         }
     }
 
-    private fun filter(text: String){
+    private fun filter(text: String) {
         val filtered = ArrayList<ChatUserResponse>()
-        for (item in listChat){
-            if (item.name?.lowercase()?.contains(text.lowercase()) == true){
+        for (item in listChat) {
+            if (item.name?.lowercase()?.contains(text.lowercase()) == true) {
                 filtered.add(item)
             }
         }
 
-        if (filtered.isEmpty()){
+        if (filtered.isEmpty()) {
             binding.lottieEmpty.visibility = View.GONE
             binding.lottieNotFound.visibility = View.VISIBLE
             binding.rvChat.visibility = View.GONE
-        }else{
+        } else {
             binding.lottieEmpty.visibility = View.GONE
             binding.lottieNotFound.visibility = View.GONE
             binding.rvChat.visibility = View.VISIBLE

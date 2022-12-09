@@ -89,24 +89,10 @@
             tools:text="@string/name" />
 
         <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/dark_grey"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="@string/location" />
-
-        <TextView
             android:id="@+id/role_premium"
             android:layout_width="65dp"
             android:layout_height="16dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:background="@drawable/profile_role_premium"
             android:elevation="10dp"
@@ -116,18 +102,37 @@
             android:textColor="@color/white"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-            app:layout_constraintEnd_toEndOf="@+id/appCompatButton"
+            app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView"
-            app:layout_constraintTop_toTopOf="@+id/circleImageView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/role_doctor"
+            android:layout_width="65dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/profile_role_premium"
+            android:elevation="10dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="@string/doctor"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/role_basic"
             android:layout_width="65dp"
             android:layout_height="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
             android:background="@drawable/profile_role_basic"
             android:elevation="10dp"
             android:fontFamily="@font/poppins"
@@ -136,11 +141,11 @@
             android:textColor="@color/blue"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-            app:layout_constraintEnd_toEndOf="@+id/appCompatButton"
+            app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView"
-            app:layout_constraintTop_toTopOf="@+id/circleImageView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
             android:id="@+id/telephone"
