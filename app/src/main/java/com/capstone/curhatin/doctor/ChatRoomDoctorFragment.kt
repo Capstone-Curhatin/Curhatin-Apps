@@ -123,7 +123,7 @@ class ChatRoomDoctorFragment : Fragment() {
 
             val notification = CreateNotificationRequest(
                 receiver_id = args.receiverId, sender_id = prefs.getUser().id, receiver_name = prefs.getUser().name,
-                receiver_image = prefs.getUser().picture, anonymous = prefs.getAnonymous(),
+                receiver_image = prefs.getUser().picture, anonymous = false,
                 body = Constant.NOTIFICATION_CHAT, date = LocalDateTime.now().toString(), type = Constant.TYPE_CHAT
             )
             notificationViewModel.createStory(notification)

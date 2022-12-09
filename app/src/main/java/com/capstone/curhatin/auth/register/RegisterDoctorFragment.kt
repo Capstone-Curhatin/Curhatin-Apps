@@ -39,6 +39,8 @@ class RegisterDoctorFragment : Fragment() {
 
         binding.apply {
             registerUser.setOnClickListener { navigateBack() }
+            termsCondition.setOnClickListener { toTermsAndConditions() }
+            privacyPolicy.setOnClickListener { toPrivacyPolicy() }
             loginUser.setOnClickListener { navigateDirection(
                 RegisterFragmentDirections.actionRegisterFragmentToRegisterDoctorFragment()
             )}
