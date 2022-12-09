@@ -45,7 +45,9 @@ class DoctorChatFragment : Fragment() {
 
         binding.imgAdd.setOnClickListener { navigateDirection(DoctorChatFragmentDirections.actionDoctorChatFragmentToListDoctorFragment()) }
         binding.edtSearch.doOnTextChanged { text, _, _, _ ->
-            filter(text.toString())
+            if (text?.isNotEmpty() == true){
+                filter(text.toString())
+            }
         }
 
         mAdapter = ChatUserAdapter()
@@ -77,21 +79,20 @@ class DoctorChatFragment : Fragment() {
     }
 
     private fun checkPremium() {
-
         if (pref.getUser().is_premium) {
+            binding.linearSearch.visibility = View.VISIBLE
             binding.rvChat.visibility = View.VISIBLE
+            binding.constraintPremium.visibility = View.GONE
+            binding.lottieEmpty.visibility = View.GONE
+            binding.lottieNotFound.visibility = View.GONE
 
-            if (pref.getUser().is_premium) {
-                binding.linearSearch.visibility = View.VISIBLE
-                binding.rvChat.visibility = View.VISIBLE
-                binding.constraintPremium.visibility = View.GONE
-
-                observable()
-            } else {
-                binding.linearSearch.visibility = View.GONE
-                binding.rvChat.visibility = View.GONE
-                binding.constraintPremium.visibility = View.VISIBLE
-            }
+            observable()
+        } else {
+            binding.linearSearch.visibility = View.GONE
+            binding.rvChat.visibility = View.GONE
+            binding.constraintPremium.visibility = View.VISIBLE
+            binding.lottieEmpty.visibility = View.GONE
+            binding.lottieNotFound.visibility = View.GONE
         }
     }
 
@@ -110,10 +111,13 @@ class DoctorChatFragment : Fragment() {
                     listChat.addAll(res.data!!)
 
                     if (listChat.isEmpty()){
+
                         binding.lottieEmpty.visibility = View.VISIBLE
                         binding.lottieNotFound.visibility = View.GONE
                         binding.rvChat.visibility = View.GONE
+                        binding.constraintPremium.visibility = View.GONE
                     }else{
+                        binding.constraintPremium.visibility = View.GONE
                         binding.lottieEmpty.visibility = View.GONE
                         binding.lottieNotFound.visibility = View.GONE
                         binding.rvChat.visibility = View.VISIBLE
@@ -133,10 +137,12 @@ class DoctorChatFragment : Fragment() {
         }
 
         if (filtered.isEmpty()){
+            binding.constraintPremium.visibility = View.GONE
             binding.lottieEmpty.visibility = View.GONE
             binding.lottieNotFound.visibility = View.VISIBLE
             binding.rvChat.visibility = View.GONE
         }else{
+            binding.constraintPremium.visibility = View.GONE
             binding.lottieEmpty.visibility = View.GONE
             binding.lottieNotFound.visibility = View.GONE
             binding.rvChat.visibility = View.VISIBLE

@@ -1,5 +1,6 @@
 package com.capstone.core.data.request.chat
 
+import com.capstone.core.utils.Constant
 import com.google.firebase.database.Exclude
 
 data class ChatUserRequest(
@@ -19,7 +20,7 @@ data class ChatUserRequest(
     fun toReceiverMap(): Map<String, Any?> =
         mapOf(
             "id" to receiver_id,
-            "name" to receiver_name,
+            "name" to if (anonymous_receiver == true) Constant.ANONYMOUS else receiver_name,
             "image_url" to receiver_image_url,
             "last_message" to last_message,
             "last_date" to last_date,
@@ -31,7 +32,7 @@ data class ChatUserRequest(
     fun toSenderMap(): Map<String, Any?> =
         mapOf(
             "id" to sender_id,
-            "name" to sender_name,
+            "name" to if (anonymous_sender == true) Constant.ANONYMOUS else sender_name,
             "image_url" to sender_image_url,
             "last_message" to last_message,
             "last_date" to last_date,
