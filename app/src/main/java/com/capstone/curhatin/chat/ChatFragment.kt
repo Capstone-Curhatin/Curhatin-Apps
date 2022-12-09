@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
 import com.capstone.core.data.request.WaitingRoomRequest
 import com.capstone.core.data.request.chat.ChatUserRequest
+import com.capstone.core.data.response.chat.ChatUserResponse
 import com.capstone.core.ui.chat.ChatUserAdapter
 import com.capstone.core.utils.*
 import com.capstone.curhatin.R
@@ -36,6 +38,8 @@ class ChatFragment : Fragment() {
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
 
+    private val listChat = ArrayList<ChatUserResponse>()
+
     private val modeViewModel: WaitingRoomViewModel by viewModels()
     private val chatViewModel: ChatViewModel by viewModels()
 
@@ -56,6 +60,9 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.imgAdd.setOnClickListener { showBottomMode() }
+        binding.edtSearch.doOnTextChanged { text, _, _, _ ->
+            filter(text.toString())
+        }
 
         setRecycler()
     }
@@ -86,9 +93,42 @@ class ChatFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     stopLoading()
-                    mAdapter.setData = res.data!!
+                    listChat.clear()
+                    listChat.addAll(res.data!!)
+
+                    if (listChat.isEmpty()){
+                        binding.lottieEmpty.visibility = View.VISIBLE
+                        binding.lottieNotFound.visibility = View.GONE
+                        binding.rvChat.visibility = View.GONE
+                    }else{
+                        binding.lottieEmpty.visibility = View.GONE
+                        binding.lottieNotFound.visibility = View.GONE
+                        binding.rvChat.visibility = View.VISIBLE
+                        mAdapter.setData = listChat
+                    }
                 }
+
             }
+        }
+    }
+
+    private fun filter(text: String){
+        val filtered = ArrayList<ChatUserResponse>()
+        for (item in listChat){
+            if (item.name?.lowercase()?.contains(text.lowercase()) == true){
+                filtered.add(item)
+            }
+        }
+
+        if (filtered.isEmpty()){
+            binding.lottieEmpty.visibility = View.GONE
+            binding.lottieNotFound.visibility = View.VISIBLE
+            binding.rvChat.visibility = View.GONE
+        }else{
+            binding.lottieEmpty.visibility = View.GONE
+            binding.lottieNotFound.visibility = View.GONE
+            binding.rvChat.visibility = View.VISIBLE
+            mAdapter.setData = filtered
         }
     }
 
@@ -186,4 +226,9 @@ class ChatFragment : Fragment() {
         stopFinding()
     }
 
+    override fun onStop() {
+        super.onStop()
+        stopFinding()
+        binding.edtSearch.text.clear()
+    }
 }

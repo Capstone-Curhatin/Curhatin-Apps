@@ -6,11 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
+import com.capstone.core.data.response.chat.ChatUserResponse
+import com.capstone.core.domain.model.User
 import com.capstone.core.ui.chat.DoctorAdapter
 import com.capstone.core.utils.*
 
@@ -33,6 +36,7 @@ class ListDoctorFragment : Fragment() {
     private val viewModel: DoctorViewModel by viewModels()
 
     private lateinit var mAdapter: DoctorAdapter
+    private val listUser = ArrayList<User>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +48,10 @@ class ListDoctorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.edtSearch.doOnTextChanged { text, _, _, _ ->
+            filter(text.toString())
+        }
 
         setRecycler()
     }
@@ -69,7 +77,6 @@ class ListDoctorFragment : Fragment() {
             navigateDirection(
                 ListDoctorFragmentDirections.actionListDoctorFragmentToProfileDoctorFragment(user.id)
             )
-            Log.d(TAG,"${user.id}")
         }
 
         viewModel.getDoctor().observe(viewLifecycleOwner) {res ->
@@ -81,14 +88,49 @@ class ListDoctorFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     stopLoading()
-                    mAdapter.setData = res.data?.data!!
-                    //Log.d(TAG,"${res.data?.data}")
+                    listUser.clear()
+                    listUser.addAll(res.data?.data!!)
 
-
+                    if (listUser.isEmpty()){
+                        binding.lottieEmpty.visibility = View.VISIBLE
+                        binding.lottieNotFound.visibility = View.GONE
+                        binding.rvDoctor.visibility = View.GONE
+                    }else{
+                        binding.lottieEmpty.visibility = View.GONE
+                        binding.lottieNotFound.visibility = View.GONE
+                        binding.rvDoctor.visibility = View.VISIBLE
+                        mAdapter.setData = listUser
+                    }
                 }
             }
+        }
 
+    }
+
+    private fun filter(text: String){
+        val filtered = ArrayList<User>()
+        for (item in listUser){
+            if (item.name.lowercase().contains(text.lowercase())){
+                filtered.add(item)
+            }
+        }
+
+        if (filtered.isEmpty()){
+            binding.lottieEmpty.visibility = View.GONE
+            binding.lottieNotFound.visibility = View.VISIBLE
+            binding.rvDoctor.visibility = View.GONE
+        }else{
+            binding.lottieEmpty.visibility = View.GONE
+            binding.lottieNotFound.visibility = View.GONE
+            binding.rvDoctor.visibility = View.VISIBLE
+            mAdapter.setData = filtered
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        binding.edtSearch.text.clear()
+    }
+
 
 }

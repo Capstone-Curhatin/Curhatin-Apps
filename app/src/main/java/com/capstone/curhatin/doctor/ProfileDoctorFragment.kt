@@ -77,7 +77,6 @@ class ProfileDoctorFragment : Fragment() {
             tvLocation.text = data.doctor?.place_of_practice
 
             data.doctor?.categories?.forEach { i -> tvExpertise.append("$i, ") }
-
             data.doctor?.graduates?.forEach { i -> tvAlumnus.append("$i\n") }
 
         }
