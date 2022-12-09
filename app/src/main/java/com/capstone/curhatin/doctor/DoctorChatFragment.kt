@@ -45,7 +45,7 @@ class DoctorChatFragment : Fragment() {
 
         binding.imgAdd.setOnClickListener { navigateDirection(DoctorChatFragmentDirections.actionDoctorChatFragmentToListDoctorFragment()) }
         binding.edtSearch.doOnTextChanged { text, _, _, _ ->
-            if (text?.isNotEmpty() == true){
+            if (text?.isNotEmpty() == true) {
                 filter(text.toString())
             }
         }
@@ -68,14 +68,14 @@ class DoctorChatFragment : Fragment() {
         checkRole()
     }
 
-    private fun checkRole(){
-        if (pref.getUser().role == 1){
+    private fun checkRole() {
+        if (pref.getUser().role == 1) {
             binding.linearSearch.visibility = View.VISIBLE
             binding.rvChat.visibility = View.VISIBLE
             binding.constraintPremium.visibility = View.GONE
             binding.imgAdd.visibility = View.GONE
             observable()
-        }else checkPremium()
+        } else checkPremium()
     }
 
     private fun checkPremium() {
@@ -83,6 +83,7 @@ class DoctorChatFragment : Fragment() {
             binding.linearSearch.visibility = View.VISIBLE
             binding.rvChat.visibility = View.VISIBLE
             binding.constraintPremium.visibility = View.GONE
+
             binding.lottieEmpty.visibility = View.GONE
             binding.lottieNotFound.visibility = View.GONE
 
@@ -91,16 +92,19 @@ class DoctorChatFragment : Fragment() {
             binding.linearSearch.visibility = View.GONE
             binding.rvChat.visibility = View.GONE
             binding.constraintPremium.visibility = View.VISIBLE
+
             binding.lottieEmpty.visibility = View.GONE
             binding.lottieNotFound.visibility = View.GONE
         }
     }
 
 
-    private fun observable(){
-        viewModel.getUserMessage(pref.getUser().id.toString()).observe(viewLifecycleOwner){ res ->
-            when(res){
-                is Resource.Loading -> {setLoading()}
+    private fun observable() {
+        viewModel.getUserMessage(pref.getUser().id.toString()).observe(viewLifecycleOwner) { res ->
+            when (res) {
+                is Resource.Loading -> {
+                    setLoading()
+                }
                 is Resource.Error -> {
                     stopLoading()
                     setDialogError(res.message.toString())
@@ -110,49 +114,65 @@ class DoctorChatFragment : Fragment() {
                     listChat.clear()
                     listChat.addAll(res.data!!)
 
-                    if (listChat.isEmpty()){
-
+                    if (listChat.isEmpty()) {
                         binding.lottieEmpty.visibility = View.VISIBLE
                         binding.lottieNotFound.visibility = View.GONE
                         binding.rvChat.visibility = View.GONE
-                        binding.constraintPremium.visibility = View.GONE
-                    }else{
-                        binding.constraintPremium.visibility = View.GONE
-                        binding.lottieEmpty.visibility = View.GONE
-                        binding.lottieNotFound.visibility = View.GONE
-                        binding.rvChat.visibility = View.VISIBLE
-                        mAdapter.setData = listChat
+                    } else {
+
+                        if (listChat.isEmpty()) {
+
+                            binding.lottieEmpty.visibility = View.VISIBLE
+                            binding.lottieNotFound.visibility = View.GONE
+                            binding.rvChat.visibility = View.GONE
+                            binding.constraintPremium.visibility = View.GONE
+                        } else {
+                            binding.constraintPremium.visibility = View.GONE
+                            binding.lottieEmpty.visibility = View.GONE
+                            binding.lottieNotFound.visibility = View.GONE
+                            binding.rvChat.visibility = View.VISIBLE
+                            mAdapter.setData = listChat
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun filter(text: String){
-        val filtered = ArrayList<ChatUserResponse>()
-        for (item in listChat){
-            if (item.name?.lowercase()?.contains(text.lowercase()) == true){
-                filtered.add(item)
+        private fun filter(text: String) {
+            val filtered = ArrayList<ChatUserResponse>()
+            for (item in listChat) {
+                if (item.name?.lowercase()?.contains(text.lowercase()) == true) {
+                    filtered.add(item)
+                }
+            }
+
+
+            if (filtered.isEmpty()) {
+                binding.lottieEmpty.visibility = View.GONE
+                binding.lottieNotFound.visibility = View.VISIBLE
+                binding.rvChat.visibility = View.GONE
+            } else {
+
+                if (filtered.isEmpty()) {
+                    binding.constraintPremium.visibility = View.GONE
+                    binding.lottieEmpty.visibility = View.GONE
+                    binding.lottieNotFound.visibility = View.VISIBLE
+                    binding.rvChat.visibility = View.GONE
+                } else {
+                    binding.constraintPremium.visibility = View.GONE
+                    binding.lottieEmpty.visibility = View.GONE
+                    binding.lottieNotFound.visibility = View.GONE
+                    binding.rvChat.visibility = View.VISIBLE
+                    mAdapter.setData = filtered
+                }
             }
         }
 
-        if (filtered.isEmpty()){
-            binding.constraintPremium.visibility = View.GONE
-            binding.lottieEmpty.visibility = View.GONE
-            binding.lottieNotFound.visibility = View.VISIBLE
-            binding.rvChat.visibility = View.GONE
-        }else{
-            binding.constraintPremium.visibility = View.GONE
-            binding.lottieEmpty.visibility = View.GONE
-            binding.lottieNotFound.visibility = View.GONE
-            binding.rvChat.visibility = View.VISIBLE
-            mAdapter.setData = filtered
+            override fun onStop() {
+                super.onStop()
+                binding.edtSearch.text.clear()
+            }
         }
-    }
 
-    override fun onStop() {
-        super.onStop()
-        binding.edtSearch.text.clear()
-    }
 
-}
