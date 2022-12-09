@@ -46,6 +46,8 @@ class RegisterFragment : Fragment() {
             registerDoctor.setOnClickListener { navigateDirection(
                 RegisterFragmentDirections.actionRegisterFragmentToRegisterDoctorFragment()
             )}
+            termsCondition.setOnClickListener { toTermsAndConditions() }
+            privacyPolicy.setOnClickListener { toPrivacyPolicy() }
         }
     }
 

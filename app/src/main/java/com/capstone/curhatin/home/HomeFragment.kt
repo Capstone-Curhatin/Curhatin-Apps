@@ -11,13 +11,13 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.core.data.common.Resource
-import com.capstone.core.domain.model.Category
-import com.capstone.core.ui.adapter.CategoryAdapter
 import com.capstone.core.ui.adapter.StoryLoadStateAdapter
 import com.capstone.core.ui.adapter.StoryPagingAdapter
-import com.capstone.core.utils.*
+import com.capstone.core.utils.MySharedPreference
+import com.capstone.core.utils.navigateDirection
+import com.capstone.core.utils.quickShowToast
+import com.capstone.core.utils.setImageUrl
 import com.capstone.curhatin.databinding.FragmentHomeBinding
-import com.capstone.curhatin.viewmodel.CategoryViewModel
 import com.capstone.curhatin.viewmodel.NotificationViewModel
 import com.capstone.curhatin.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -86,7 +86,12 @@ class HomeFragment : Fragment() {
     private fun setCountNotification(){
         notifViewModel.getCountNotification(prefs.getUser().id.toString()).observe(viewLifecycleOwner){ res ->
             if (res is Resource.Success){
-                Timber.d("Total notification: ${res.data}")
+                Timber.d("Notification Count: ${res.data}")
+                if (res.data == 0) binding.notificationBadge.visibility = View.GONE
+                else {
+                    binding.notificationBadge.visibility = View.VISIBLE
+                    binding.notificationBadge.text = if (res.data!! >= 99) "99" else res.data.toString()
+                }
             }
         }
     }
