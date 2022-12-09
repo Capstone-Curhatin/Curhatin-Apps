@@ -22,7 +22,7 @@ object Constant {
     const val ANONYMOUS = "Anonymous"
     const val ANONYMOUS_IMAGE = "https://st4.depositphotos.com/11634452/21365/v/600/depositphotos_213659488-stock-illustration-picture-profile-icon-human-or.jpg"
 
-    const val NOTIFICATION_CHAT = "reply your message"
+    const val NOTIFICATION_CHAT = "send message"
     const val NOTIFICATION_STORY = "reply your story"
     const val TYPE_CHAT = "type_chat"
     const val TYPE_COMMENT = "type_comment"

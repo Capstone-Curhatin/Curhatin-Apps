@@ -51,6 +51,8 @@ class ProfileFragment : Fragment() {
         binding.myPost.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToMyPostFragment())}
         binding.getPremium.setOnClickListener{ navigateDirection(ProfileFragmentDirections.actionProfileFragmentToPremiumFragment())}
         binding.editProfileTitle.setOnClickListener { navigateDirection(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()) }
+        binding.privacyPolicy.setOnClickListener { toPrivacyPolicy() }
+        binding.termsCondition.setOnClickListener { toTermsAndConditions() }
 
         binding.isAnonymous.setOnCheckedChangeListener { _ , isChecked  ->
             if (isChecked) {
