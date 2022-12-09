@@ -70,7 +70,9 @@ class ProfileDoctorFragment : Fragment() {
             tvSpecialist.text = data.doctor?.specialist
             jobExperience.text = "${data.doctor?.experience} years"
             tvStr.text = data.doctor?.str_number
+            tvLocation.text = data.doctor?.place_of_practice
 
+            data.doctor?.graduates?.forEach { i -> tvAlumnus.append("$i\n") }
 
         }
     }
