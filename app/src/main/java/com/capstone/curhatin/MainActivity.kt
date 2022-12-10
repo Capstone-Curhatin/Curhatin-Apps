@@ -1,5 +1,6 @@
 package com.capstone.curhatin
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager.LayoutParams
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         window?.setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE)
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         setContentView(binding.root)
 
         updateFcm()

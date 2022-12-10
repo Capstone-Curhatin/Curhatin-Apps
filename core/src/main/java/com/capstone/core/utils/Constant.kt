@@ -28,7 +28,6 @@ object Constant {
     const val TYPE_COMMENT = "type_comment"
 
     const val SPLASH_DURATION: Long = 1500
-    const val FINDING_DURATION: Long = 180000
+    const val FINDING_DURATION: Long = 60000
     const val STARTING_INDEX = 1
-    val CHAT_FIREBASE_INSTANCE = FirebaseDatabase.getInstance().getReference(Endpoints.CHAT)
 }

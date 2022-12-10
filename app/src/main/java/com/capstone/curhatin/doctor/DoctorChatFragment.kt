@@ -131,7 +131,7 @@ class DoctorChatFragment : Fragment() {
                             binding.lottieEmpty.visibility = View.GONE
                             binding.lottieNotFound.visibility = View.GONE
                             binding.rvChat.visibility = View.VISIBLE
-                            mAdapter.setData = listChat
+                            mAdapter.setData = res.data!!
                         }
                     }
                 }
