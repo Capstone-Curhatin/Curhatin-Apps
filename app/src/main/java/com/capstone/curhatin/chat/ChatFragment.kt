@@ -104,7 +104,7 @@ class ChatFragment : Fragment() {
                         binding.lottieEmpty.visibility = View.GONE
                         binding.lottieNotFound.visibility = View.GONE
                         binding.rvChat.visibility = View.VISIBLE
-                        mAdapter.setData = listChat
+                        mAdapter.setData = res.data!!
                     }
                 }
 
@@ -193,7 +193,7 @@ class ChatFragment : Fragment() {
                             val chatGroupRequest = ChatUserRequest(
                                 sender_id = prefs.getUser().id, receiver_id = user.user_id,
                                 sender_name = prefs.getUser().name, receiver_name = user.name,
-                                sender_image_url = prefs.getUser().profile_photo_url,
+                                sender_image_url = prefs.getUser().picture,
                                 receiver_image_url = user.image_url,
                                 anonymous_sender = prefs.getAnonymous(),
                                 anonymous_receiver = user.anonymous
